@@ -16,7 +16,7 @@ public class Team : MonoBehaviour
     public Player Governor;
     public Player General;
 
-    public Building Senate = new Building();
+    public Building Senate;
 
     // Start is called before the first frame update
     void Start()
