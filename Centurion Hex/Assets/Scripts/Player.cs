@@ -13,7 +13,7 @@ public class Player
     }
 
     public PlayerType Type;
-    public Building Senate;//shorcut
+    public Team Team;
 
     public List<Character> Characters = new List<Character>();//on board
     public List<Building> Buildings = new List<Building>();//on board

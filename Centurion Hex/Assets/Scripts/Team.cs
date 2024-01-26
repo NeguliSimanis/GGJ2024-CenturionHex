@@ -33,8 +33,11 @@ public class Team
     internal void InitPlayers()
     {
         Governor = new Player();
+        Governor.Team = this;
         Governor.Type = Type == TeamType.ttRed ? Player.PlayerType.ptRedGovernor : Player.PlayerType.ptBlueGovernor;
         General = new Player();
         General.Type = Type == TeamType.ttRed ? Player.PlayerType.ptRedGeneral : Player.PlayerType.ptBlueGeneral;
+        General.Team = this;
     }
 }
+

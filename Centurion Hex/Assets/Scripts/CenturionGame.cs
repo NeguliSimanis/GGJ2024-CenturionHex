@@ -1,4 +1,5 @@
 using Assets.Scripts.Buildings;
+using Assets.Scripts.Characters;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,28 @@ public class CenturionGame : MonoBehaviour
 
         StartWithRed = true;// Random.Range(0,2) == 0;
         RedMove = StartWithRed;
+        addInitialCharacters();
+    }
+
+    //called while there is no server
+    void addInitialCharacters()
+    {
+        Character scout = new Scout();
+        scout.x = 5; scout.y = 0;
+        Teams[0].General.Characters.Add(scout);
+
+        scout = new Scout();
+        scout.x = 1; scout.y = 6;
+        Teams[1].General.Characters.Add(scout);
+
+
+        Character surveyor = new Surveyor();
+        surveyor.x = 6; surveyor.y = 1;
+        Teams[0].Governor.Characters.Add(surveyor);
+
+        scout = new Surveyor();
+        scout.x = 0; scout.y = 5;
+        Teams[1].Governor.Characters.Add(surveyor);
     }
 
     void onEndTurnChooseNextPlayer()

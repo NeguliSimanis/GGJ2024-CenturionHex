@@ -16,35 +16,23 @@ public class Character
 
     public bool CanBePlayedOffTurn;//if possible to play when not your turn
 
-    public int GetStepsPerTurn()
+    public virtual int GetStepsPerTurn()
     {
         return StepsPerTurn;//override if some other logic
     }
 
-    public void onPlayed()
+    public virtual void onPlayed()
     {
         //action to do when placed on board
     }
 
-    public void DoTurnAction()
+    public virtual void DoTurnAction()
     {
         //does specific action on turn
     }
 
-    public void DoAttack()
+    public virtual void DoAttack()
     {
         //what to do when it's attacking
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
