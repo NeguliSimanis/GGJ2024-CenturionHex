@@ -90,7 +90,8 @@ public class TileSpawner_Simanis : MonoBehaviour
         newTileObject.transform.position = spawnPos;
         TileVisual_Simanis tileVisual = newTileObject.GetComponent<TileVisual_Simanis>();
         tileVisual.tile = tile;
-        tileVisual.ShowMessage(row + "." + collumn + "." + tile.tileType);
+        tileVisual.SetTileVisuals(tile.tileType);
+        //tileVisual.ShowMessage(row + "." + collumn + "." + tile.tileType);
     }
 }
 

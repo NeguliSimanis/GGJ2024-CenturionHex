@@ -9,14 +9,15 @@ public enum TileVisualType
     GrassRegular,
     GrassBuild,
     ForestRegular,
-    ForestBuild
+    ForestBuild,
+    Senate
 }
 
 [System.Serializable]
 public class TilePrefab_Simanis
 {
     public GameObject gameObject;
-    public TileVisualType type;
+    public Tile.TileType type;
 }
 
 public class TileVisual_Simanis : MonoBehaviour
@@ -27,7 +28,7 @@ public class TileVisual_Simanis : MonoBehaviour
     public TextMeshProUGUI debugText;
 
 
-    public void SetTileVisuals(TileVisualType type)
+    public void SetTileVisuals(Tile.TileType type)
     {
         foreach (TilePrefab_Simanis prefab in tilePrefabs)
         {
