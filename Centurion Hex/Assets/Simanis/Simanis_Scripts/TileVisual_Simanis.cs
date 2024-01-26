@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public enum TileVisualType
 {
@@ -20,6 +22,10 @@ public class TilePrefab_Simanis
 public class TileVisual_Simanis : MonoBehaviour
 {
     public TilePrefab_Simanis[] tilePrefabs;
+    public Tile tile;
+    public GameObject debugTextHolder;
+    public TextMeshProUGUI debugText;
+
 
     public void SetTileVisuals(TileVisualType type)
     {
@@ -30,5 +36,11 @@ public class TileVisual_Simanis : MonoBehaviour
             else
                 prefab.gameObject.SetActive(true);
         }
+    }
+
+    public void ShowMessage(string message)
+    {
+        debugTextHolder.SetActive(true);
+        debugText.text = message;
     }
 }
