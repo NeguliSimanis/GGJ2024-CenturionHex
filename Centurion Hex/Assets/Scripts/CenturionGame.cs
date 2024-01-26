@@ -1,3 +1,4 @@
+using Assets.Scripts.Buildings;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,12 +21,12 @@ public class CenturionGame : MonoBehaviour
             Teams[i].InitPlayers();
 
             //place initial structure
-            Teams[i].Senate.Type = Building.BuildingType.btSenate;
+            Teams[i].Senate = new Senate();
             Teams[i].Senate.x = i == 0 ? 6 : 0;
             Teams[i].Senate.y = i == 0 ? 0 : 6;
         }
 
-        StartWithRed = Random.Range(0,2) == 0;
+        StartWithRed = true;// Random.Range(0,2) == 0;
         RedMove = StartWithRed;
     }
 

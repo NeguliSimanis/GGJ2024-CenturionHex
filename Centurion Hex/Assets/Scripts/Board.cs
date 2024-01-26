@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Board : MonoBehaviour
+public class Board
 {
-    public Tile [,] Tiles;
+    public Tile [,] Tiles = new Tile[7,7];
     public Tile GetTile(int x, int y)
     {
         return Tiles[ x, y ];

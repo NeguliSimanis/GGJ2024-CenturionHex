@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Team : MonoBehaviour
+public class Team
 {
     public enum TeamType
     {
@@ -16,7 +16,7 @@ public class Team : MonoBehaviour
     public Player Governor;
     public Player General;
 
-    public Building Senate = new Building();
+    public Building Senate;
 
     // Start is called before the first frame update
     void Start()
