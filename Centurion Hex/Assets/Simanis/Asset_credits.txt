@@ -1,0 +1,6 @@
+~~~~~~~~~~~~~~~~~~~~~~~~Asset credits:
+
+Tile textures used: https://assetstore.unity.com/packages/3d/environments/low-poly-hexagon-tiles-and-objects-132355
+
+~~~~~~~~~~~~~~~~~~~~~~~~UNUSED Asset credits:
+Tile textures: https://lynocs.itch.io/texture-pack
