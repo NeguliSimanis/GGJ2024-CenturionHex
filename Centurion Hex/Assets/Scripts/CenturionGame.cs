@@ -12,6 +12,10 @@ public class CenturionGame : MonoBehaviour
     public bool StartWithRed;//start with random red/blue
     public bool RedMove;//current team
     public bool GeneralMove = true;//start with general move
+
+    public GameObject tileObject;
+    
+
     CenturionGame()
     {
         for( int i = 0; i < Teams.Length; i++ )
@@ -63,15 +67,9 @@ public class CenturionGame : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public void SpawnTile()
     {
-        
+
     }
 }
