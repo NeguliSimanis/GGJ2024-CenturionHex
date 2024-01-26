@@ -19,9 +19,9 @@ public class TileCover : MonoBehaviour
         btStar,
         btSkull,
     }
-    
-    public CoverType Type;
-    public BonusType Bonus;
+
+    public CoverType Type = CoverType.ctUndefined;
+    public BonusType Bonus = BonusType.btNone;
 
     // Start is called before the first frame update
     void Start()
