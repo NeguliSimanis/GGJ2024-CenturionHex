@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileCover : MonoBehaviour
+public class TileCover
 {
     public enum CoverType
     {

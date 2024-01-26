@@ -26,7 +26,7 @@ public class CenturionGame : MonoBehaviour
             Teams[i].Senate.y = i == 0 ? 0 : 6;
         }
 
-        StartWithRed = Random.Range(0,2) == 0;
+        StartWithRed = true;// Random.Range(0,2) == 0;
         RedMove = StartWithRed;
     }
 
