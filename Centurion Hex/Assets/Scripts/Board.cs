@@ -11,7 +11,7 @@ public class Board : MonoBehaviour
         return Tiles[ x, y ];
     }
 
-    Board()
+    public Board()
     {
         Tile.TileType[,] BoardTileTypes =
         {
