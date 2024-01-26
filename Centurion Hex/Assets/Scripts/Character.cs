@@ -14,6 +14,8 @@ public class Character
     public string Name;
     public string Description;
 
+    public Team Team;
+
     public bool CanBePlayedOffTurn;//if possible to play when not your turn
 
     public virtual int GetStepsPerTurn()

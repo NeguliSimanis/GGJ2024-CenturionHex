@@ -15,6 +15,8 @@ public class Player
     public PlayerType Type;
     public Team Team;
 
+    public int Gold = 2;//initial gold amount
+
     public List<Character> Characters = new List<Character>();//on board
     public List<Building> Buildings = new List<Building>();//on board
 

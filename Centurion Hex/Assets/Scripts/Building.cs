@@ -11,6 +11,8 @@ public class Building
         btCivil,
     }
 
+    public Team Team;
+
     public BuildingType Type;
 
     public int x;

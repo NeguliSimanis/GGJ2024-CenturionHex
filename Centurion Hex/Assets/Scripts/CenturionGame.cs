@@ -41,19 +41,23 @@ public class CenturionGame : MonoBehaviour
     {
         Character scout = new Scout();
         scout.x = 5; scout.y = 0;
+        scout.Team = Teams[0];
         Teams[0].General.Characters.Add(scout);
 
         scout = new Scout();
         scout.x = 1; scout.y = 6;
+        scout.Team = Teams[1]; 
         Teams[1].General.Characters.Add(scout);
 
 
         Character surveyor = new Surveyor();
         surveyor.x = 6; surveyor.y = 1;
+        surveyor.Team = Teams[0];
         Teams[0].Governor.Characters.Add(surveyor);
 
         scout = new Surveyor();
         scout.x = 0; scout.y = 5;
+        surveyor.Team = Teams[1];
         Teams[1].Governor.Characters.Add(surveyor);
     }
 
