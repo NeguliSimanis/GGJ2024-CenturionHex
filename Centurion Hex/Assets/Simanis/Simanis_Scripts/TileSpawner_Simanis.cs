@@ -125,6 +125,9 @@ public class TileSpawner_Simanis : MonoBehaviour
             return;
         
         GameObject newChar = Instantiate(characterPrefab, parent);
+        newChar.transform.localPosition = Vector3.zero;
+        newChar.transform.localRotation = Quaternion.identity;
+        newChar.transform.localScale = Vector3.one;
         tileVisual.DiscoverTile();
         CharacterVisual_Simanis characterVisual = newChar.GetComponent<CharacterVisual_Simanis>();
         characterVisual.character = tile.currentCharacter;

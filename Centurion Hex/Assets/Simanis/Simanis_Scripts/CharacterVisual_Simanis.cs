@@ -93,9 +93,19 @@ public class CharacterVisual_Simanis : MonoBehaviour
 
     public void MoveCharacter(float speed)
     {
-        Vector3 target = FindMoveTarget();
+        Vector3 moveTarget = Vector3.zero;
+
+        foreach (TileVisual_Simanis tileVisual in tileSpawner.allTiles)
+        {
+            if (tileVisual.xCoord == character.x
+                && tileVisual.yCoord == character.y)
+            {
+                transform.parent = tileVisual.unitTransformPos;
+                Debug.Log("COD FIND " + tileVisual.xCoord + "." + tileVisual.yCoord);
+            }
+        }
         Debug.Log("MOVE CALLED");
-        transform.DOMove(target, speed)
+        transform.DOLocalMove(moveTarget, speed)
            .SetEase(Ease.InOutQuad).OnComplete(() => hudManager.ListenToRaycast());
     }
 
