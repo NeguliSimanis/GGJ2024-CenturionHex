@@ -9,7 +9,11 @@ public class HUD_Simanis : MonoBehaviour
     public CenturionGame centurionGame;
 
     public TextMeshProUGUI redTeamIdentifier; // team 0
+    public string redTeamIdentifierText = "Ally Team";
+    public string redTeamIdentifierTextEnemy = "Enemy Team";
     public TextMeshProUGUI blueTeamIdentifier; // team 1
+    public string blueTeamIdentifierText = "Ally Team";
+    public string blueTeamIdentifierTextEnemy = "Enemy Team";
 
     public TextMeshProUGUI generalOrGovernorText;
     public string team0String = "-Team 1-";
@@ -26,10 +30,24 @@ public class HUD_Simanis : MonoBehaviour
     public TextMeshProUGUI vicPointsTeam0;
     public TextMeshProUGUI vicPointsTeam1;
 
+    [Header("HOVER HIGHLIGHT")]
+    public RaycastInteract oldHighlight;
+    public RaycastInteract curHighlight;
+
     private void Start()
     {
         //UpdateTeamWealth();
         //UpdateTurnText();
+    }
+
+    public void UpdateCurHighlight(RaycastInteract raycastInteract)
+    {
+        if (oldHighlight != null)
+        {
+            oldHighlight.ToggleHighlight();
+        }
+        oldHighlight = raycastInteract;
+        raycastInteract.ToggleHighlight();
     }
 
     public void UpdateTeamWealth()
@@ -42,13 +60,13 @@ public class HUD_Simanis : MonoBehaviour
     {
         if (centurionGame.PlayingAsRed)
         {
-            redTeamIdentifier.text = "Team 1 (you)";
-            blueTeamIdentifier.text = "Team 2";
+            redTeamIdentifier.text = redTeamIdentifierText;
+            blueTeamIdentifier.text = blueTeamIdentifierTextEnemy;
         }
         else // (centurionGame.PlayingAsRed)
         {
-            redTeamIdentifier.text = "Team 1";
-            blueTeamIdentifier.text = "Team 2 (you)";
+            redTeamIdentifier.text = redTeamIdentifierTextEnemy;
+            blueTeamIdentifier.text = blueTeamIdentifierText;
         }
     }
 
@@ -70,12 +88,23 @@ public class HUD_Simanis : MonoBehaviour
         // team 1
         if (centurionGame.RedMove)
         {
-            teamTurnText.text = team0String;
+            if (centurionGame.PlayingAsRed)
+            {
+                teamTurnText.text = redTeamIdentifierText;
+            }
+            else
+                teamTurnText.text = redTeamIdentifierTextEnemy;
+            //teamTurnText.text = team0String;
         }
         // Team 2
         else
         {
-            teamTurnText.text = team1String;
+            if (!centurionGame.PlayingAsRed)
+            {
+                teamTurnText.text = blueTeamIdentifierText;
+            }
+            else
+                teamTurnText.text = blueTeamIdentifierTextEnemy;
         }
     }
 }
