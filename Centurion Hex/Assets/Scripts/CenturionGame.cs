@@ -72,6 +72,9 @@ public class CenturionGame : MonoBehaviour
 
         addCharacter(Character.CharacterType.ctSurveyor, 6, 1, Team.TeamType.ttRed, Character.CharacterState.csBoard);
         addCharacter(Character.CharacterType.ctSurveyor, 0, 5, Team.TeamType.ttBlue, Character.CharacterState.csBoard);
+
+        addBuilding(Building.BuildingType.btSenate, 6, 0, Team.TeamType.ttRed, Building.BuildingState.bsBoard);
+        addBuilding(Building.BuildingType.btSenate, 0, 6, Team.TeamType.ttBlue, Building.BuildingState.bsBoard);
     }
 
     private void addCharacter(Character.CharacterType charType, int x, int y, Team.TeamType team, Character.CharacterState state)
