@@ -20,7 +20,11 @@ public class Network : MonoBehaviour
         op_game_round_update,
         op_wealth_from_building,
         op_move_character,
-        op_cover_tile
+        op_cover_tile,
+        op_wealth_from_cover,
+        op_point_from_cover,
+        op_point_from_building,
+        op_character_hurt
     }
 
     public enum NetworkStateEnum
@@ -381,6 +385,18 @@ public class Network : MonoBehaviour
                 break;
             case Messages.op_cover_tile:
                 Game.OnTileCovered(incomingData.readByte(), incomingData.readByte(), (TileCover.CoverType)incomingData.readByte(), (TileCover.BonusType)incomingData.readByte());
+                break;
+            case Messages.op_wealth_from_cover:
+                Game.OnWealthFromCover((Team.TeamType)incomingData.readByte(), incomingData.readByte(), incomingData.readByte(), incomingData.readByte());
+                break;
+            case Messages.op_point_from_cover:
+                Game.OnPointFromCover((Team.TeamType)incomingData.readByte(), incomingData.readByte(), incomingData.readByte(), incomingData.readByte());
+                break;
+            case Messages.op_point_from_building:
+                Game.OnPointFromBuilding((Team.TeamType)incomingData.readByte(), incomingData.readByte(), incomingData.readUnsignedInt());
+                break;
+            case Messages.op_character_hurt:
+                Game.OnCharacterHurt(incomingData.readUnsignedInt(), incomingData.readByte());
                 break;
             default:
                 UnityEngine.Debug.LogError("Message not handled: " + command);
