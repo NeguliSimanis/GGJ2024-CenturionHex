@@ -38,6 +38,11 @@ public class TileVisual_Simanis : MonoBehaviour
     public void SetTileVisuals()
     {
         Tile.TileType type = tile.tileType;
+        if (tile.tileCover.Type == TileCover.CoverType.ctTransparent)
+        {
+            DiscoverTile();
+            return;
+        }
         foreach (TilePrefab_Simanis prefab in tilePrefabs)
         {
             if (prefab.isCover)
