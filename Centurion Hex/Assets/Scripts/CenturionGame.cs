@@ -26,6 +26,9 @@ public class CenturionGame : MonoBehaviour
     public UnityEvent onWealthFromBuilding;
     public UnityEvent onCharacterMoved;
     public UnityEvent onTileCovered;
+    public UnityEvent onWealthFromTile;
+    public UnityEvent onPointsFromTile;
+    public UnityEvent onPointsFromBuilding;
 
     public Board Board = new Board();
 
@@ -45,6 +48,16 @@ public class CenturionGame : MonoBehaviour
     public List<Building> CivilBuildings = new List<Building>();
     public List<Building> BoardBuildings = new List<Building>();
 
+    public Building GetBoardBuilding(uint id )
+    {
+        for( int k = 0; k < BoardBuildings.Count; k++ )
+        {
+            if (BoardBuildings[k].id == id)
+                return BoardBuildings[k];
+        }
+        return null;
+    }
+
     public Team[] Teams = new Team[2];
 
     public bool StartWithRed;//start with random red/blue
@@ -56,8 +69,12 @@ public class CenturionGame : MonoBehaviour
     public bool PlayingAsGovernor = true;
 
     public bool UseNetwork = false;
-    public uint lastSourceBuilding;
+    public Building lastSourceBuilding;
     public int lastWealthAmount;
+    public int lastPointAmount;
+
+    private Tile lastWealthTile;
+    private Tile lastPointTile;
     public Character lastCharacterMoved;
     public Tile lastTileCovered;
 
@@ -290,7 +307,7 @@ public class CenturionGame : MonoBehaviour
     public void OnWealthFromBuilding(Team.TeamType tt, int wealth, uint sourceBuilding)
     {
         Teams[tt == Team.TeamType.ttRed ? 0 : 1].Gold += wealth;
-        lastSourceBuilding = sourceBuilding;
+        lastSourceBuilding = GetBoardBuilding(sourceBuilding);
         lastWealthAmount = wealth;
         onWealthFromBuilding.Invoke();
     }
@@ -319,5 +336,29 @@ public class CenturionGame : MonoBehaviour
         Board.GetTile(x, y).tileCover.Bonus = bt;
         lastTileCovered = Board.GetTile(x, y);
         onTileCovered.Invoke();
+    }
+
+    public void OnWealthFromCover(Team.TeamType tt, int wealth, int x, int y)
+    {
+        Teams[tt == Team.TeamType.ttRed ? 0 : 1].Gold += wealth;
+        lastWealthAmount = wealth;
+        lastWealthTile = Board.GetTile(x, y);
+        onWealthFromTile.Invoke();
+    }
+
+    public void OnPointFromCover(Team.TeamType tt, int points, int x, int y)
+    {
+        Teams[tt == Team.TeamType.ttRed ? 0 : 1].VictoryPoints += points;
+        lastPointAmount = points;
+        lastPointTile = Board.GetTile(x, y);
+        onPointsFromTile.Invoke();
+    }
+
+    public void OnPointFromBuilding(Team.TeamType tt, int points, uint bid)
+    {
+        Teams[tt == Team.TeamType.ttRed ? 0 : 1].VictoryPoints += points;
+        lastSourceBuilding = GetBoardBuilding(bid);
+        lastPointAmount = points;
+        onPointsFromBuilding.Invoke();
     }
 }
