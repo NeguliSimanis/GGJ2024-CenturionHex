@@ -110,6 +110,10 @@ public class CenturionGame : MonoBehaviour
             addInitialCharacters();
             onGameReload.Invoke();
         }
+#if UNITY_EDITOR
+        QualitySettings.vSyncCount = 0;  // VSync must be disabled
+        Application.targetFrameRate = 45;
+#endif
     }
 
     public void LoadFromNetwork(ByteArray data)
@@ -326,6 +330,7 @@ public class CenturionGame : MonoBehaviour
 
     public void OnCharacterMoved(uint characterId, int x, int y, int stepsUsed)
     {
+        Debug.Log("character moved " + characterId.ToString() + " to " + x.ToString() + "x" + y.ToString() );
         for(int k = 0; k < BoardCharacters.Count; k++ )
         {
             if(BoardCharacters[k].id == characterId )
@@ -381,6 +386,16 @@ public class CenturionGame : MonoBehaviour
         if( ch.Health == 0 )
         {
             BoardCharacters.Remove(ch);
+            if(ch.isWarUnit)
+            {
+                ch.Team.General.DeadCharacters.Add(ch);
+                ch.Team.General.Characters.Remove(ch);
+            }
+            else
+            {
+                ch.Team.Governor.DeadCharacters.Add(ch);
+                ch.Team.Governor.Characters.Remove(ch);
+            }
         }
         lastHurtCharacter = ch;
         onCharacterHurt.Invoke();
