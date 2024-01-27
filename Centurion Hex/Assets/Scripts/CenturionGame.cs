@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using static CenturionGame;
 using static Character;
+using static Building;
 
 public class CenturionGame : MonoBehaviour
 {
@@ -187,7 +188,7 @@ public class CenturionGame : MonoBehaviour
 
         switch (unit.state)
         {
-            case Character.CharacterState.csStack:
+            case CharacterState.csStack:
                 if (unit.isWarUnit)
                 {
                     WarCharacters.Add(unit);
@@ -197,13 +198,21 @@ public class CenturionGame : MonoBehaviour
                     CivilCharacters.Add(unit);
                 }
                 break;
-            case Character.CharacterState.csHand:
+            case CharacterState.csHand:
+                if (unit.isWarUnit)
+                {
+                    unit.Team.General.StandByCharacters.Add(unit);
+                }
+                else
+                {
+                    unit.Team.Governor.StandByCharacters.Add(unit);
+                }
                 break;
-            case Character.CharacterState.csBoard:
+            case CharacterState.csBoard:
                 BoardCharacters.Add(unit);
                 Board.GetTile(unit.x, unit.y).currentCharacter = unit;
                 break;
-            case Character.CharacterState.csDead:
+            case CharacterState.csDead:
                 break;
         }
     }
@@ -236,34 +245,42 @@ public class CenturionGame : MonoBehaviour
         Buildings.Add(unit);
         switch (unit.State)
         {
-            case Building.BuildingState.bsStack:
+            case BuildingState.bsStack:
 
                 switch (unit.Class)
                 {
-                    case Building.BuildingClass.bcSenate:
+                    case BuildingClass.bcSenate:
                         unit.Team.Senate = unit;
                         break;
-                    case Building.BuildingClass.bcCivil:
+                    case BuildingClass.bcCivil:
                         CivilBuildings.Add(unit);
                         break;
-                    case Building.BuildingClass.bcWar:
+                    case BuildingClass.bcWar:
                         WarBuildings.Add(unit);
                         break;
                 }
                 break;
-            case Building.BuildingState.bsHand:
+            case BuildingState.bsHand:
+                if(unit.Class == BuildingClass.bcWar )
+                {
+                    unit.Team.General.StandByBuildings.Add(unit);
+                }
+                else
+                {
+                    unit.Team.Governor.StandByBuildings.Add(unit);
+                }
                 break;
-            case Building.BuildingState.bsBoard:
+            case BuildingState.bsBoard:
                 BoardBuildings.Add(unit);
                 Board.GetTile(unit.x, unit.y).currentBuilding = unit;
-                if (unit.Class == Building.BuildingClass.bcSenate)
+                if (unit.Class == BuildingClass.bcSenate)
                     unit.Team.Senate = unit;
                 break;
-            case Building.BuildingState.bsDead:
+            case BuildingState.bsDead:
                 break;
         }
     }
-    private void addBuilding(Building.BuildingType buildType, int x, int y, Team.TeamType team, Building.BuildingState state)
+    private void addBuilding(BuildingType buildType, int x, int y, Team.TeamType team, BuildingState state)
     {
         Building unit = BuildingFactory.CreateBuilding(buildType);
         unit.x = x;
