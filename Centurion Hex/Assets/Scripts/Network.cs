@@ -28,7 +28,12 @@ public class Network : MonoBehaviour
         op_character_hurt,
         op_end_move,
         op_hurt_tile,
-        op_building_hurt
+        op_building_hurt,
+        op_buy_building_card,
+        op_buy_character_card,
+        op_place_building,
+        op_place_character,
+        op_update_gold
     }
 
     public enum NetworkStateEnum
