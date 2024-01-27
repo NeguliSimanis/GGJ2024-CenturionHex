@@ -49,8 +49,7 @@ public class TileSpawner_Simanis : MonoBehaviour
     }
 
     public void SpawnTiles()
-    {
-        
+    {   
         centurionBoard = centurionGame.Board;
 
         // Get the dimensions of the array
@@ -109,12 +108,14 @@ public class TileSpawner_Simanis : MonoBehaviour
         RotateBoard();
     }
 
-    public void SpawnCharacterOnTile(Tile tile, Vector3 spawnPos, Transform parent)
+    public void SpawnCharacterOnTile(Tile tile, Vector3 spawnPos, Transform parent,
+        TileVisual_Simanis tileVisual)
     {
         if (tile.currentCharacter == null)
             return;
+        
         GameObject newChar = Instantiate(characterPrefab, parent);
-
+        tileVisual.DiscoverTile();
         CharacterVisual_Simanis characterVisual = newChar.GetComponent<CharacterVisual_Simanis>();
         characterVisual.character = tile.currentCharacter;
         characterVisual.SetCharacterVisuals(tile.currentCharacter.type, this);
@@ -122,10 +123,12 @@ public class TileSpawner_Simanis : MonoBehaviour
         Debug.Log("spawnin " + tile.currentCharacter.type);
     }
 
-    public void SpawnBuildingOnTile(Tile tile, Transform parent)
+    public void SpawnBuildingOnTile(Tile tile, Transform parent,
+        TileVisual_Simanis tileVisual)
     {
         if (tile.currentBuilding == null)
             return;
+        tileVisual.DiscoverTile();
         GameObject newBuild = Instantiate(buildingPrefab, parent);
 
         BuildingVisual_Simanis buildingVisual = newBuild.GetComponent<BuildingVisual_Simanis>();
@@ -146,11 +149,11 @@ public class TileSpawner_Simanis : MonoBehaviour
         }
         tileVisual.xCoord = row;
         tileVisual.yCoord = collumn;
-        tileVisual.SetTileVisuals(tile.tileType);
+        tileVisual.SetTileVisuals();
         allTiles.Add(tileVisual);
 
-        SpawnCharacterOnTile(tile, spawnPos, newTileObject.transform);
-        SpawnBuildingOnTile(tile, newTileObject.transform);
+        SpawnCharacterOnTile(tile, spawnPos, newTileObject.transform, tileVisual);
+        SpawnBuildingOnTile(tile, newTileObject.transform, tileVisual);
         //tileVisual.ShowMessage(row + "." + collumn + "." + tile.tileType);
     }
 }

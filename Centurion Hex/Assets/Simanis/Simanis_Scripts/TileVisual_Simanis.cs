@@ -18,6 +18,7 @@ public class TilePrefab_Simanis
 {
     public GameObject gameObject;
     public Tile.TileType type;
+    public bool isCover = false;
 }
 
 public class TileVisual_Simanis : MonoBehaviour
@@ -34,8 +35,21 @@ public class TileVisual_Simanis : MonoBehaviour
     public Transform unitTransformPos;
 
 
-    public void SetTileVisuals(Tile.TileType type)
+    public void SetTileVisuals()
     {
+        Tile.TileType type = tile.tileType;
+        foreach (TilePrefab_Simanis prefab in tilePrefabs)
+        {
+            if (prefab.isCover)
+                prefab.gameObject.SetActive(true);
+            else
+                prefab.gameObject.SetActive(false);
+        }
+    }
+
+    public void DiscoverTile()
+    {
+        Tile.TileType type = tile.tileType;
         foreach (TilePrefab_Simanis prefab in tilePrefabs)
         {
             if (prefab.type != type)
