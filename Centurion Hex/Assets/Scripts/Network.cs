@@ -68,6 +68,8 @@ public class Network : MonoBehaviour
 
     bool ShouldConnect = false;
     int loginRetries = 0;
+    public bool loggedIn = false;
+
     public uint CurrentTimestamp { get { return (uint)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds; } }
     public int LocalPlayerUID { get; private set; }
 
@@ -161,6 +163,7 @@ public class Network : MonoBehaviour
                                     throw new Exception();
                                 PacketSize = BitConverter.ToUInt16(tmp, 0);
                                 PacketSize -= 2;
+                                //Debug.Log("got packet size " + PacketSize.ToString());
                             }
                             else break;//not enough bytes
                         }
@@ -179,6 +182,10 @@ public class Network : MonoBehaviour
                                 while (incomingData.bytesAvailable() > 0)
                                 {
                                     ProcessCommand();
+                                    if(incomingData.bytesAvailable() > 0)
+                                    {
+                                        //Debug.LogError("Some leftover data here " + incomingData.bytesAvailable().ToString());
+                                    }
                                 }
                                 incomingData.clear();
                                 PacketSize = 0;
@@ -363,9 +370,9 @@ public class Network : MonoBehaviour
     {
         Messages command = (Messages)incomingData.readByte();
 
-        if (command != Messages.op_ping)
+        //if (command != Messages.op_ping)
         {
-            Debug.Log("Command received: " + command.ToString() );
+            //Debug.Log("Command received: " + command.ToString() );
         }
 
         switch (command)
@@ -379,6 +386,7 @@ public class Network : MonoBehaviour
                 //InvokeEventWithData(onPingEvent, command, null);
                 break;
             case Messages.op_login:
+                loggedIn = incomingData.readBoolean();
                 break;
             case Messages.op_game_data:
                 {
