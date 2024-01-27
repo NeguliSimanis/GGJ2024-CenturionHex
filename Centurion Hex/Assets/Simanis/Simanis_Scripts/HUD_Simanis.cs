@@ -248,15 +248,21 @@ public class HUD_Simanis : MonoBehaviour
                 endTurnButton.endButtonTeam1.SetActive(true);
                 endTurnButton.endButtonTeam0.SetActive(false);
                 teamTurnText.text = blueTeamIdentifierText;
-
-                //switch(centurionGame.)
-
             }
             else
             {
                 endTurnButton.gameObject.SetActive(false);
                 teamTurnText.text = blueTeamIdentifierTextEnemy;
             }
+        }
+        switch (centurionGame.mRoundState)
+        {
+            case CenturionGame.RoundState.rsManagement:
+                teamTurnText.text += managementPhaseSuffix;
+                break;
+            default:
+                teamTurnText.text += movePhaseSuffix;
+                break;
         }
     }
 }

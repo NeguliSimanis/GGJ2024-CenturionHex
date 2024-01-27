@@ -9,6 +9,7 @@ public class TileSpawner_Simanis : MonoBehaviour
     private Board centurionBoard;
 
     [Header("TILES")]
+    public GameObject tileCenter;
     public GameObject tilePrefab;
     public Transform tileParent;
     public Transform empty;
@@ -33,8 +34,22 @@ public class TileSpawner_Simanis : MonoBehaviour
         //SpawnTiles();
     }
 
+    private void RotateBoard()
+    {
+        if (centurionGame.PlayingAsRed)
+            return;
+        Quaternion currentRotation = tileCenter.transform.rotation;
+
+        // Set the rotation on the y-axis to 180 degrees
+        currentRotation.eulerAngles = new Vector3(0, 180, 0);
+
+        // Apply the new rotation to the object
+        tileCenter.transform.rotation = currentRotation;
+    }
+
     public void SpawnTiles()
     {
+        RotateBoard();
         centurionBoard = centurionGame.Board;
 
         // Get the dimensions of the array
