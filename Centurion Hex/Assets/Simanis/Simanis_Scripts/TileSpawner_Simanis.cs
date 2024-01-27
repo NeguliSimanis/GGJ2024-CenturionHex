@@ -48,6 +48,16 @@ public class TileSpawner_Simanis : MonoBehaviour
         tileCenter.transform.rotation = currentRotation;
     }
 
+    public void UncoverTile()
+    {
+        foreach(TileVisual_Simanis tileVisual in allTiles)
+        {
+            if (tileVisual.tile == centurionGame.lastTileCovered)
+                tileVisual.DiscoverTile();
+        }
+        
+    }
+
     public void SpawnTiles()
     {   
         centurionBoard = centurionGame.Board;
