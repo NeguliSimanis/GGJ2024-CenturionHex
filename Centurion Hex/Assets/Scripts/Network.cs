@@ -26,7 +26,9 @@ public class Network : MonoBehaviour
         op_point_from_cover,
         op_point_from_building,
         op_character_hurt,
-        op_end_move
+        op_end_move,
+        op_hurt_tile,
+        op_building_hurt
     }
 
     public enum NetworkStateEnum
@@ -403,6 +405,9 @@ public class Network : MonoBehaviour
             case Messages.op_character_hurt:
                 Game.OnCharacterHurt(incomingData.readUnsignedInt(), incomingData.readByte());
                 break;
+            case Messages.op_building_hurt:
+                Game.OnBuildingHurt(incomingData.readUnsignedInt(), incomingData.readByte());
+                break;
             default:
                 UnityEngine.Debug.LogError("Message not handled: " + command);
                 throw new NotImplementedException("Message not handled: " + command);
@@ -515,6 +520,15 @@ public class Network : MonoBehaviour
         outgoingData.writeByte((byte)x);
         outgoingData.writeByte((byte)y);
         Send("move_character");
+    }
+
+    public void HurtTile(uint characterId, int x, int y)
+    {
+        outgoingData.writeByte((byte)Messages.op_hurt_tile);
+        outgoingData.writeUnsignedInt(characterId);
+        outgoingData.writeByte((byte)x);
+        outgoingData.writeByte((byte)y);
+        Send("hurt_tile");
     }
 
     public void EndMove()

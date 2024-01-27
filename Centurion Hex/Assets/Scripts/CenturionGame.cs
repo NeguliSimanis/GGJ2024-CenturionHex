@@ -30,6 +30,7 @@ public class CenturionGame : MonoBehaviour
     public UnityEvent onPointsFromTile;
     public UnityEvent onPointsFromBuilding;
     public UnityEvent onCharacterHurt;
+    public UnityEvent onBuildingHurt;
 
     public Board Board = new Board();
 
@@ -89,6 +90,7 @@ public class CenturionGame : MonoBehaviour
     public Character lastCharacterMoved;
     public Tile lastTileCovered;
     public Character lastHurtCharacter;
+    public Building lastHurtBuilding;
 
     CenturionGame()
     {
@@ -400,5 +402,26 @@ public class CenturionGame : MonoBehaviour
         }
         lastHurtCharacter = ch;
         onCharacterHurt.Invoke();
+    }
+    public void OnBuildingHurt(uint bid, int health)
+    {
+        Building ch = GetBoardBuilding(bid);
+        ch.Health = health;
+        if (ch.Health == 0)
+        {
+            BoardBuildings.Remove(ch);
+            if (ch.Class == Building.BuildingClass.bcWar)
+            {
+                ch.Team.General.DeadBuildings.Add(ch);
+                ch.Team.General.Buildings.Remove(ch);
+            }
+            else
+            {
+                ch.Team.Governor.DeadBuildings.Add(ch);
+                ch.Team.Governor.Buildings.Remove(ch);
+            }
+        }
+        lastHurtBuilding = ch;
+        onBuildingHurt.Invoke();
     }
 }
