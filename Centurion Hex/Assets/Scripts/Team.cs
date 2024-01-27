@@ -18,6 +18,7 @@ public class Team
     public Player General;
 
     public Building Senate;
+    public int Gold;
 
     // Start is called before the first frame update
     void Start()
@@ -39,6 +40,14 @@ public class Team
         General = new Player();
         General.Type = Type == TeamType.ttRed ? Player.PlayerType.ptRedGeneral : Player.PlayerType.ptBlueGeneral;
         General.Team = this;
+    }
+
+    public void LoadFromNetwork(ByteArray data)
+    {
+        Type = (TeamType)data.readByte();
+        Gold = data.readByte();
+        Governor.LoadFromNetwork(data);
+        General.LoadFromNetwork(data);
     }
 }
 

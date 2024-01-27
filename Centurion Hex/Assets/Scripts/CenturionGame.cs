@@ -87,6 +87,9 @@ public class CenturionGame : MonoBehaviour
             addBuilding(building, (Team.TeamType)data.readByte());
         }
 
+        Teams[0].LoadFromNetwork(data);
+        Teams[0].LoadFromNetwork(data); 
+        
         onGameReload.Invoke();
     }
 
