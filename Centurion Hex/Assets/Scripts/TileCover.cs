@@ -12,6 +12,7 @@ public class TileCover
         ctSwamp,
         ctForest,
         ctDesert,
+        ctTransparent//for senate and adjacent
     }
 
     public enum BonusType
