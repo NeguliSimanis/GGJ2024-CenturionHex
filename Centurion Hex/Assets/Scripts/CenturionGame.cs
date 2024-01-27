@@ -53,7 +53,11 @@ public class CenturionGame : MonoBehaviour
         }
 
         RedMove = StartWithRed = true;
-        if(!UseNetwork)//add some stuff on board if not using network
+    }
+
+    public void Start()
+    {
+        if (!UseNetwork)//add some stuff on board if not using network
         {
             addInitialCharacters();
             onGameReload.Invoke();
