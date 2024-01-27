@@ -1355,7 +1355,6 @@ GameObject:
   - component: {fileID: 7285571503514899024}
   - component: {fileID: 7285571503514899027}
   - component: {fileID: 5465471751695011822}
-  - component: {fileID: 1627941073126412460}
   m_Layer: 0
   m_Name: UnitRotatorAndRaycastInteract
   m_TagString: Untagged
@@ -1471,25 +1470,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shouldHighlightComponent: 0
   highlightObject: {fileID: 8544414987852873647}
-  highlightComponent: {fileID: 1627941073126412460}
---- !u!114 &1627941073126412460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7285571503514899037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 4
-  outlineColor: {r: 0.1476504, g: 0.745283, b: 0.53702843, a: 1}
-  outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
+  highlightComponent: {fileID: 0}
 --- !u!1 &7285571505188909700
 GameObject:
   m_ObjectHideFlags: 0
