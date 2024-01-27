@@ -22,6 +22,8 @@ public class HUD_Simanis : MonoBehaviour
     public string team1String = "-Team 2-";
     public string govString = "Governor Turn";
     public string generalString = "General Turn";
+    public string movePhaseSuffix = "- Movement phase";
+    public string managementPhaseSuffix = "- Management phase";
     public Color generalTurnColor;
     public Color govTurnColor;
     public TextMeshProUGUI teamTurnText;
@@ -204,6 +206,7 @@ public class HUD_Simanis : MonoBehaviour
 
     public void UpdateTurnText()
     {
+        Debug.Log("Updating Turn phase text");
         UpdateTurnIDs();
         // general
         if (centurionGame.GeneralMove)
@@ -238,13 +241,16 @@ public class HUD_Simanis : MonoBehaviour
         // Team 2
         else
         {
-            // im playing as bl
+            // im playing as blue
             if (!centurionGame.PlayingAsRed)
             {
                 endTurnButton.gameObject.SetActive(true);
                 endTurnButton.endButtonTeam1.SetActive(true);
                 endTurnButton.endButtonTeam0.SetActive(false);
                 teamTurnText.text = blueTeamIdentifierText;
+
+                //switch(centurionGame.)
+
             }
             else
             {

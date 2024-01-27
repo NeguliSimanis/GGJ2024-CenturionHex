@@ -17,6 +17,7 @@ public class MovementManager_Simanis : MonoBehaviour
 
     public void MoveCharacter()
     {
+        Debug.Log("LOOKIN FOR MOVE CHAACTER");
         Character charToMove = centurionGame.lastCharacterMoved;
         foreach(CharacterVisual_Simanis charVisual in spawner.allCharacters)
         {
