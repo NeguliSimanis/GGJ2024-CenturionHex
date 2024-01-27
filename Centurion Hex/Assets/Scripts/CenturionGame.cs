@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using static Character;
 
 public class CenturionGame : MonoBehaviour
 {
@@ -35,6 +36,12 @@ public class CenturionGame : MonoBehaviour
     public bool RedMove;//current team
     public bool GeneralMove = true;//start with general move
 
+    public bool PlayingAsRed = true;
+    public bool PlayingAsGeneral = true;
+    public bool PlayingAsGovernor = true;
+
+    public bool UseNetwork = false;
+
     CenturionGame()
     {
         Instance = this;
@@ -43,16 +50,14 @@ public class CenturionGame : MonoBehaviour
             Teams[i] = new Team();
             Teams[i].Type = Team.TeamType.ttRed + i;
             Teams[i].InitPlayers();
-
-            //place initial structure
-            Teams[i].Senate = new Senate();
-            Teams[i].Senate.x = i == 0 ? 6 : 0;
-            Teams[i].Senate.y = i == 0 ? 0 : 6;
         }
 
-        StartWithRed = true;// Random.Range(0,2) == 0;
-        RedMove = StartWithRed;
-        addInitialCharacters();
+        RedMove = StartWithRed = true;
+        if(!UseNetwork)//add some stuff on board if not using network
+        {
+            addInitialCharacters();
+            onGameReload.Invoke();
+        }
     }
 
     public void LoadFromNetwork(ByteArray data)
@@ -61,6 +66,23 @@ public class CenturionGame : MonoBehaviour
         RedMove = data.readBoolean();
         GeneralMove = data.readBoolean();
         Board.LoadFromNetwork(data);
+        //load characters
+        int numChars = data.readByte();
+        for (int k = 0; k < numChars; k++)
+        {
+            Character ch = new Character();
+            ch.LoadFromNetwork(data);
+            addCharacter(ch, (Team.TeamType)data.readByte() );
+        }
+
+        int numBuildings = data.readByte();
+        for( int k = 0; k < numBuildings; k++)
+        {
+            Building building = new Building();
+            building.LoadFromNetwork(data);
+            addBuilding(building, (Team.TeamType)data.readByte());
+        }
+
         onGameReload.Invoke();
     }
 
@@ -77,14 +99,12 @@ public class CenturionGame : MonoBehaviour
         addBuilding(Building.BuildingType.btSenate, 0, 6, Team.TeamType.ttBlue, Building.BuildingState.bsBoard);
     }
 
-    private void addCharacter(Character.CharacterType charType, int x, int y, Team.TeamType team, Character.CharacterState state)
+    private void addCharacter(Character unit, Team.TeamType team)
     {
-        Character unit = CharacterFactory.CreateCharacter(charType);
-        unit.x = x;
-        unit.y = y;
-        unit.state = state;
+        Characters.Add(unit);
 
-        switch(team)
+
+        switch (team)
         {
             case Team.TeamType.ttRed:
                 unit.Team = Teams[0];
@@ -96,11 +116,12 @@ public class CenturionGame : MonoBehaviour
                 unit.Team = null;
                 break;
         }
-        Characters.Add(unit);
-        switch( unit.state)
+
+
+        switch (unit.state)
         {
             case Character.CharacterState.csStack:
-                if( unit.isWarUnit )
+                if (unit.isWarUnit)
                 {
                     WarCharacters.Add(unit);
                 }
@@ -113,20 +134,26 @@ public class CenturionGame : MonoBehaviour
                 break;
             case Character.CharacterState.csBoard:
                 BoardCharacters.Add(unit);
-                Board.GetTile(x, y).currentCharacter = unit;
+                Board.GetTile(unit.x, unit.y).currentCharacter = unit;
                 break;
             case Character.CharacterState.csDead:
                 break;
         }
     }
 
-    private void addBuilding(Building.BuildingType buildType, int x, int y, Team.TeamType team, Building.BuildingState state)
+    //for internal use
+    private void addCharacter(Character.CharacterType charType, byte x, byte y, Team.TeamType team, Character.CharacterState state)
     {
-        Building unit = BuildingFactory.CreateBuilding(buildType);
+        Character unit = CharacterFactory.CreateCharacter(charType);
         unit.x = x;
         unit.y = y;
-        unit.State = state;
+        unit.state = state;
 
+        addCharacter(unit, team);
+    }
+
+    private void addBuilding(Building unit, Team.TeamType team)
+    {
         switch (team)
         {
             case Team.TeamType.ttRed:
@@ -144,7 +171,7 @@ public class CenturionGame : MonoBehaviour
         {
             case Building.BuildingState.bsStack:
 
-                switch(unit.Class)
+                switch (unit.Class)
                 {
                     case Building.BuildingClass.bcSenate:
                         unit.Team.Senate = unit;
@@ -161,13 +188,22 @@ public class CenturionGame : MonoBehaviour
                 break;
             case Building.BuildingState.bsBoard:
                 BoardBuildings.Add(unit);
-                Board.GetTile(x, y).currentBuilding = unit;
+                Board.GetTile(unit.x, unit.y).currentBuilding = unit;
                 if (unit.Class == Building.BuildingClass.bcSenate)
                     unit.Team.Senate = unit;
                 break;
             case Building.BuildingState.bsDead:
                 break;
         }
+    }
+    private void addBuilding(Building.BuildingType buildType, int x, int y, Team.TeamType team, Building.BuildingState state)
+    {
+        Building unit = BuildingFactory.CreateBuilding(buildType);
+        unit.x = x;
+        unit.y = y;
+        unit.State = state;
+
+        addBuilding(unit, team);
     }
 
     void onEndTurnChooseNextPlayer()
@@ -201,11 +237,5 @@ public class CenturionGame : MonoBehaviour
                 RedMove = false;
             }
         }
-    }
-
-
-    public void SpawnTile()
-    {
-
     }
 }
