@@ -20,6 +20,7 @@ public class Network : MonoBehaviour
         op_game_round_update,
         op_wealth_from_building,
         op_move_character,
+        op_cover_tile
     }
 
     public enum NetworkStateEnum
@@ -377,6 +378,9 @@ public class Network : MonoBehaviour
                 break;
             case Messages.op_move_character:
                 Game.OnCharacterMoved(incomingData.readUnsignedInt(), incomingData.readByte(), incomingData.readByte(), incomingData.readByte());
+                break;
+            case Messages.op_cover_tile:
+                Game.OnTileCovered(incomingData.readByte(), incomingData.readByte(), (TileCover.CoverType)incomingData.readByte(), (TileCover.BonusType)incomingData.readByte());
                 break;
             default:
                 UnityEngine.Debug.LogError("Message not handled: " + command);
