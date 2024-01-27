@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player
 {
     public enum PlayerType
     {
@@ -13,7 +13,9 @@ public class Player : MonoBehaviour
     }
 
     public PlayerType Type;
-    public Building Senate;//shorcut
+    public Team Team;
+
+    public int Gold = 2;//initial gold amount
 
     public List<Character> Characters = new List<Character>();//on board
     public List<Building> Buildings = new List<Building>();//on board

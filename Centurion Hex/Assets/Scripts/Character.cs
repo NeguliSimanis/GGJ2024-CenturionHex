@@ -2,11 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character
 {
+    public enum CharacterType
+    {
+        ctScout,
+        ctSurveyor,
+    }
+    public enum CharacterState
+    {
+        csStack,
+        csHand,
+        csBoard,
+        csDead
+    }
+    public int id;
+    public CharacterType type;
+    public CharacterState state = CharacterState.csStack;
+    public bool isWarUnit;
     public int x;
     public int y;
     public int Health;
+    public int InitialHealth;
     public int Price;
     public int StepsPerTurn;
     public int AttackDamage;
@@ -14,37 +31,27 @@ public class Character : MonoBehaviour
     public string Name;
     public string Description;
 
+    public Team Team;
+
     public bool CanBePlayedOffTurn;//if possible to play when not your turn
 
-    public int GetStepsPerTurn()
+    public virtual int GetStepsPerTurn()
     {
         return StepsPerTurn;//override if some other logic
     }
 
-    public void onPlayed()
+    public virtual void onPlayed()
     {
         //action to do when placed on board
     }
 
-    public void DoTurnAction()
+    public virtual void DoTurnAction()
     {
         //does specific action on turn
     }
 
-    public void DoAttack()
+    public virtual void DoAttack()
     {
         //what to do when it's attacking
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

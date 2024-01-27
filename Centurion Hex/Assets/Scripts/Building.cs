@@ -2,15 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building : MonoBehaviour
+public class Building
 {
+    public enum BuildingClass
+    {
+        bcSenate,
+        bcWar,
+        bcCivil,
+    }
+
     public enum BuildingType
     {
         btSenate,
-        btWar,
-        btCivil,
     }
 
+    public enum BuildingState
+    {
+        bsStack,
+        bsHand,
+        bsBoard,
+        bsDead
+    }
+
+    public Team Team;
+
+    public BuildingClass Class;
+    public BuildingState State;
     public BuildingType Type;
 
     public int x;
@@ -23,25 +40,14 @@ public class Building : MonoBehaviour
     public string Name;
     public string Description;
     public int Health;
-    public void onPlayed()
+    public int InitialHealth;
+    public virtual void onPlayed()
     {
 
     }
 
-    public void onAttack()
+    public virtual void onAttack()
     {
         Health--;//override this for senate to check if shrine is present
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

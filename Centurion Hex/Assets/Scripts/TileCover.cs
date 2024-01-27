@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileCover : MonoBehaviour
+public class TileCover
 {
     public enum CoverType
     {
@@ -33,5 +34,11 @@ public class TileCover : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void LoadFromNetwork(ByteArray data)
+    {
+        Type = (CoverType)data.readByte();
+        Bonus = (BonusType)data.readByte();
     }
 }

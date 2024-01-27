@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Board : MonoBehaviour
+public class Board
 {
-    public Tile [,] Tiles;
+    public Tile [,] Tiles = new Tile[7,7];
     public Tile GetTile(int x, int y)
     {
         return Tiles[ x, y ];
@@ -57,5 +57,16 @@ public class Board : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void LoadFromNetwork(ByteArray data)
+    {
+        for (int y = 0; y < 7; y++)
+        {
+            for (int x = 0; x < 7; x++)
+            {
+                Tiles[x,y].LoadFromNetwork(data);
+            }
+        }
     }
 }

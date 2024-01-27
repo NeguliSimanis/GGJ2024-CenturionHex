@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tile : MonoBehaviour
+public class Tile
 {
     public enum TileType
     {
@@ -17,6 +18,8 @@ public class Tile : MonoBehaviour
 
     public TileType tileType = TileType.ttVoid;
     public TileCover tileCover = new TileCover();
+    public Character currentCharacter;
+    public Building currentBuilding;
 
     bool CanWalkOnThis()
     {
@@ -33,5 +36,11 @@ public class Tile : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void LoadFromNetwork(ByteArray data)
+    {
+        tileType = (TileType)data.readByte();
+        tileCover.LoadFromNetwork(data);
     }
 }
