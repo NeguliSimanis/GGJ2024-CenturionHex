@@ -36,7 +36,7 @@ public class Network : MonoBehaviour
         nsConnected,
         nsDisconnecting,
     };
-
+    public static Network instance;
     public CenturionGame Game;
 
     public const String version = "v 0.0.0";
@@ -64,8 +64,11 @@ public class Network : MonoBehaviour
     public uint CurrentTimestamp { get { return (uint)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds; } }
     public int LocalPlayerUID { get; private set; }
 
+    
+
     private void Start()
     {
+        instance = this;
         Connect();
     }
 

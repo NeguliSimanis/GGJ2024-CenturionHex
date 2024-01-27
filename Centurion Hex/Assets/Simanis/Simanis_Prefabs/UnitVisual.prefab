@@ -1468,9 +1468,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e09d4102d6fc6764aa4019cbf4dfea85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   shouldHighlightComponent: 0
   highlightObject: {fileID: 8544414987852873647}
   highlightComponent: {fileID: 0}
+  characterVisualControl: {fileID: 86619283}
+  tileVisualControl: {fileID: 0}
 --- !u!1 &7285571505188909700
 GameObject:
   m_ObjectHideFlags: 0

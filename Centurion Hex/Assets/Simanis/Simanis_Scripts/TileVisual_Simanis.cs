@@ -26,6 +26,10 @@ public class TileVisual_Simanis : MonoBehaviour
     public Tile tile;
     public GameObject debugTextHolder;
     public TextMeshProUGUI debugText;
+    public int xCoord;
+    public int yCoord;
+
+    public Transform unitTransformPos;
 
 
     public void SetTileVisuals(Tile.TileType type)
