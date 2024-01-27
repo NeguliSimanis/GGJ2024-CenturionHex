@@ -6,3 +6,10 @@ Tile textures used: https://assetstore.unity.com/packages/3d/environments/low-po
 Tile textures: https://lynocs.itch.io/texture-pack
 Army textures: https://assetstore.unity.com/packages/2d/characters/miniature-army-2d-v-1-medieval-style-72935
 Senate model: https://sketchfab.com/3d-models/wk3a-pillar-huth-will-248f30ec54d143079bb105024949c667#download
+UI: https://assetstore.unity.com/packages/2d/gui/icons/a-lot-of-useful-icons-03-127001
+low poly tree: https://assetstore.unity.com/packages/3d/props/exterior/cartoon-low-poly-tree-211305
+flowers and grass: https://assetstore.unity.com/packages/3d/vegetation/plants/flowers-grass-plants-neon3d-239575
+gems (victory points): https://gatoparty.itch.io/gem-pack
+cards: https://ladyluck.itch.io/rpg-card-template
+hamme icon: https://iconscout.com/free-icon/hammer-3858732
+tree icon: https://iconscout.com/free-icon/tree-3352488
