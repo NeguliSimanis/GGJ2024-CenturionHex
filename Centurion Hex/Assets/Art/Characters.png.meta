@@ -272,6 +272,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Characters_Princess
+      rect:
+        serializedVersion: 2
+        x: 823
+        y: 16
+        width: 68
+        height: 166
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 354f691dcff8ceb45baa46ed6773c1de
+      internalID: -841805884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Surveyor
+      rect:
+        serializedVersion: 2
+        x: 901
+        y: 16
+        width: 60
+        height: 166
+      alignment: 9
+      pivot: {x: 0.45000002, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19ed1a30a9452014993be4ef8b8d2b62
+      internalID: -944406494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -286,6 +328,8 @@ TextureImporter:
       Characters_Scout: -1722362154
       Characters_Hag: -671610225
       Characters_Legionary: 441824873
+      Surveyor: -944406494
+      Characters_Princess: -841805884
       Characters_Raptor: -248414012
       Characters_Bartender: 12903134
       Characters_Arbalest: -1066041663
