@@ -22,13 +22,13 @@ public class TileSpawner_Simanis : MonoBehaviour
 
     private void Start()
     {
-        centurionBoard = centurionGame.Board;
+       
         //SpawnTiles();
     }
 
     public void SpawnTiles()
     {
-
+        centurionBoard = centurionGame.Board;
 
         // Get the dimensions of the array
         int rows = centurionBoard.Tiles.GetLength(0);
