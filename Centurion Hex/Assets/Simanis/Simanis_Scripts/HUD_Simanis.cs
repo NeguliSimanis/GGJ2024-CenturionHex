@@ -8,6 +8,9 @@ public class HUD_Simanis : MonoBehaviour
 {
     public CenturionGame centurionGame;
 
+    public TextMeshProUGUI redTeamIdentifier; // team 0
+    public TextMeshProUGUI blueTeamIdentifier; // team 1
+
     public TextMeshProUGUI generalOrGovernorText;
     public string team0String = "-Team 1-";
     public string team1String = "-Team 2-";
@@ -23,14 +26,35 @@ public class HUD_Simanis : MonoBehaviour
     public TextMeshProUGUI vicPointsTeam0;
     public TextMeshProUGUI vicPointsTeam1;
 
+    private void Start()
+    {
+        //UpdateTeamWealth();
+        //UpdateTurnText();
+    }
+
     public void UpdateTeamWealth()
     {
         goldTeam0.text = centurionGame.Teams[0].Gold.ToString();
         goldTeam1.text = centurionGame.Teams[1].Gold.ToString();
     }
 
+    public void UpdateTurnIDs()
+    {
+        if (centurionGame.PlayingAsRed)
+        {
+            redTeamIdentifier.text = "Team 1 (you)";
+            blueTeamIdentifier.text = "Team 2";
+        }
+        else // (centurionGame.PlayingAsRed)
+        {
+            redTeamIdentifier.text = "Team 1";
+            blueTeamIdentifier.text = "Team 2 (you)";
+        }
+    }
+
     public void UpdateTurnText()
     {
+        UpdateTurnIDs();
         // general
         if (centurionGame.GeneralMove)
         {
