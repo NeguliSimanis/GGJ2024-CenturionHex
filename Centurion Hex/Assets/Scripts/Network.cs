@@ -427,6 +427,9 @@ public class Network : MonoBehaviour
             case Messages.op_buy_character_card:
                 Game.OnCharacterBought(incomingData.readUnsignedInt(), (Team.TeamType)incomingData.readByte());
                 break;
+            case Messages.op_update_gold:
+                Game.OnUpdateGold((Team.TeamType)incomingData.readByte(), incomingData.readByte());
+                break;
             default:
                 UnityEngine.Debug.LogError("Message not handled: " + command);
                 throw new NotImplementedException("Message not handled: " + command);

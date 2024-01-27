@@ -34,6 +34,7 @@ public class CenturionGame : MonoBehaviour
     public UnityEvent onBuildingHurt;
     public UnityEvent onCharacterBought;
     public UnityEvent onBuildingBought;
+    public UnityEvent onUpdateGold;
 
     public Board Board = new Board();
 
@@ -497,5 +498,11 @@ public class CenturionGame : MonoBehaviour
         }
         lastBoughtCharacter = ch;
         onCharacterBought.Invoke();
+    }
+
+    public void OnUpdateGold(Team.TeamType tt, int Gold)
+    {
+        Teams[tt == Team.TeamType.ttRed ? 0 : 1].Gold = Gold;
+        onUpdateGold.Invoke();
     }
 }
