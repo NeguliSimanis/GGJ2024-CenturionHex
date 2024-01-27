@@ -24,7 +24,7 @@ public class TileSpawner_Simanis : MonoBehaviour
         SpawnTiles();
     }
 
-    private void SpawnTiles()
+    public void SpawnTiles()
     {
 
 
@@ -94,4 +94,3 @@ public class TileSpawner_Simanis : MonoBehaviour
         //tileVisual.ShowMessage(row + "." + collumn + "." + tile.tileType);
     }
 }
-
