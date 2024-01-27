@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +27,8 @@ public class Building
 
     public Team Team;
 
+    public uint id;
+
     public BuildingClass Class;
     public BuildingState State;
     public BuildingType Type;
@@ -49,5 +52,22 @@ public class Building
     public virtual void onAttack()
     {
         Health--;//override this for senate to check if shrine is present
+    }
+
+    public void LoadFromNetwork(ByteArray data)
+    {
+        id = data.readUnsignedInt();
+        Class = (BuildingClass)data.readByte();
+        State = (BuildingState)data.readByte();
+        Type = (BuildingType)data.readByte();
+        x = data.readByte();
+        y = data.readByte();
+        requireNextToAlly = data.readBoolean();
+        requiredTileType = (Tile.TileType)data.readByte();
+        price = data.readByte();
+        Name = data.readUTF();
+        Description = data.readUTF();
+        Health = data.readByte();
+        InitialHealth = data.readByte();
     }
 }

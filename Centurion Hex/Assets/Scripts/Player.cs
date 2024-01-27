@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class Player
     }
 
     public PlayerType Type;
+    public string NetworkPlayerID;
     public Team Team;
 
     public int Gold = 2;//initial gold amount
@@ -35,5 +37,11 @@ public class Player
     void Update()
     {
         
+    }
+
+    public void LoadFromNetwork(ByteArray data)
+    {
+        Type = (PlayerType)data.readByte();
+        NetworkPlayerID = data.readUTF();
     }
 }

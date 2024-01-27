@@ -13,10 +13,14 @@ public class Network : MonoBehaviour
 
     public enum Messages
     {
-        op_ping = 0,
-        op_login = 1,
-        op_logged_out = 2,
-        op_game_data = 3
+        op_ping,
+        op_login,
+        op_logged_out,
+        op_game_data,
+        op_game_round_update,
+        op_wealth_from_building,
+        op_move_character,
+        op_cover_tile
     }
 
     public enum NetworkStateEnum
@@ -185,7 +189,7 @@ public class Network : MonoBehaviour
                 }
                 catch (Exception e)
                 {
-                    //Debug.Log("socket disconnected on read " + e.ToString());
+                    Debug.Log("socket disconnected on read " + e.ToString());
                     try
                     {
                         client.Close();
@@ -210,6 +214,7 @@ public class Network : MonoBehaviour
                 case NetworkStateEnum.nsConnected:
                     //uiController.SetConnectingOverlay(false); // Wait login without disabling
                     outgoingData.writeByte((byte)Messages.op_login);
+                    outgoingData.writeUTF(SystemInfo.deviceUniqueIdentifier);
                     //outgoingData.writeUnsignedInt(userid);
                     //outgoingData.writeUnsignedInt(timestamp);
                     //outgoingData.writeUTF(hash);
@@ -365,6 +370,18 @@ public class Network : MonoBehaviour
                     //InvokeEventWithData(onGameData, command, incomingData);
                 }
                 break;
+            case Messages.op_game_round_update:
+                Game.OnRoundUpdate(incomingData.readBoolean(), incomingData.readBoolean(), (CenturionGame.RoundState)incomingData.readByte());
+                break;
+            case Messages.op_wealth_from_building:
+                Game.OnWealthFromBuilding((Team.TeamType)incomingData.readByte(), incomingData.readByte(), incomingData.readUnsignedInt());
+                break;
+            case Messages.op_move_character:
+                Game.OnCharacterMoved(incomingData.readUnsignedInt(), incomingData.readByte(), incomingData.readByte(), incomingData.readByte());
+                break;
+            case Messages.op_cover_tile:
+                Game.OnTileCovered(incomingData.readByte(), incomingData.readByte(), (TileCover.CoverType)incomingData.readByte(), (TileCover.BonusType)incomingData.readByte());
+                break;
             default:
                 UnityEngine.Debug.LogError("Message not handled: " + command);
                 throw new NotImplementedException("Message not handled: " + command);
@@ -469,4 +486,13 @@ public class Network : MonoBehaviour
     }
 
     #endregion  // ~GameNetworkEvents
+
+    public void MoveCharacter(uint characterId, int x, int y)
+    {
+        outgoingData.writeByte((byte)Messages.op_move_character);
+        outgoingData.writeUnsignedInt(characterId);
+        outgoingData.writeByte((byte)x);
+        outgoingData.writeByte((byte)y);
+        Send("move_character");
+    }
 }
