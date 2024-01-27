@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HUD_Simanis : MonoBehaviour
 {
@@ -43,13 +44,17 @@ public class HUD_Simanis : MonoBehaviour
     [Header("end turn")]
     public EndTurnButton_Simanis endTurnButton;
 
+    public float listenForMoveSuccessDuration = 0.03f;
+    public bool isListeningToMoveSuccess = false;
+    private float moveStartTime;
+
     private void Start()
     {
         //UpdateTeamWealth();
         //UpdateTurnText();
     }
 
-    public void UnitMoveComplete()
+    public void ListenToRaycast()
     {
         processRaycast = true;
     }
@@ -70,7 +75,7 @@ public class HUD_Simanis : MonoBehaviour
             // character trying to interact with a tile
             if (raycastInteract.type == RaycastInteract.Type.Tile)
             {
-               
+
                 interactionTarget = raycastInteract;
                 raycastInteract.SetHighlight(true);
             }
@@ -123,8 +128,53 @@ public class HUD_Simanis : MonoBehaviour
             x: xPos, y: yPos);
     }
 
+    public void ClearHighlights()
+    {
+        lookingForExtraInteractionTarget = false;
+        currSelection = RaycastInteract.Type.Null;
+        if (interactionTarget)
+        {
+            interactionTarget.SetHighlight(false);
+            interactionTarget = null;
+        }
+        if (oldHighlight)
+        {
+            oldHighlight.SetHighlight(false);
+            oldHighlight = null;
+        }
+        ListenToRaycast();
+    }
+
+    public void ReloadScene()
+    {
+        int activeSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Load the active scene again
+        SceneManager.LoadScene(activeSceneIndex);
+    }
+
     public void Update()
     {
+        if (Input.GetMouseButtonDown(1))
+        {
+            ClearHighlights();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            // Call the function to reload the active scene
+            ReloadScene();
+        }
+
+        if (isListeningToMoveSuccess)
+        {
+            if (Time.time > listenForMoveSuccessDuration + moveStartTime)
+            {
+                isListeningToMoveSuccess = false;
+                ListenToRaycast();
+            }
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             if (oldHighlight != null)
@@ -141,6 +191,8 @@ public class HUD_Simanis : MonoBehaviour
                     return;
                 }
                 lookingForExtraInteractionTarget = true;
+                moveStartTime = Time.time;
+                isListeningToMoveSuccess = true;
             }
         }
     }

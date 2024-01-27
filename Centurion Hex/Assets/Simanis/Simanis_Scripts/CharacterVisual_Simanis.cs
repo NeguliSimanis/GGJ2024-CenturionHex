@@ -36,7 +36,7 @@ public class CharacterVisual_Simanis : MonoBehaviour
     {
         Vector3 target = FindMoveTarget();
         transform.DOMove(target, speed)
-           .SetEase(Ease.InOutQuad).OnComplete(() => hudManager.UnitMoveComplete());
+           .SetEase(Ease.InOutQuad).OnComplete(() => hudManager.ListenToRaycast());
     }
 
     public Vector3 FindMoveTarget()
