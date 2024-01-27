@@ -57,6 +57,7 @@ public class CenturionGame : MonoBehaviour
     public bool UseNetwork = false;
     public uint lastSourceBuilding;
     public int lastWealthAmount;
+    public Character lastCharacterMoved;
 
     CenturionGame()
     {
@@ -292,7 +293,7 @@ public class CenturionGame : MonoBehaviour
         onWealthFromBuilding.Invoke();
     }
 
-    public void OnCharacterMoved(uint characterId, int x, int y)
+    public void OnCharacterMoved(uint characterId, int x, int y, int stepsUsed)
     {
         for(int k = 0; k < BoardCharacters.Count; k++ )
         {
@@ -302,6 +303,8 @@ public class CenturionGame : MonoBehaviour
                 Board.GetTile(x, y).currentCharacter = BoardCharacters[k];
                 BoardCharacters[k].x = x;
                 BoardCharacters[k].y = y;
+                BoardCharacters[k].StepsUsed = stepsUsed;
+                lastCharacterMoved = BoardCharacters[k];
                 break;
             }
         }
