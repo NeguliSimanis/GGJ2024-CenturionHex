@@ -23,6 +23,12 @@ public class HUD_Simanis : MonoBehaviour
     public TextMeshProUGUI vicPointsTeam0;
     public TextMeshProUGUI vicPointsTeam1;
 
+    private void Start()
+    {
+        //UpdateTeamWealth();
+        //UpdateTurnText();
+    }
+
     public void UpdateTeamWealth()
     {
         goldTeam0.text = centurionGame.Teams[0].Gold.ToString();
