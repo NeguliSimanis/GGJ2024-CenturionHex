@@ -21,6 +21,14 @@ public class CenturionGame : MonoBehaviour
     public List<Character> CivilCharacters = new List<Character>();
     public List<Character> BoardCharacters = new List<Character>();
 
+    //all biuldings in deck
+    public List<Building> Buildings = new List<Building>();
+
+    //shortcuts
+    public List<Building> WarBuildings = new List<Building>();
+    public List<Building> CivilBuildings = new List<Building>();
+    public List<Building> BoardBuildings = new List<Building>();
+
     public Team[] Teams = new Team[2];
 
     public bool StartWithRed;//start with random red/blue
@@ -105,6 +113,56 @@ public class CenturionGame : MonoBehaviour
                 Board.GetTile(x, y).currentCharacter = unit;
                 break;
             case Character.CharacterState.csDead:
+                break;
+        }
+    }
+
+    private void addBuilding(Building.BuildingType buildType, int x, int y, Team.TeamType team, Building.BuildingState state)
+    {
+        Building unit = BuildingFactory.CreateBuilding(buildType);
+        unit.x = x;
+        unit.y = y;
+        unit.State = state;
+
+        switch (team)
+        {
+            case Team.TeamType.ttRed:
+                unit.Team = Teams[0];
+                break;
+            case Team.TeamType.ttBlue:
+                unit.Team = Teams[1];
+                break;
+            default:
+                unit.Team = null;
+                break;
+        }
+        Buildings.Add(unit);
+        switch (unit.State)
+        {
+            case Building.BuildingState.bsStack:
+
+                switch(unit.Class)
+                {
+                    case Building.BuildingClass.bcSenate:
+                        unit.Team.Senate = unit;
+                        break;
+                    case Building.BuildingClass.bcCivil:
+                        CivilBuildings.Add(unit);
+                        break;
+                    case Building.BuildingClass.bcWar:
+                        WarBuildings.Add(unit);
+                        break;
+                }
+                break;
+            case Building.BuildingState.bsHand:
+                break;
+            case Building.BuildingState.bsBoard:
+                BoardBuildings.Add(unit);
+                Board.GetTile(x, y).currentBuilding = unit;
+                if (unit.Class == Building.BuildingClass.bcSenate)
+                    unit.Team.Senate = unit;
+                break;
+            case Building.BuildingState.bsDead:
                 break;
         }
     }
