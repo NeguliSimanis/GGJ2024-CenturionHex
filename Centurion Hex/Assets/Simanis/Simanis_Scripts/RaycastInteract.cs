@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class RaycastInteract : MonoBehaviour
 {
-    public GameObject highlight;
+    public bool shouldHighlightComponent = false;
+    public GameObject highlightObject;
+    public Outline highlightComponent;
 
     private void Start()
     {
-        highlight.SetActive(false);
+        if (!shouldHighlightComponent)
+        {
+            highlightObject.SetActive(false);
+        }
+        else
+        {
+            highlightComponent.enabled = false;
+        }
     }
 
     public void ToggleHighlight()
     {
-        highlight.SetActive(!highlight.activeInHierarchy);
+        if (shouldHighlightComponent)
+        {
+            highlightComponent.enabled = !highlightComponent.enabled;
+            return;
+        }
+        highlightObject.SetActive(!highlightObject.activeInHierarchy);
     }
 }
