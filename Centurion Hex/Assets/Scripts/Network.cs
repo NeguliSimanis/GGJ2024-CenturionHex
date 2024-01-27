@@ -376,7 +376,7 @@ public class Network : MonoBehaviour
                 Game.OnWealthFromBuilding((Team.TeamType)incomingData.readByte(), incomingData.readByte(), incomingData.readUnsignedInt());
                 break;
             case Messages.op_move_character:
-                Game.OnCharacterMoved(incomingData.readUnsignedInt(), incomingData.readByte(), incomingData.readByte());
+                Game.OnCharacterMoved(incomingData.readUnsignedInt(), incomingData.readByte(), incomingData.readByte(), incomingData.readByte());
                 break;
             default:
                 UnityEngine.Debug.LogError("Message not handled: " + command);
