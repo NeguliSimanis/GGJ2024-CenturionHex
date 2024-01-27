@@ -18,7 +18,8 @@ public class Network : MonoBehaviour
         op_logged_out,
         op_game_data,
         op_game_round_update,
-        op_wealth_from_building
+        op_wealth_from_building,
+        op_move_character,
     }
 
     public enum NetworkStateEnum
@@ -374,6 +375,9 @@ public class Network : MonoBehaviour
             case Messages.op_wealth_from_building:
                 Game.OnWealthFromBuilding((Team.TeamType)incomingData.readByte(), incomingData.readByte(), incomingData.readUnsignedInt());
                 break;
+            case Messages.op_move_character:
+                Game.OnCharacterMoved(incomingData.readUnsignedInt(), incomingData.readByte(), incomingData.readByte());
+                break;
             default:
                 UnityEngine.Debug.LogError("Message not handled: " + command);
                 throw new NotImplementedException("Message not handled: " + command);
@@ -478,4 +482,13 @@ public class Network : MonoBehaviour
     }
 
     #endregion  // ~GameNetworkEvents
+
+    public void MoveCharacter(uint characterId, int x, int y)
+    {
+        outgoingData.writeByte((byte)Messages.op_move_character);
+        outgoingData.writeUnsignedInt(characterId);
+        outgoingData.writeByte((byte)x);
+        outgoingData.writeByte((byte)y);
+        Send("move_character");
+    }
 }

@@ -24,6 +24,7 @@ public class CenturionGame : MonoBehaviour
     public UnityEvent onGameReload;
     public UnityEvent onRoundStateChange;
     public UnityEvent onWealthFromBuilding;
+    public UnityEvent onCharacterMoved;
 
     public Board Board = new Board();
 
@@ -272,6 +273,14 @@ public class CenturionGame : MonoBehaviour
         RedMove = _RedMove;
         GeneralMove = _GeneralMove;
         mRoundState = _roundState;
+        if(mRoundState == RoundState.rsMovingCharacters)
+        {
+            //reset moving character move values
+            for(int k =0; k < BoardCharacters.Count; k++)
+            {
+                BoardCharacters[k].StepsUsed = 0;
+            }
+        }
         onRoundStateChange.Invoke();
     }
 
@@ -281,5 +290,21 @@ public class CenturionGame : MonoBehaviour
         lastSourceBuilding = sourceBuilding;
         lastWealthAmount = wealth;
         onWealthFromBuilding.Invoke();
+    }
+
+    public void OnCharacterMoved(uint characterId, int x, int y)
+    {
+        for(int k = 0; k < BoardCharacters.Count; k++ )
+        {
+            if(BoardCharacters[k].id == characterId )
+            {
+                Board.GetTile(BoardCharacters[k].x, BoardCharacters[k].y).currentCharacter = null;
+                Board.GetTile(x, y).currentCharacter = BoardCharacters[k];
+                BoardCharacters[k].x = x;
+                BoardCharacters[k].y = y;
+                break;
+            }
+        }
+        onCharacterMoved.Invoke();
     }
 }
