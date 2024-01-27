@@ -88,6 +88,7 @@ public class TileSpawner_Simanis : MonoBehaviour
     {   
         GameObject newTileObject = Instantiate(tilePrefab, parent);
         newTileObject.transform.position = spawnPos;
+
         TileVisual_Simanis tileVisual = newTileObject.GetComponent<TileVisual_Simanis>();
         tileVisual.tile = tile;
         tileVisual.SetTileVisuals(tile.tileType);
