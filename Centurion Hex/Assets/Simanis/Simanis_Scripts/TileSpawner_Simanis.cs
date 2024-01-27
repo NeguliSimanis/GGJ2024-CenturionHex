@@ -17,11 +17,13 @@ public class TileSpawner_Simanis : MonoBehaviour
     public float rowOffsetX = 0.5f;
     public float rowOffsetZ = -0.27f;
 
+    [Header("CHARACTERS")]
+    public GameObject characterPrefab;
 
     private void Start()
     {
         centurionBoard = centurionGame.Board;
-        SpawnTiles();
+        //SpawnTiles();
     }
 
     public void SpawnTiles()
@@ -83,6 +85,17 @@ public class TileSpawner_Simanis : MonoBehaviour
         }
     }
 
+    public void SpawnCharacterOnTile(Tile tile, Vector3 spawnPos, Transform parent)
+    {
+        if (tile.currentCharacter == null)
+            return;
+        GameObject newChar = Instantiate(characterPrefab, parent);
+
+        CharacterVisual_Simanis characterVisual = newChar.GetComponent<CharacterVisual_Simanis>();
+        characterVisual.character = tile.currentCharacter;
+        characterVisual.SetCharacterVisuals(tile.currentCharacter.type);
+        Debug.Log("spawnin " + tile.currentCharacter.type);
+    }
 
     public void SpawnTileVisual(Vector3 spawnPos, Tile tile, int row, int collumn, Transform parent)
     {   
@@ -92,6 +105,8 @@ public class TileSpawner_Simanis : MonoBehaviour
         TileVisual_Simanis tileVisual = newTileObject.GetComponent<TileVisual_Simanis>();
         tileVisual.tile = tile;
         tileVisual.SetTileVisuals(tile.tileType);
+
+        SpawnCharacterOnTile(tile, spawnPos, newTileObject.transform);
         //tileVisual.ShowMessage(row + "." + collumn + "." + tile.tileType);
     }
 }
