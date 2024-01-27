@@ -230,6 +230,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Characters_Scout
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 16
+        width: 59
+        height: 164
+      alignment: 9
+      pivot: {x: 0.4915254, y: 0.0060975607}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d1ed5955b3d4794ab80faa4a11b1162
+      internalID: -1722362154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Characters_TaxCollector
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 16
+        width: 55
+        height: 165
+      alignment: 9
+      pivot: {x: 0.43636364, y: 0.006060606}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e680e20cedc84dd4290ab178c49ac2ab
+      internalID: -473627714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -241,11 +283,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Characters_Scout: -1722362154
       Characters_Hag: -671610225
       Characters_Legionary: 441824873
       Characters_Raptor: -248414012
       Characters_Bartender: 12903134
       Characters_Arbalest: -1066041663
+      Characters_TaxCollector: -473627714
       Characters_Senator: 2010602105
   spritePackingTag: 
   pSDRemoveMatte: 0
