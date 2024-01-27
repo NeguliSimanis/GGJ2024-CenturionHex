@@ -63,6 +63,18 @@ public class HUD_Simanis : MonoBehaviour
 
     public void UpdateCurHighlight(RaycastInteract raycastInteract)
     {
+        // only highlight stuff if its ur turn
+        if (centurionGame.RedMove && !centurionGame.PlayingAsRed)
+        {
+            ClearHighlights();
+            return;
+        }
+        if (!centurionGame.RedMove && centurionGame.PlayingAsRed)
+        {
+            ClearHighlights();
+            return;
+        }
+
         if (!processRaycast)
             return;
 
