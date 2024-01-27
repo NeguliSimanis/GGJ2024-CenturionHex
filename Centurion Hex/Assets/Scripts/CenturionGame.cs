@@ -32,6 +32,8 @@ public class CenturionGame : MonoBehaviour
     public UnityEvent onPointsFromBuilding;
     public UnityEvent onCharacterHurt;
     public UnityEvent onBuildingHurt;
+    public UnityEvent onCharacterBought;
+    public UnityEvent onBuildingBought;
 
     public Board Board = new Board();
 
@@ -61,12 +63,32 @@ public class CenturionGame : MonoBehaviour
         return null;
     }
 
+    public Building GetBuilding(uint id)
+    {
+        for (int k = 0; k < Buildings.Count; k++)
+        {
+            if (Buildings[k].id == id)
+                return Buildings[k];
+        }
+        return null;
+    }
+
     public Character GetBoardCharacter(uint id )
     {
         for (int k = 0; k < BoardCharacters.Count; k++)
         {
             if (BoardCharacters[k].id == id)
                 return BoardCharacters[k];
+        }
+        return null;
+    }
+
+    public Character GetCharacter(uint id)
+    {
+        for (int k = 0; k < Characters.Count; k++)
+        {
+            if (Characters[k].id == id)
+                return Characters[k];
         }
         return null;
     }
@@ -92,6 +114,8 @@ public class CenturionGame : MonoBehaviour
     public Tile lastTileCovered;
     public Character lastHurtCharacter;
     public Building lastHurtBuilding;
+    public Building lastBoughtBuilding;
+    public Character lastBoughtCharacter;
 
     CenturionGame()
     {
@@ -440,5 +464,38 @@ public class CenturionGame : MonoBehaviour
         }
         lastHurtBuilding = ch;
         onBuildingHurt.Invoke();
+    }
+
+    public void OnBuildingBought(uint bid, Team.TeamType tt )
+    {
+        Building ch = GetBuilding(bid);
+        ch.State = BuildingState.bsHand;
+        ch.Team = tt == Team.TeamType.ttRed ? Teams[0] : Teams[1];
+        if(ch.Class == Building.BuildingClass.bcWar)
+        {
+            ch.Team.General.StandByBuildings.Add(ch);
+        }
+        else
+        {
+            ch.Team.Governor.StandByBuildings.Add(ch);
+        }
+        lastBoughtBuilding = ch;
+        onBuildingBought.Invoke();
+    }
+    public void OnCharacterBought(uint bid, Team.TeamType tt)
+    {
+        Character ch = GetCharacter(bid);
+        ch.state = CharacterState.csHand;
+        ch.Team = tt == Team.TeamType.ttRed ? Teams[0] : Teams[1];
+        if (ch.isWarUnit)
+        {
+            ch.Team.General.StandByCharacters.Add(ch);
+        }
+        else
+        {
+            ch.Team.Governor.StandByCharacters.Add(ch);
+        }
+        lastBoughtCharacter = ch;
+        onCharacterBought.Invoke();
     }
 }

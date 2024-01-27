@@ -421,6 +421,12 @@ public class Network : MonoBehaviour
             case Messages.op_building_hurt:
                 Game.OnBuildingHurt(incomingData.readUnsignedInt(), incomingData.readByte());
                 break;
+            case Messages.op_buy_building_card:
+                Game.OnBuildingBought(incomingData.readUnsignedInt(), (Team.TeamType)incomingData.readByte());
+                break;
+            case Messages.op_buy_character_card:
+                Game.OnCharacterBought(incomingData.readUnsignedInt(), (Team.TeamType)incomingData.readByte());
+                break;
             default:
                 UnityEngine.Debug.LogError("Message not handled: " + command);
                 throw new NotImplementedException("Message not handled: " + command);
@@ -548,5 +554,16 @@ public class Network : MonoBehaviour
     {
         outgoingData.writeByte((byte)Messages.op_end_move);
         Send("end_move");
+    }
+
+    public void BuyBuilding()
+    {
+        outgoingData.writeByte((byte)Messages.op_buy_building_card);
+        Send("buy_building");
+    }
+    public void BuyCharacter()
+    {
+        outgoingData.writeByte((byte)Messages.op_buy_character_card);
+        Send("buy_character");
     }
 }
