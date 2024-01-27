@@ -18,6 +18,8 @@ public class CharacterVisual_Simanis : MonoBehaviour
     public Character character;
     public TileSpawner_Simanis tileSpawner;
     public HUD_Simanis hudManager;
+    public bool isMyUnit;
+    public GameObject activePrefab;
 
     public void SetCharacterVisuals(Character.CharacterType type, TileSpawner_Simanis newTileSpawner)
     {
@@ -28,13 +30,49 @@ public class CharacterVisual_Simanis : MonoBehaviour
             if (prefab.type != type)
                 prefab.gameObject.SetActive(false);
             else
+            {
+                activePrefab = prefab.gameObject;
                 prefab.gameObject.SetActive(true);
+            }
         }
+        if (IsMyUnit())
+            FlipCharacter();
+    }
+
+    public bool IsMyUnit()
+    {
+        bool isMy = false;
+        CenturionGame centurionGame = tileSpawner.centurionGame;
+
+        if (character.Team.Type == Team.TeamType.ttBlue && !centurionGame.PlayingAsRed)
+        {
+            isMy = true;
+            isMyUnit = true;
+        }
+        if (character.Team.Type == Team.TeamType.ttRed && centurionGame.PlayingAsRed)
+        {
+            isMy = true;
+            isMyUnit = true;
+        }
+        return isMy;
+    }
+
+    public void FlipCharacter()
+    {
+        
+        Vector3 currentScale = activePrefab.transform.localScale;
+
+        // Flip the x scale by negating its value
+        currentScale.x *= -1;
+
+        // Apply the new scale to the object
+        activePrefab.transform.localScale = currentScale;
     }
 
     public void MoveCharacter(float speed)
     {
         Vector3 target = FindMoveTarget();
+        Debug.Log("MOVE CALLED");
         transform.DOMove(target, speed)
            .SetEase(Ease.InOutQuad).OnComplete(() => hudManager.ListenToRaycast());
     }
@@ -49,7 +87,7 @@ public class CharacterVisual_Simanis : MonoBehaviour
                 && tileVisual.yCoord == character.y)
             {
                 moveTarget = tileVisual.unitTransformPos.position;
-                Debug.Log("COD FIND");
+                Debug.Log("COD FIND " + tileVisual.xCoord + "." + tileVisual.yCoord);
             }
         }
 
