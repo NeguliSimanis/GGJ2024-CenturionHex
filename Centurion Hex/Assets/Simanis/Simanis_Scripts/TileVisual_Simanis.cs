@@ -23,6 +23,7 @@ public class TilePrefab_Simanis
 
 public class TileVisual_Simanis : MonoBehaviour
 {
+    public bool allowFlip = false;
     public GameObject tileCenter;
 
     public TilePrefab_Simanis[] tilePrefabs;
@@ -39,6 +40,11 @@ public class TileVisual_Simanis : MonoBehaviour
     {
         Tile.TileType type = tile.tileType;
         if (tile.tileCover.Type == TileCover.CoverType.ctTransparent)
+        {
+            DiscoverTile();
+            return;
+        }
+        if (tile.tileCover.Type != TileCover.CoverType.ctUndefined)
         {
             DiscoverTile();
             return;
@@ -66,6 +72,8 @@ public class TileVisual_Simanis : MonoBehaviour
 
     public void FlipTile()
     {
+        if (!allowFlip)
+            return;
         Quaternion currentRotation = tileCenter.transform.rotation;
 
         // Set the rotation on the y-axis to 180 degrees
