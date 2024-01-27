@@ -20,6 +20,9 @@ public class TileSpawner_Simanis : MonoBehaviour
     [Header("CHARACTERS")]
     public GameObject characterPrefab;
 
+    [Header("Buildings")]
+    public GameObject buildingPrefab;
+
     private void Start()
     {
        
@@ -97,6 +100,17 @@ public class TileSpawner_Simanis : MonoBehaviour
         Debug.Log("spawnin " + tile.currentCharacter.type);
     }
 
+    public void SpawnBuildingOnTile(Tile tile, Transform parent)
+    {
+        if (tile.currentBuilding == null)
+            return;
+        GameObject newBuild = Instantiate(buildingPrefab, parent);
+
+        BuildingVisual_Simanis buildingVisual = newBuild.GetComponent<BuildingVisual_Simanis>();
+        buildingVisual.building = tile.currentBuilding;
+        buildingVisual.SetBuildingVisuals(tile.currentBuilding.Type);
+    }
+
     public void SpawnTileVisual(Vector3 spawnPos, Tile tile, int row, int collumn, Transform parent)
     {   
         GameObject newTileObject = Instantiate(tilePrefab, parent);
@@ -107,6 +121,7 @@ public class TileSpawner_Simanis : MonoBehaviour
         tileVisual.SetTileVisuals(tile.tileType);
 
         SpawnCharacterOnTile(tile, spawnPos, newTileObject.transform);
+        SpawnBuildingOnTile(tile, newTileObject.transform);
         //tileVisual.ShowMessage(row + "." + collumn + "." + tile.tileType);
     }
 }
