@@ -24,6 +24,7 @@ public class Network : MonoBehaviour
         op_wealth_from_cover,
         op_point_from_cover,
         op_point_from_building,
+        op_character_hurt
     }
 
     public enum NetworkStateEnum
@@ -393,6 +394,9 @@ public class Network : MonoBehaviour
                 break;
             case Messages.op_point_from_building:
                 Game.OnPointFromBuilding((Team.TeamType)incomingData.readByte(), incomingData.readByte(), incomingData.readUnsignedInt());
+                break;
+            case Messages.op_character_hurt:
+                Game.OnCharacterHurt(incomingData.readUnsignedInt(), incomingData.readByte());
                 break;
             default:
                 UnityEngine.Debug.LogError("Message not handled: " + command);
