@@ -38,6 +38,7 @@ public class TileSpawner_Simanis : MonoBehaviour
     {
         if (centurionGame.PlayingAsRed)
             return;
+        tileParent.parent = tileCenter.transform;
         Quaternion currentRotation = tileCenter.transform.rotation;
 
         // Set the rotation on the y-axis to 180 degrees
@@ -49,7 +50,7 @@ public class TileSpawner_Simanis : MonoBehaviour
 
     public void SpawnTiles()
     {
-        RotateBoard();
+        
         centurionBoard = centurionGame.Board;
 
         // Get the dimensions of the array
@@ -105,6 +106,7 @@ public class TileSpawner_Simanis : MonoBehaviour
             rowParents[i].transform.position = new Vector3(newPosX, oldPos.y,
                 oldPos.z + rowOffsetZ*i);
         }
+        RotateBoard();
     }
 
     public void SpawnCharacterOnTile(Tile tile, Vector3 spawnPos, Transform parent)
@@ -138,6 +140,10 @@ public class TileSpawner_Simanis : MonoBehaviour
 
         TileVisual_Simanis tileVisual = newTileObject.GetComponent<TileVisual_Simanis>();
         tileVisual.tile = tile;
+        if (!centurionGame.PlayingAsRed)
+        {
+            tileVisual.FlipTile();
+        }
         tileVisual.xCoord = row;
         tileVisual.yCoord = collumn;
         tileVisual.SetTileVisuals(tile.tileType);

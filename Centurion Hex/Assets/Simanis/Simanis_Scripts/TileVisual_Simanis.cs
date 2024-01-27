@@ -22,6 +22,8 @@ public class TilePrefab_Simanis
 
 public class TileVisual_Simanis : MonoBehaviour
 {
+    public GameObject tileCenter;
+
     public TilePrefab_Simanis[] tilePrefabs;
     public Tile tile;
     public GameObject debugTextHolder;
@@ -41,6 +43,17 @@ public class TileVisual_Simanis : MonoBehaviour
             else
                 prefab.gameObject.SetActive(true);
         }
+    }
+
+    public void FlipTile()
+    {
+        Quaternion currentRotation = tileCenter.transform.rotation;
+
+        // Set the rotation on the y-axis to 180 degrees
+        currentRotation.eulerAngles = new Vector3(0, 180, 0);
+
+        // Apply the new rotation to the object
+        tileCenter.transform.rotation = currentRotation;
     }
 
     public void ShowMessage(string message)

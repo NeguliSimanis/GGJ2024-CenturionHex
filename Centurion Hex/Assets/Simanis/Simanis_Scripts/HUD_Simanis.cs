@@ -120,7 +120,11 @@ public class HUD_Simanis : MonoBehaviour
         Debug.Log("try to move to ");
 
         // char id  oldHighlight.type == RaycastInteract.Type.Character
-        uint id = oldHighlight.characterVisualControl.character.id;
+        uint id = 0;
+        if (oldHighlight)
+            id = oldHighlight.characterVisualControl.character.id;
+        else
+            ClearHighlights();
 
         //  target x y interactionTarget.type == RaycastInteract.Type.Tile
         int xPos = interactionTarget.tileVisualControl.xCoord;

@@ -13,7 +13,7 @@ public class CharacterVisualPrefab
 
 public class CharacterVisual_Simanis : MonoBehaviour
 {
-
+    public bool isDead = false;
     public CharacterVisualPrefab[] charPrefabs;
     public Character character;
     public TileSpawner_Simanis tileSpawner;
@@ -67,6 +67,28 @@ public class CharacterVisual_Simanis : MonoBehaviour
 
         // Apply the new scale to the object
         activePrefab.transform.localScale = currentScale;
+    }
+
+    public void WoundCharacter()
+    {
+        if (isDead)
+            return;
+        if (character.Health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        isDead = true;
+        tileSpawner.allCharacters.Remove(this);
+        if (hudManager.oldHighlight.type == RaycastInteract.Type.Character
+            && hudManager.oldHighlight.characterVisualControl == this)
+        {
+            hudManager.ClearHighlights();
+        }
+        Destroy(gameObject);
     }
 
     public void MoveCharacter(float speed)
