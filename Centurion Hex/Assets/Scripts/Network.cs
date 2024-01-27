@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System;
 using UnityEngine.Events;
 using UnityEngine.Networking;
+using UnityEngine.TextCore.Text;
 
 public class Network : MonoBehaviour
 {
@@ -24,7 +25,8 @@ public class Network : MonoBehaviour
         op_wealth_from_cover,
         op_point_from_cover,
         op_point_from_building,
-        op_character_hurt
+        op_character_hurt,
+        op_end_move
     }
 
     public enum NetworkStateEnum
@@ -510,5 +512,11 @@ public class Network : MonoBehaviour
         outgoingData.writeByte((byte)x);
         outgoingData.writeByte((byte)y);
         Send("move_character");
+    }
+
+    public void EndMove()
+    {
+        outgoingData.writeByte((byte)Messages.op_end_move);
+        Send("end_move");
     }
 }
