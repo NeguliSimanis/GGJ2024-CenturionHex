@@ -102,6 +102,7 @@ public class CenturionGame : MonoBehaviour
                 break;
             case Character.CharacterState.csBoard:
                 BoardCharacters.Add(unit);
+                Board.GetTile(x, y).currentCharacter = unit;
                 break;
             case Character.CharacterState.csDead:
                 break;
