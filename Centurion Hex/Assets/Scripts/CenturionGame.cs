@@ -18,7 +18,7 @@ public class CenturionGame : MonoBehaviour
         rsManagement,
     };
 
-    RoundState mRoundState;
+    public RoundState mRoundState;
 
     public static CenturionGame Instance { get; private set; }
     public UnityEvent onGameReload;
@@ -306,6 +306,7 @@ public class CenturionGame : MonoBehaviour
 
     public void OnRoundUpdate(bool _RedMove, bool _GeneralMove, RoundState _roundState)
     {
+        Debug.Log("round state updated");
         RedMove = _RedMove;
         GeneralMove = _GeneralMove;
         mRoundState = _roundState;
