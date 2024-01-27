@@ -120,7 +120,11 @@ public class HUD_Simanis : MonoBehaviour
         Debug.Log("try to move to ");
 
         // char id  oldHighlight.type == RaycastInteract.Type.Character
-        uint id = oldHighlight.characterVisualControl.character.id;
+        uint id = 0;
+        if (oldHighlight)
+            id = oldHighlight.characterVisualControl.character.id;
+        else
+            ClearHighlights();
 
         //  target x y interactionTarget.type == RaycastInteract.Type.Tile
         int xPos = interactionTarget.tileVisualControl.xCoord;
@@ -248,15 +252,21 @@ public class HUD_Simanis : MonoBehaviour
                 endTurnButton.endButtonTeam1.SetActive(true);
                 endTurnButton.endButtonTeam0.SetActive(false);
                 teamTurnText.text = blueTeamIdentifierText;
-
-                //switch(centurionGame.)
-
             }
             else
             {
                 endTurnButton.gameObject.SetActive(false);
                 teamTurnText.text = blueTeamIdentifierTextEnemy;
             }
+        }
+        switch (centurionGame.mRoundState)
+        {
+            case CenturionGame.RoundState.rsManagement:
+                teamTurnText.text += managementPhaseSuffix;
+                break;
+            default:
+                teamTurnText.text += movePhaseSuffix;
+                break;
         }
     }
 }
