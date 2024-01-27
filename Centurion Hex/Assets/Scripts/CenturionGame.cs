@@ -25,6 +25,7 @@ public class CenturionGame : MonoBehaviour
     public UnityEvent onRoundStateChange;
     public UnityEvent onWealthFromBuilding;
     public UnityEvent onCharacterMoved;
+    public UnityEvent onTileCovered;
 
     public Board Board = new Board();
 
@@ -58,6 +59,7 @@ public class CenturionGame : MonoBehaviour
     public uint lastSourceBuilding;
     public int lastWealthAmount;
     public Character lastCharacterMoved;
+    public Tile lastTileCovered;
 
     CenturionGame()
     {
@@ -309,5 +311,13 @@ public class CenturionGame : MonoBehaviour
             }
         }
         onCharacterMoved.Invoke();
+    }
+
+    public void OnTileCovered(int x, int y, TileCover.CoverType ct, TileCover.BonusType bt )
+    {
+        Board.GetTile(x, y).tileCover.Type = ct;
+        Board.GetTile(x, y).tileCover.Bonus = bt;
+        lastTileCovered = Board.GetTile(x, y);
+        onTileCovered.Invoke();
     }
 }
