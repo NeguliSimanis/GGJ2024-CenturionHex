@@ -19,6 +19,7 @@ public class Team
 
     public Building Senate;
     public int Gold;
+    public int VictoryPoints;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +47,7 @@ public class Team
     {
         Type = (TeamType)data.readByte();
         Gold = data.readByte();
+        VictoryPoints = data.readByte();
         Governor.LoadFromNetwork(data);
         General.LoadFromNetwork(data);
     }

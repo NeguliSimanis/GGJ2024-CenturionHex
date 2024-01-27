@@ -14,6 +14,7 @@ public class Player
     }
 
     public PlayerType Type;
+    public string NetworkPlayerID;
     public Team Team;
 
     public int Gold = 2;//initial gold amount
@@ -41,5 +42,6 @@ public class Player
     public void LoadFromNetwork(ByteArray data)
     {
         Type = (PlayerType)data.readByte();
+        NetworkPlayerID = data.readUTF();
     }
 }

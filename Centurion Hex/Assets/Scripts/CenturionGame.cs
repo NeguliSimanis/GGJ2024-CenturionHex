@@ -5,12 +5,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using static CenturionGame;
 using static Character;
 
 public class CenturionGame : MonoBehaviour
 {
+    public enum RoundState
+    {
+        rsNone,
+        rsGeneratingWealth,
+        rsMovingCharacters,
+        rsManagement,
+    };
+
+    RoundState mRoundState;
+
     public static CenturionGame Instance { get; private set; }
     public UnityEvent onGameReload;
+    public UnityEvent onRoundStateChange;
+    public UnityEvent onWealthFromBuilding;
 
     public Board Board = new Board();
 
@@ -41,6 +54,8 @@ public class CenturionGame : MonoBehaviour
     public bool PlayingAsGovernor = true;
 
     public bool UseNetwork = false;
+    public uint lastSourceBuilding;
+    public int lastWealthAmount;
 
     CenturionGame()
     {
@@ -69,6 +84,8 @@ public class CenturionGame : MonoBehaviour
         StartWithRed = data.readBoolean();
         RedMove = data.readBoolean();
         GeneralMove = data.readBoolean();
+        mRoundState = (RoundState)data.readByte();
+
         Board.LoadFromNetwork(data);
         //load characters
         int numChars = data.readByte();
@@ -88,8 +105,12 @@ public class CenturionGame : MonoBehaviour
         }
 
         Teams[0].LoadFromNetwork(data);
-        Teams[0].LoadFromNetwork(data); 
+        Teams[1].LoadFromNetwork(data);
         
+        PlayingAsRed = (Teams[0].Governor.NetworkPlayerID == SystemInfo.deviceUniqueIdentifier) || (Teams[0].General.NetworkPlayerID == SystemInfo.deviceUniqueIdentifier);
+        PlayingAsGeneral = (Teams[0].General.NetworkPlayerID == SystemInfo.deviceUniqueIdentifier) || (Teams[1].General.NetworkPlayerID == SystemInfo.deviceUniqueIdentifier);
+        PlayingAsGovernor = (Teams[0].Governor.NetworkPlayerID == SystemInfo.deviceUniqueIdentifier) || (Teams[1].Governor.NetworkPlayerID == SystemInfo.deviceUniqueIdentifier);
+
         onGameReload.Invoke();
     }
 
@@ -244,5 +265,21 @@ public class CenturionGame : MonoBehaviour
                 RedMove = false;
             }
         }
+    }
+
+    public void OnRoundUpdate(bool _RedMove, bool _GeneralMove, RoundState _roundState)
+    {
+        RedMove = _RedMove;
+        GeneralMove = _GeneralMove;
+        mRoundState = _roundState;
+        onRoundStateChange.Invoke();
+    }
+
+    public void OnWealthFromBuilding(Team.TeamType tt, int wealth, uint sourceBuilding)
+    {
+        Teams[tt == Team.TeamType.ttRed ? 0 : 1].Gold += wealth;
+        lastSourceBuilding = sourceBuilding;
+        lastWealthAmount = wealth;
+        onWealthFromBuilding.Invoke();
     }
 }

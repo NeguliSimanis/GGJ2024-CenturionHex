@@ -27,6 +27,8 @@ public class Building
 
     public Team Team;
 
+    public uint id;
+
     public BuildingClass Class;
     public BuildingState State;
     public BuildingType Type;
@@ -54,6 +56,7 @@ public class Building
 
     public void LoadFromNetwork(ByteArray data)
     {
+        id = data.readUnsignedInt();
         Class = (BuildingClass)data.readByte();
         State = (BuildingState)data.readByte();
         Type = (BuildingType)data.readByte();
