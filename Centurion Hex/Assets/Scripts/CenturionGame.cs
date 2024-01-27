@@ -29,6 +29,7 @@ public class CenturionGame : MonoBehaviour
     public UnityEvent onWealthFromTile;
     public UnityEvent onPointsFromTile;
     public UnityEvent onPointsFromBuilding;
+    public UnityEvent onCharacterHurt;
 
     public Board Board = new Board();
 
@@ -58,6 +59,16 @@ public class CenturionGame : MonoBehaviour
         return null;
     }
 
+    public Character GetBoardCharacter(uint id )
+    {
+        for (int k = 0; k < BoardCharacters.Count; k++)
+        {
+            if (BoardCharacters[k].id == id)
+                return BoardCharacters[k];
+        }
+        return null;
+    }
+
     public Team[] Teams = new Team[2];
 
     public bool StartWithRed;//start with random red/blue
@@ -77,6 +88,7 @@ public class CenturionGame : MonoBehaviour
     private Tile lastPointTile;
     public Character lastCharacterMoved;
     public Tile lastTileCovered;
+    public Character lastHurtCharacter;
 
     CenturionGame()
     {
@@ -360,5 +372,17 @@ public class CenturionGame : MonoBehaviour
         lastSourceBuilding = GetBoardBuilding(bid);
         lastPointAmount = points;
         onPointsFromBuilding.Invoke();
+    }
+
+    public void OnCharacterHurt(uint charid, int health)
+    {
+        Character ch = GetBoardCharacter(charid);
+        ch.Health = health;
+        if( ch.Health == 0 )
+        {
+            BoardCharacters.Remove(ch);
+        }
+        lastHurtCharacter = ch;
+        onCharacterHurt.Invoke();
     }
 }

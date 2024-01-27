@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using System;
 using UnityEngine.Events;
 using UnityEngine.Networking;
+using UnityEngine.TextCore.Text;
 
 public class Network : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class Network : MonoBehaviour
         op_wealth_from_cover,
         op_point_from_cover,
         op_point_from_building,
+        op_character_hurt,
+        op_end_move
     }
 
     public enum NetworkStateEnum
@@ -33,7 +36,7 @@ public class Network : MonoBehaviour
         nsConnected,
         nsDisconnecting,
     };
-
+    public static Network instance;
     public CenturionGame Game;
 
     public const String version = "v 0.0.0";
@@ -61,8 +64,11 @@ public class Network : MonoBehaviour
     public uint CurrentTimestamp { get { return (uint)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds; } }
     public int LocalPlayerUID { get; private set; }
 
+    
+
     private void Start()
     {
+        instance = this;
         Connect();
     }
 
@@ -394,6 +400,9 @@ public class Network : MonoBehaviour
             case Messages.op_point_from_building:
                 Game.OnPointFromBuilding((Team.TeamType)incomingData.readByte(), incomingData.readByte(), incomingData.readUnsignedInt());
                 break;
+            case Messages.op_character_hurt:
+                Game.OnCharacterHurt(incomingData.readUnsignedInt(), incomingData.readByte());
+                break;
             default:
                 UnityEngine.Debug.LogError("Message not handled: " + command);
                 throw new NotImplementedException("Message not handled: " + command);
@@ -506,5 +515,11 @@ public class Network : MonoBehaviour
         outgoingData.writeByte((byte)x);
         outgoingData.writeByte((byte)y);
         Send("move_character");
+    }
+
+    public void EndMove()
+    {
+        outgoingData.writeByte((byte)Messages.op_end_move);
+        Send("end_move");
     }
 }

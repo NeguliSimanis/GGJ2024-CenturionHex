@@ -4,15 +4,49 @@ using UnityEngine;
 
 public class RaycastInteract : MonoBehaviour
 {
-    public GameObject highlight;
+    public enum Type
+    {
+        Character,
+        Building,
+        Tile,
+        Null
+    }
+    public RaycastInteract.Type type;
+
+    public bool shouldHighlightComponent = false;
+    public GameObject highlightObject;
+    public Outline highlightComponent;
+
+    [Header("char control")]
+   // public bool isCharacter = false;
+    public CharacterVisual_Simanis characterVisualControl;
+
+    [Header("tile control")]
+    //public bool isTile = false;
+    public TileVisual_Simanis tileVisualControl;
+
 
     private void Start()
     {
-        highlight.SetActive(false);
+        if (!shouldHighlightComponent)
+        {
+            highlightObject.SetActive(false);
+        }
+        else
+        {
+            highlightComponent.enabled = false;
+        }
     }
 
-    public void ToggleHighlight()
+  //  public void 
+
+    public void SetHighlight(bool set)
     {
-        highlight.SetActive(!highlight.activeInHierarchy);
+        if (shouldHighlightComponent)
+        {
+            highlightComponent.enabled = set;
+            return;
+        }
+        highlightObject.SetActive(set);
     }
 }

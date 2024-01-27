@@ -27,7 +27,7 @@ public class Raycast_Simanis : MonoBehaviour
             if (hit.collider.gameObject.GetComponent<RaycastInteract>())
             {
                 // Object is being hovered
-                Debug.Log("Mouse is hovering over the object");
+               // Debug.Log("Mouse is hovering over the object");
                 hudManager.UpdateCurHighlight(hit.collider.gameObject.GetComponent<RaycastInteract>());
             }
         }

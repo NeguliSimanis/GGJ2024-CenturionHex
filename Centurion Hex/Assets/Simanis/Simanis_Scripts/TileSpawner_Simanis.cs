@@ -7,6 +7,8 @@ public class TileSpawner_Simanis : MonoBehaviour
 
     public CenturionGame centurionGame;
     private Board centurionBoard;
+
+    [Header("TILES")]
     public GameObject tilePrefab;
     public Transform tileParent;
     public Transform empty;
@@ -16,9 +18,11 @@ public class TileSpawner_Simanis : MonoBehaviour
 
     public float rowOffsetX = 0.5f;
     public float rowOffsetZ = -0.27f;
+    public List<TileVisual_Simanis> allTiles = new List<TileVisual_Simanis>();
 
     [Header("CHARACTERS")]
     public GameObject characterPrefab;
+    public List<CharacterVisual_Simanis> allCharacters = new List<CharacterVisual_Simanis>();
 
     [Header("Buildings")]
     public GameObject buildingPrefab;
@@ -58,7 +62,7 @@ public class TileSpawner_Simanis : MonoBehaviour
                         currTile, row: i, collumn: j,
                         parent: rowParents[j].transform);
                 // Do something with the element (e.g., print it)
-                Debug.Log("Element at position (" + i + ", " + j + "): " + currTile);
+               // Debug.Log("Element at position (" + i + ", " + j + "): " + currTile);
             }
         }
 
@@ -96,7 +100,8 @@ public class TileSpawner_Simanis : MonoBehaviour
 
         CharacterVisual_Simanis characterVisual = newChar.GetComponent<CharacterVisual_Simanis>();
         characterVisual.character = tile.currentCharacter;
-        characterVisual.SetCharacterVisuals(tile.currentCharacter.type);
+        characterVisual.SetCharacterVisuals(tile.currentCharacter.type, this);
+        allCharacters.Add(characterVisual);
         Debug.Log("spawnin " + tile.currentCharacter.type);
     }
 
@@ -118,7 +123,10 @@ public class TileSpawner_Simanis : MonoBehaviour
 
         TileVisual_Simanis tileVisual = newTileObject.GetComponent<TileVisual_Simanis>();
         tileVisual.tile = tile;
+        tileVisual.xCoord = row;
+        tileVisual.yCoord = collumn;
         tileVisual.SetTileVisuals(tile.tileType);
+        allTiles.Add(tileVisual);
 
         SpawnCharacterOnTile(tile, spawnPos, newTileObject.transform);
         SpawnBuildingOnTile(tile, newTileObject.transform);
