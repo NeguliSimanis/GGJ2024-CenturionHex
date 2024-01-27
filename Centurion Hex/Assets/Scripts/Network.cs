@@ -356,10 +356,10 @@ public class Network : MonoBehaviour
     {
         Messages command = (Messages)incomingData.readByte();
 
-        //if (command != Messages.op_ping)
-        //{
-        //    Debug.Log("Command received: " + command.ToString() + AppendTime);
-        //}
+        if (command != Messages.op_ping)
+        {
+            Debug.Log("Command received: " + command.ToString() );
+        }
 
         switch (command)
         {
