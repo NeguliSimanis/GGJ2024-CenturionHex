@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,5 +34,11 @@ public class TileCover
     void Update()
     {
         
+    }
+
+    public void LoadFromNetwork(ByteArray data)
+    {
+        Type = (CoverType)data.readByte();
+        Bonus = (BonusType)data.readByte();
     }
 }

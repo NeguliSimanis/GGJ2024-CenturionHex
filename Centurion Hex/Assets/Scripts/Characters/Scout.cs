@@ -11,10 +11,12 @@ namespace Assets.Scripts.Characters
         public Scout()
         {
             Name = "Scout";
-            Health = 2;
+            InitialHealth = 2;
+            Health = InitialHealth;
             Price = 2;
             AttackDamage = 1;
             StepsPerTurn = 3;
+            isWarUnit = true;
         }
 
         public override void DoAttack()

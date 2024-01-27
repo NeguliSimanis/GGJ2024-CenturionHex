@@ -7,6 +7,7 @@ public class Team
 {
     public enum TeamType
     {
+        ttNone,
         ttRed,
         ttBlue,
     }

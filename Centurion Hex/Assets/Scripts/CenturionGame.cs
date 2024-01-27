@@ -1,12 +1,25 @@
 using Assets.Scripts.Buildings;
 using Assets.Scripts.Characters;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CenturionGame : MonoBehaviour
 {
+    public static CenturionGame Instance { get; private set; }
+    public UnityEvent onGameReload;
+
     public Board Board = new Board();
+
+    //all characters in deck
+    public List<Character> Characters = new List<Character>();
+
+    //shortcuts
+    public List<Character> WarCharacters = new List<Character>();
+    public List<Character> CivilCharacters = new List<Character>();
+    public List<Character> BoardCharacters = new List<Character>();
 
     public Team[] Teams = new Team[2];
 
@@ -16,6 +29,7 @@ public class CenturionGame : MonoBehaviour
 
     CenturionGame()
     {
+        Instance = this;
         for( int i = 0; i < Teams.Length; i++ )
         {
             Teams[i] = new Team();
@@ -33,25 +47,65 @@ public class CenturionGame : MonoBehaviour
         addInitialCharacters();
     }
 
+    public void LoadFromNetwork(ByteArray data)
+    {
+        StartWithRed = data.readBoolean();
+        RedMove = data.readBoolean();
+        GeneralMove = data.readBoolean();
+        Board.LoadFromNetwork(data);
+        onGameReload.Invoke();
+    }
+
     //called while there is no server
     void addInitialCharacters()
     {
-        Character scout = new Scout();
-        scout.x = 5; scout.y = 0;
-        Teams[0].General.Characters.Add(scout);
+        addCharacter(Character.CharacterType.ctScout, 5, 0, Team.TeamType.ttRed, Character.CharacterState.csBoard);
+        addCharacter(Character.CharacterType.ctScout, 1, 6, Team.TeamType.ttBlue, Character.CharacterState.csBoard);
 
-        scout = new Scout();
-        scout.x = 1; scout.y = 6;
-        Teams[1].General.Characters.Add(scout);
+        addCharacter(Character.CharacterType.ctSurveyor, 6, 1, Team.TeamType.ttRed, Character.CharacterState.csBoard);
+        addCharacter(Character.CharacterType.ctSurveyor, 0, 5, Team.TeamType.ttBlue, Character.CharacterState.csBoard);
+    }
 
+    private void addCharacter(Character.CharacterType charType, int x, int y, Team.TeamType team, Character.CharacterState state)
+    {
+        Character unit = CharacterFactory.CreateCharacter(charType);
+        unit.x = x;
+        unit.y = y;
+        unit.state = state;
 
-        Character surveyor = new Surveyor();
-        surveyor.x = 6; surveyor.y = 1;
-        Teams[0].Governor.Characters.Add(surveyor);
-
-        scout = new Surveyor();
-        scout.x = 0; scout.y = 5;
-        Teams[1].Governor.Characters.Add(surveyor);
+        switch(team)
+        {
+            case Team.TeamType.ttRed:
+                unit.Team = Teams[0];
+                break;
+            case Team.TeamType.ttBlue:
+                unit.Team = Teams[1];
+                break;
+            default:
+                unit.Team = null;
+                break;
+        }
+        Characters.Add(unit);
+        switch( unit.state)
+        {
+            case Character.CharacterState.csStack:
+                if( unit.isWarUnit )
+                {
+                    WarCharacters.Add(unit);
+                }
+                else
+                {
+                    CivilCharacters.Add(unit);
+                }
+                break;
+            case Character.CharacterState.csHand:
+                break;
+            case Character.CharacterState.csBoard:
+                BoardCharacters.Add(unit);
+                break;
+            case Character.CharacterState.csDead:
+                break;
+        }
     }
 
     void onEndTurnChooseNextPlayer()

@@ -58,4 +58,15 @@ public class Board
     {
         
     }
+
+    public void LoadFromNetwork(ByteArray data)
+    {
+        for (int y = 0; y < 7; y++)
+        {
+            for (int x = 0; x < 7; x++)
+            {
+                Tiles[x,y].LoadFromNetwork(data);
+            }
+        }
+    }
 }

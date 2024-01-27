@@ -4,9 +4,26 @@ using UnityEngine;
 
 public class Character
 {
+    public enum CharacterType
+    {
+        ctScout,
+        ctSurveyor,
+    }
+    public enum CharacterState
+    {
+        csStack,
+        csHand,
+        csBoard,
+        csDead
+    }
+    public int id;
+    public CharacterType type;
+    public CharacterState state = CharacterState.csStack;
+    public bool isWarUnit;
     public int x;
     public int y;
     public int Health;
+    public int InitialHealth;
     public int Price;
     public int StepsPerTurn;
     public int AttackDamage;

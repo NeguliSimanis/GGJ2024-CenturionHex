@@ -27,15 +27,7 @@ public class Network : MonoBehaviour
         nsDisconnecting,
     };
 
-    [Space(20)]
-    public UnityEvent OnConnectedEvent;
-    public UnityEvent OnDisconnectedEvent;
-
-    [Header("Network Events")]
-    [HideInInspector] public GameNetworkEvent onLogin;
-    [HideInInspector] public GameNetworkEvent onLoggedOut;
-    [HideInInspector] public GameNetworkEvent onPingEvent;
-    [HideInInspector] public GameNetworkEvent onGameData;
+    public CenturionGame Game;
 
     public const String version = "v 0.0.0";
     public string ip = "127.0.0.1";
@@ -61,6 +53,11 @@ public class Network : MonoBehaviour
     int loginRetries = 0;
     public uint CurrentTimestamp { get { return (uint)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds; } }
     public int LocalPlayerUID { get; private set; }
+
+    private void Start()
+    {
+        Connect();
+    }
 
     // Update is called once per frame
     private void Update()
@@ -109,7 +106,7 @@ public class Network : MonoBehaviour
                             PacketSize = 0;
                             pingRecv = -1;
                             NetworkState = NetworkStateEnum.nsConnected;
-                            OnConnectedEvent.Invoke();
+                            //OnConnectedEvent.Invoke();
                         }
                         catch (Exception e)
                         {
@@ -220,7 +217,7 @@ public class Network : MonoBehaviour
                     Send("connected");
                     break;
                 case NetworkStateEnum.nsDisconnected:
-                    OnDisconnectedEvent.Invoke();
+                    //OnDisconnectedEvent.Invoke();
 
                     if (ShouldConnect)
                     {
@@ -358,13 +355,14 @@ public class Network : MonoBehaviour
                 pingRoundtrip = (float)(pingRecv - pingSent) / 10000000.0f;
                 pingDelay = 4;//wait one more second to send out next ping
 
-                InvokeEventWithData(onPingEvent, command, null);
+                //InvokeEventWithData(onPingEvent, command, null);
                 break;
             case Messages.op_login:
                 break;
             case Messages.op_game_data:
                 {
-                    InvokeEventWithData(onGameData, command, incomingData);
+                    Game.LoadFromNetwork(incomingData);
+                    //InvokeEventWithData(onGameData, command, incomingData);
                 }
                 break;
             default:

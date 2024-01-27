@@ -14,7 +14,9 @@ namespace Assets.Scripts.Characters
             Price = 1;
             AttackDamage = 0;
             StepsPerTurn = 3;
-            Health = 1;
+            InitialHealth = 1;
+            Health = InitialHealth;
+            isWarUnit = false;
         }
     }
 }
