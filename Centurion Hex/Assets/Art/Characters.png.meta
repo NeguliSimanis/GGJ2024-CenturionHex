@@ -108,12 +108,12 @@ TextureImporter:
       name: Characters_Arbalest
       rect:
         serializedVersion: 2
-        x: 4
+        x: 5
         y: 4
         width: 105
         height: 176
       alignment: 9
-      pivot: {x: 0.6666667, y: 0}
+      pivot: {x: 0.6571429, y: -0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -133,8 +133,8 @@ TextureImporter:
         y: 5
         width: 193
         height: 117
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
+      alignment: 9
+      pivot: {x: 0.4818653, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -154,7 +154,7 @@ TextureImporter:
         y: 14
         width: 64
         height: 159
-      alignment: 7
+      alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -176,7 +176,7 @@ TextureImporter:
         width: 86
         height: 187
       alignment: 9
-      pivot: {x: 0.4468085, y: -0}
+      pivot: {x: 0.43023255, y: -0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -184,6 +184,48 @@ TextureImporter:
       bones: []
       spriteID: a9e0e6fba4ba2a84ea7f3a9a7711c077
       internalID: 441824873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Characters_Senator
+      rect:
+        serializedVersion: 2
+        x: 528
+        y: 16
+        width: 64
+        height: 172
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4aa9ea65e48f2a749883c5dd6e1e9318
+      internalID: 2010602105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Characters_Bartender
+      rect:
+        serializedVersion: 2
+        x: 608
+        y: 16
+        width: 67
+        height: 165
+      alignment: 9
+      pivot: {x: 0.46268657, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c79d693411b34e4795ecb9c3362ded5
+      internalID: 12903134
       vertices: []
       indices: 
       edges: []
@@ -202,7 +244,9 @@ TextureImporter:
       Characters_Hag: -671610225
       Characters_Legionary: 441824873
       Characters_Raptor: -248414012
+      Characters_Bartender: 12903134
       Characters_Arbalest: -1066041663
+      Characters_Senator: 2010602105
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
