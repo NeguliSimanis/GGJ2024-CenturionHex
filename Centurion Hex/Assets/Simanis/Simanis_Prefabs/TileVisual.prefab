@@ -11887,7 +11887,6 @@ GameObject:
   - component: {fileID: 5213984643937090267}
   - component: {fileID: 5213984643937090271}
   - component: {fileID: 5213984643937090264}
-  - component: {fileID: 5213984643937090265}
   - component: {fileID: 5213984643937090266}
   m_Layer: 0
   m_Name: UnitRotatorAndRaycastInteract
@@ -11965,19 +11964,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5213984643937090265
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5213984643937090260}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.5064195, z: 1}
-  m_Center: {x: 0, y: 0.2532094, z: 0}
 --- !u!114 &5213984643937090266
 MonoBehaviour:
   m_ObjectHideFlags: 0
