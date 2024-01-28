@@ -39,6 +39,8 @@ public class Network : MonoBehaviour
         op_game_finished,
         op_user_online,
         op_user_offline,
+        op_stack_update_character,
+        op_stack_update_building,
     }
 
     public enum NetworkStateEnum
@@ -454,6 +456,12 @@ public class Network : MonoBehaviour
                 break;
             case Messages.op_user_offline:
                 Game.OnOnlineOffline(false, (Team.TeamType)incomingData.readByte(), "");
+                break;
+            case Messages.op_stack_update_character:
+                Game.OnStackUpdateCharacter(incomingData);
+                break;
+            case Messages.op_stack_update_building:
+                Game.OnStackUpdateBuilding(incomingData);
                 break;
             default:
                 UnityEngine.Debug.LogError("Message not handled: " + command);

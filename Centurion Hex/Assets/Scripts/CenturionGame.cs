@@ -42,6 +42,8 @@ public class CenturionGame : MonoBehaviour
     public UnityEvent onPlaceBuilding;
     public UnityEvent onGameFinished;
     public UnityEvent onOnlineOffline;
+    public UnityEvent onStackUpdateBuilding;
+    public UnityEvent onStackUpdateCharacter;
 
     [HideInInspector] public Board Board = new Board();
 
@@ -605,5 +607,21 @@ public class CenturionGame : MonoBehaviour
             Teams[tt == Team.TeamType.ttRed ? 0 : 1].Governor.NetworkPlayerName = Name;
         }
         onOnlineOffline.Invoke();
+    }
+
+    public void OnStackUpdateCharacter(ByteArray incomingData)
+    {
+        Character ch = new Character();
+        ch.LoadFromNetwork(incomingData);
+        addCharacter(ch, Team.TeamType.ttNone);
+        onStackUpdateCharacter.Invoke();
+    }
+
+    public void OnStackUpdateBuilding(ByteArray incomingData)
+    {
+        Building ch = new Building();
+        ch.LoadFromNetwork(incomingData);
+        addBuilding(ch, Team.TeamType.ttNone);
+        onStackUpdateBuilding.Invoke();
     }
 }
