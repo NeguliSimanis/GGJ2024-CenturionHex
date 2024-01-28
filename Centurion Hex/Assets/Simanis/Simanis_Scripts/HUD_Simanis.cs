@@ -161,6 +161,11 @@ public class HUD_Simanis : MonoBehaviour
         WinnerUI.SetActive(false);
     }
 
+    public void UpdateOnlineOffline()
+    {
+        Debug.Log("Some one went online or offline - update UI accordingly");
+    }
+
     public void ShowGameFinished()
     {
         WinnerText.text = "Winning team is " + ( centurionGame.WinnerTeam == Team.TeamType.ttRed ? "Red" : "Blue" ) + " team";

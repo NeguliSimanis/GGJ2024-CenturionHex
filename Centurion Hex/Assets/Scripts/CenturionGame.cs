@@ -41,6 +41,7 @@ public class CenturionGame : MonoBehaviour
     public UnityEvent onPlaceCharacter;
     public UnityEvent onPlaceBuilding;
     public UnityEvent onGameFinished;
+    public UnityEvent onOnlineOffline;
 
     public Board Board = new Board();
 
@@ -592,5 +593,17 @@ public class CenturionGame : MonoBehaviour
     {
         WinnerTeam = tt;
         onGameFinished.Invoke();
+    }
+
+    public void OnOnlineOffline(bool IsOnline, Team.TeamType tt, string Name )
+    {
+        Teams[tt == Team.TeamType.ttRed ? 0 : 1].General.IsOnline = IsOnline;
+        Teams[tt == Team.TeamType.ttRed ? 0 : 1].Governor.IsOnline = IsOnline;
+        if( IsOnline)
+        {
+            Teams[tt == Team.TeamType.ttRed ? 0 : 1].General.NetworkPlayerName = Name;
+            Teams[tt == Team.TeamType.ttRed ? 0 : 1].Governor.NetworkPlayerName = Name;
+        }
+        onOnlineOffline.Invoke();
     }
 }

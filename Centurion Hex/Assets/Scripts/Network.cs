@@ -36,7 +36,9 @@ public class Network : MonoBehaviour
         op_place_character,
         op_update_gold,
         op_update_points,
-        op_game_finished
+        op_game_finished,
+        op_user_online,
+        op_user_offline,
     }
 
     public enum NetworkStateEnum
@@ -72,6 +74,7 @@ public class Network : MonoBehaviour
     bool ShouldConnect = false;
     int loginRetries = 0;
     public bool loggedIn = false;
+    private string username = "Fun player";
 
     public uint CurrentTimestamp { get { return (uint)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds; } }
     public int LocalPlayerUID { get; private set; }
@@ -241,6 +244,7 @@ public class Network : MonoBehaviour
                     //uiController.SetConnectingOverlay(false); // Wait login without disabling
                     outgoingData.writeByte((byte)Messages.op_login);
                     outgoingData.writeUTF(SystemInfo.deviceUniqueIdentifier);
+                    outgoingData.writeUTF(username);
                     //outgoingData.writeUnsignedInt(userid);
                     //outgoingData.writeUnsignedInt(timestamp);
                     //outgoingData.writeUTF(hash);
@@ -445,6 +449,12 @@ public class Network : MonoBehaviour
             case Messages.op_game_finished:
                 Game.OnGameFinished((Team.TeamType)incomingData.readByte());
                 break;
+            case Messages.op_user_online:
+                Game.OnOnlineOffline(true, (Team.TeamType)incomingData.readByte(), incomingData.readUTF());
+                break;
+            case Messages.op_user_offline:
+                Game.OnOnlineOffline(false, (Team.TeamType)incomingData.readByte(), "");
+                break;
             default:
                 UnityEngine.Debug.LogError("Message not handled: " + command);
                 throw new NotImplementedException("Message not handled: " + command);
@@ -605,6 +615,7 @@ public class Network : MonoBehaviour
     {
         outgoingData.writeByte((byte)Messages.op_login);
         outgoingData.writeUTF(SystemInfo.deviceUniqueIdentifier);
+        outgoingData.writeUTF(username);
         Send("relogin");
     }
 }

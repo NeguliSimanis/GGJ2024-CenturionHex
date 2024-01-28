@@ -15,6 +15,9 @@ public class Player
 
     public PlayerType Type;
     public string NetworkPlayerID;
+    public string NetworkPlayerName;
+    public bool IsOnline;
+
     public Team Team;
 
     public int Gold = 2;//initial gold amount
@@ -43,6 +46,8 @@ public class Player
     {
         Type = (PlayerType)data.readByte();
         NetworkPlayerID = data.readUTF();
+        NetworkPlayerName = data.readUTF();
+        IsOnline = data.readBoolean();
     }
 
     public void ResetGame()
