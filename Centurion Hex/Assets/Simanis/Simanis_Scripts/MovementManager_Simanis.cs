@@ -19,12 +19,20 @@ public class MovementManager_Simanis : MonoBehaviour
     {
         Debug.Log("Attempting to wound character");
         Character charToWound = centurionGame.lastHurtCharacter;
+        //for (int i = 0; i < spawner.allCharacters.Count; i++)
+        //{
+        //    if (spawner.allCharacters[i].character == charToWound)
+        //    {
+        //        charVisual.WoundCharacter();
+
+        //    }
+        //}
         foreach (CharacterVisual_Simanis charVisual in spawner.allCharacters)
         {
             if (charVisual.character == charToWound)
             {
                 charVisual.WoundCharacter();
-
+                break;
             }
         }
     }
