@@ -35,6 +35,9 @@ public class CenturionGame : MonoBehaviour
     public UnityEvent onCharacterBought;
     public UnityEvent onBuildingBought;
     public UnityEvent onUpdateGold;
+    public UnityEvent onUpdatePoints;
+    public UnityEvent onPlaceCharacter;
+    public UnityEvent onPlaceBuilding;
 
     public Board Board = new Board();
 
@@ -117,6 +120,8 @@ public class CenturionGame : MonoBehaviour
     public Building lastHurtBuilding;
     public Building lastBoughtBuilding;
     public Character lastBoughtCharacter;
+    public Character lastPlacedCharacter;
+    public Building lastPlacedBuilding;
 
     CenturionGame()
     {
@@ -504,5 +509,58 @@ public class CenturionGame : MonoBehaviour
     {
         Teams[tt == Team.TeamType.ttRed ? 0 : 1].Gold = Gold;
         onUpdateGold.Invoke();
+    }
+    public void OnUpdatePoints(Team.TeamType tt, int Points)
+    {
+        Teams[tt == Team.TeamType.ttRed ? 0 : 1].VictoryPoints = Points;
+        onUpdatePoints.Invoke();
+    }
+
+    public void OnPlaceCharacter(uint cid, Team.TeamType tt, int x, int y)
+    {
+        Character c = GetCharacter(cid);
+        c.state = CharacterState.csBoard;
+        BoardCharacters.Add(c);
+        c.x = x;
+        c.y = y;
+        Board.GetTile(x, y).currentCharacter = c;
+        if(c.isWarUnit)
+        {
+            Teams[tt == Team.TeamType.ttRed ? 0 : 1].General.StandByCharacters.Remove(c);
+            Teams[tt == Team.TeamType.ttRed ? 0 : 1].General.Characters.Add(c);
+        }
+        else
+        {
+            Teams[tt == Team.TeamType.ttRed ? 0 : 1].Governor.StandByCharacters.Remove(c);
+            Teams[tt == Team.TeamType.ttRed ? 0 : 1].Governor.Characters.Add(c);
+        }
+
+        lastPlacedCharacter = c;
+
+        onPlaceCharacter.Invoke();
+    }
+
+    public void OnPlaceBuilding(uint cid, Team.TeamType tt, int x, int y)
+    {
+        Building c = GetBuilding(cid);
+        c.State = BuildingState.bsBoard;
+        BoardBuildings.Add(c);
+        c.x = x;
+        c.y = y;
+        Board.GetTile(x, y).currentBuilding = c;
+        if (c.Class == BuildingClass.bcWar )
+        {
+            Teams[tt == Team.TeamType.ttRed ? 0 : 1].General.StandByBuildings.Remove(c);
+            Teams[tt == Team.TeamType.ttRed ? 0 : 1].General.Buildings.Add(c);
+        }
+        else
+        {
+            Teams[tt == Team.TeamType.ttRed ? 0 : 1].Governor.StandByBuildings.Remove(c);
+            Teams[tt == Team.TeamType.ttRed ? 0 : 1].Governor.Buildings.Add(c);
+        }
+
+        lastPlacedBuilding = c;
+
+        onPlaceBuilding.Invoke();
     }
 }
