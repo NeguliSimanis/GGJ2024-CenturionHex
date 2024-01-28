@@ -104,8 +104,12 @@ public class CharacterVisual_Simanis : MonoBehaviour
         {
             if (lifeDisplayed > remainingLife)
             {
-                lifeDisplayed--;
-                lifeParent.GetChild(i).gameObject.SetActive(false);
+                GameObject lifeObject = lifeParent.GetChild(i).gameObject;
+                if (lifeObject.activeInHierarchy)
+                {
+                    lifeDisplayed--;
+                }
+                lifeObject.SetActive(false);
             }
             
         }
@@ -137,8 +141,12 @@ public class CharacterVisual_Simanis : MonoBehaviour
         {
             if (speedDisplayed > remainingSpeed)
             {
-                speedDisplayed--;
-                speedParent.GetChild(i).gameObject.SetActive(false);
+                GameObject speedObject = speedParent.GetChild(i).gameObject;
+                if (speedObject.activeInHierarchy)
+                {
+                    speedDisplayed--;
+                }
+                speedObject.SetActive(false);
             }
 
         }

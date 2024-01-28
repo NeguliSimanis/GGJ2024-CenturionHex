@@ -23,7 +23,7 @@ public class CustomCursor_Simanis : MonoBehaviour
 
     public void SetCursor(bool isActive, CursorAction cursorAction)
     {
-        Debug.Log("setting custom cursor");
+        //Debug.Log("setting custom cursor");
         if (!isActive)
         {
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);

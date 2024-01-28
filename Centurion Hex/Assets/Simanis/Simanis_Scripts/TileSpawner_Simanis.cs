@@ -143,7 +143,9 @@ public class TileSpawner_Simanis : MonoBehaviour
         characterVisual.SetSpeedUI();
         characterVisual.xCoord = x;
         characterVisual.yCoord = y;
+        characterVisual.SetLifeUI();
         allCharacters.Add(characterVisual);
+
         Debug.Log("spawnin " + tile.currentCharacter.type);
     }
 
