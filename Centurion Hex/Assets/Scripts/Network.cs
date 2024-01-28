@@ -33,7 +33,8 @@ public class Network : MonoBehaviour
         op_buy_character_card,
         op_place_building,
         op_place_character,
-        op_update_gold
+        op_update_gold,
+        op_update_points
     }
 
     public enum NetworkStateEnum
@@ -429,6 +430,9 @@ public class Network : MonoBehaviour
                 break;
             case Messages.op_update_gold:
                 Game.OnUpdateGold((Team.TeamType)incomingData.readByte(), incomingData.readByte());
+                break;
+            case Messages.op_update_points:
+                Game.OnUpdatePoints((Team.TeamType)incomingData.readByte(), incomingData.readByte());
                 break;
             default:
                 UnityEngine.Debug.LogError("Message not handled: " + command);
