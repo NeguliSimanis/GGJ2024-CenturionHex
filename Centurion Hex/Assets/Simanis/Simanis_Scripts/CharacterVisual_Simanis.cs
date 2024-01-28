@@ -21,6 +21,9 @@ public class CharacterVisual_Simanis : MonoBehaviour
     public bool isMyUnit;
     public GameObject activePrefab;
 
+    public int xCoord;
+    public int yCoord;
+
     public void SetCharacterVisuals(Character.CharacterType type, TileSpawner_Simanis newTileSpawner)
     {
         tileSpawner = newTileSpawner;

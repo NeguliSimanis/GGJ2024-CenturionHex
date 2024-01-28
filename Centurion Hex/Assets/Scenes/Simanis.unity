@@ -2233,6 +2233,7 @@ GameObject:
   - component: {fileID: 1207923871}
   - component: {fileID: 1207923872}
   - component: {fileID: 1207923873}
+  - component: {fileID: 1207923874}
   m_Layer: 0
   m_Name: GameControl
   m_TagString: Untagged
@@ -2452,6 +2453,7 @@ MonoBehaviour:
   allCharacters: []
   buildingPrefab: {fileID: 7950914013029271463, guid: 7fed4c6225737724d8d3cea886937e39,
     type: 3}
+  allBuildings: []
 --- !u!114 &1207923870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2538,6 +2540,23 @@ MonoBehaviour:
   moveSpeed: 0.5
   centurionGame: {fileID: 0}
   spawner: {fileID: 0}
+--- !u!114 &1207923874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207923866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de18e285f3cace544a00f493ff6b7cd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionCursors:
+  - action: 0
+    sprite: {fileID: 2800000, guid: 7e24b664c662cab4f8726eb2b9dd1dc6, type: 3}
+  - action: 1
+    sprite: {fileID: 2800000, guid: 237080f858a553c44832e25f274e8f01, type: 3}
 --- !u!1 &1236598863
 GameObject:
   m_ObjectHideFlags: 0

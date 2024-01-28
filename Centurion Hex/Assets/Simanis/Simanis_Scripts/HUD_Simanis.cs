@@ -35,6 +35,7 @@ public class HUD_Simanis : MonoBehaviour
     public TextMeshProUGUI vicPointsTeam1;
 
     [Header("HOVER HIGHLIGHT")]
+    private CustomCursor_Simanis customCursor;
     public bool processRaycast = true;
     public RaycastInteract oldHighlight;
     public RaycastInteract.Type currSelection = RaycastInteract.Type.Null;
@@ -54,6 +55,7 @@ public class HUD_Simanis : MonoBehaviour
     {
         //UpdateTeamWealth();
         //UpdateTurnText();
+        customCursor = GetComponent<CustomCursor_Simanis>();
     }
 
     public void ListenToRaycast()
@@ -92,6 +94,26 @@ public class HUD_Simanis : MonoBehaviour
 
                 interactionTarget = raycastInteract;
                 raycastInteract.SetHighlight(true);
+                customCursor.SetCursor(true, CursorAction.walk);
+            }
+            // try to interact with another character
+            if (raycastInteract.type == RaycastInteract.Type.Character)
+            {
+                // check if is enemy
+                if (!raycastInteract.characterVisualControl.IsMyUnit())
+                {
+                    // check if u have any attack
+                    if (raycastInteract.characterVisualControl.character.AttackDamage < 1)
+                    {
+                        customCursor.SetCursor(true, CursorAction.error);
+                    }
+                    else
+                    {
+                        interactionTarget = raycastInteract;
+                        raycastInteract.SetHighlight(true);
+                        customCursor.SetCursor(true, CursorAction.attack);
+                    }
+                }
             }
             return;
         }
@@ -102,6 +124,7 @@ public class HUD_Simanis : MonoBehaviour
                 return;
             oldHighlight.SetHighlight(false);
         }
+        customCursor.SetCursor(false, CursorAction.walk);
         oldHighlight = raycastInteract;
         raycastInteract.SetHighlight(true);
         currSelection = raycastInteract.type;
@@ -125,6 +148,24 @@ public class HUD_Simanis : MonoBehaviour
             redTeamIdentifier.text = redTeamIdentifierTextEnemy;
             blueTeamIdentifier.text = blueTeamIdentifierText;
         }
+    }
+
+    private void TryToAttackTile()
+    {
+        Debug.Log("try to attack tile");
+
+        // char id  oldHighlight.type == RaycastInteract.Type.Character
+        uint id = 0;
+        if (oldHighlight)
+            id = oldHighlight.characterVisualControl.character.id;
+        else
+            ClearHighlights();
+
+        //  target x y interactionTarget.type == RaycastInteract.Type.Tile
+        int xPos = interactionTarget.characterVisualControl.xCoord;
+        int yPos = interactionTarget.characterVisualControl.yCoord;
+
+        Network.instance.HurtTile(id, xPos, yPos);
     }
 
     private void TryToMoveToTile()
@@ -199,12 +240,22 @@ public class HUD_Simanis : MonoBehaviour
             {
                 if (lookingForExtraInteractionTarget && interactionTarget)
                 {
+                    // TRY MOVE
                     if (interactionTarget.type == RaycastInteract.Type.Tile
                         && oldHighlight.type == RaycastInteract.Type.Character)
                     {
                         lookingForExtraInteractionTarget = false;
                         processRaycast = false;
                         TryToMoveToTile();
+                    }
+
+                    // TRY ATTACK
+                    if (interactionTarget.type == RaycastInteract.Type.Character
+                        && oldHighlight.type == RaycastInteract.Type.Character)
+                    {
+                        lookingForExtraInteractionTarget = false;
+                        processRaycast = false;
+                        TryToAttackTile();
                     }
                     return;
                 }

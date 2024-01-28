@@ -27,6 +27,7 @@ public class TileSpawner_Simanis : MonoBehaviour
 
     [Header("Buildings")]
     public GameObject buildingPrefab;
+    public List<BuildingVisual_Simanis> allBuildings = new List<BuildingVisual_Simanis>();
 
     private void Start()
     {
@@ -58,9 +59,31 @@ public class TileSpawner_Simanis : MonoBehaviour
         
     }
 
+    private void CleanOldBoard()
+    {
+        foreach(BuildingVisual_Simanis building in allBuildings)
+        {
+            Destroy(building.gameObject);
+        }
+        allBuildings.Clear();
+        foreach (TileVisual_Simanis tile in allTiles)
+        {
+            Destroy(tile.gameObject);
+        }
+        allTiles.Clear();
+        foreach (CharacterVisual_Simanis character in allCharacters)
+        {
+            Destroy(character.gameObject);
+        }
+        allCharacters.Clear();
+        
+    }
+
     public void SpawnTiles()
     {   
         centurionBoard = centurionGame.Board;
+
+        CleanOldBoard();
 
         // Get the dimensions of the array
         int rows = centurionBoard.Tiles.GetLength(0);
@@ -119,7 +142,7 @@ public class TileSpawner_Simanis : MonoBehaviour
     }
 
     public void SpawnCharacterOnTile(Tile tile, Vector3 spawnPos, Transform parent,
-        TileVisual_Simanis tileVisual)
+        TileVisual_Simanis tileVisual, int x, int y)
     {
         if (tile.currentCharacter == null)
             return;
@@ -132,6 +155,8 @@ public class TileSpawner_Simanis : MonoBehaviour
         CharacterVisual_Simanis characterVisual = newChar.GetComponent<CharacterVisual_Simanis>();
         characterVisual.character = tile.currentCharacter;
         characterVisual.SetCharacterVisuals(tile.currentCharacter.type, this);
+        characterVisual.xCoord = x;
+        characterVisual.yCoord = y;
         allCharacters.Add(characterVisual);
         Debug.Log("spawnin " + tile.currentCharacter.type);
     }
@@ -147,6 +172,7 @@ public class TileSpawner_Simanis : MonoBehaviour
         BuildingVisual_Simanis buildingVisual = newBuild.GetComponent<BuildingVisual_Simanis>();
         buildingVisual.building = tile.currentBuilding;
         buildingVisual.SetBuildingVisuals(tile.currentBuilding.Type);
+        allBuildings.Add(buildingVisual);
     }
 
     public void SpawnTileVisual(Vector3 spawnPos, Tile tile, int row, int collumn, Transform parent)
@@ -165,7 +191,8 @@ public class TileSpawner_Simanis : MonoBehaviour
         tileVisual.SetTileVisuals();
         allTiles.Add(tileVisual);
 
-        SpawnCharacterOnTile(tile, spawnPos, tileVisual.unitTransformPos, tileVisual);
+        SpawnCharacterOnTile(tile, spawnPos, tileVisual.unitTransformPos, tileVisual,
+            tileVisual.xCoord, tileVisual.yCoord);
         SpawnBuildingOnTile(tile, newTileObject.transform, tileVisual);
         //tileVisual.ShowMessage(row + "." + collumn + "." + tile.tileType);
     }
