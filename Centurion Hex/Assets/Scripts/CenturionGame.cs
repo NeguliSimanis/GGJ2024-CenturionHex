@@ -27,6 +27,7 @@ public class CenturionGame : MonoBehaviour
     public UnityEvent onGameReload;
     public UnityEvent onRoundStateChange;
     public UnityEvent onWealthFromBuilding;
+    public UnityEvent onWealthFromCharacter;
     public UnityEvent onCharacterMoved;
     public UnityEvent onTileCovered;
     public UnityEvent onWealthFromTile;
@@ -114,7 +115,8 @@ public class CenturionGame : MonoBehaviour
     [HideInInspector] public bool PlayingAsGovernor = true;
 
     public bool UseNetwork = false;
-    [HideInInspector] public Building lastSourceBuilding;
+    public Building lastSourceBuilding;
+    public Character lastSourceCharacter;
     [HideInInspector] public int lastWealthAmount;
     [HideInInspector] public int lastPointAmount;
 
@@ -403,6 +405,14 @@ public class CenturionGame : MonoBehaviour
         lastSourceBuilding = GetBoardBuilding(sourceBuilding);
         lastWealthAmount = wealth;
         onWealthFromBuilding.Invoke();
+    }
+
+    public void OnWealthFromCharacter(Team.TeamType tt, int wealth, uint sourceBuilding)
+    {
+        Teams[tt == Team.TeamType.ttRed ? 0 : 1].Gold += wealth;
+        lastSourceCharacter = GetBoardCharacter(sourceBuilding);
+        lastWealthAmount = wealth;
+        onWealthFromCharacter.Invoke();
     }
 
     public void OnCharacterMoved(uint characterId, int x, int y, int stepsUsed)

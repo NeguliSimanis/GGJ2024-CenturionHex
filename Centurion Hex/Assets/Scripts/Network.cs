@@ -41,6 +41,7 @@ public class Network : MonoBehaviour
         op_user_offline,
         op_stack_update_character,
         op_stack_update_building,
+        op_wealth_from_character
     }
 
     public enum NetworkStateEnum
@@ -408,6 +409,9 @@ public class Network : MonoBehaviour
                 break;
             case Messages.op_wealth_from_building:
                 Game.OnWealthFromBuilding((Team.TeamType)incomingData.readByte(), incomingData.readByte(), incomingData.readUnsignedInt());
+                break;
+            case Messages.op_wealth_from_character:
+                Game.OnWealthFromCharacter((Team.TeamType)incomingData.readByte(), incomingData.readByte(), incomingData.readUnsignedInt());
                 break;
             case Messages.op_move_character:
                 Game.OnCharacterMoved(incomingData.readUnsignedInt(), incomingData.readByte(), incomingData.readByte(), incomingData.readByte());
