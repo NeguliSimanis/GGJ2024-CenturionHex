@@ -98,7 +98,7 @@ public class HUD_Simanis : MonoBehaviour
             }
             // ATTACKING
             // check if u have any attack
-            if (raycastInteract.characterVisualControl.character.AttackDamage < 1)
+            if (oldHighlight.characterVisualControl.character.AttackDamage < 1)
             {
                 customCursor.SetCursor(true, CursorAction.error);
                 return;

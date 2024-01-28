@@ -86,10 +86,13 @@ public class CharacterVisual_Simanis : MonoBehaviour
     {
         isDead = true;
         tileSpawner.allCharacters.Remove(this);
-        if (hudManager.oldHighlight.type == RaycastInteract.Type.Character
-            && hudManager.oldHighlight.characterVisualControl == this)
+        if (hudManager.oldHighlight)
         {
-            hudManager.ClearHighlights();
+            if (hudManager.oldHighlight.type == RaycastInteract.Type.Character
+                && hudManager.oldHighlight.characterVisualControl == this)
+            {
+                hudManager.ClearHighlights();
+            }
         }
         Destroy(gameObject);
     }
