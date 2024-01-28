@@ -34,6 +34,9 @@ public class HUD_Simanis : MonoBehaviour
     public TextMeshProUGUI vicPointsTeam0;
     public TextMeshProUGUI vicPointsTeam1;
 
+    public TextMeshProUGUI WinnerText;
+    public GameObject WinnerUI;
+
     [Header("HOVER HIGHLIGHT")]
     private CustomCursor_Simanis customCursor;
     public bool processRaycast = true;
@@ -56,6 +59,7 @@ public class HUD_Simanis : MonoBehaviour
         //UpdateTeamWealth();
         //UpdateTurnText();
         customCursor = GetComponent<CustomCursor_Simanis>();
+        HideGameFinished();
     }
 
     public void ListenToRaycast()
@@ -150,6 +154,17 @@ public class HUD_Simanis : MonoBehaviour
     {
         vicPointsTeam0.text = centurionGame.Teams[0].VictoryPoints.ToString();
         vicPointsTeam1.text = centurionGame.Teams[1].VictoryPoints.ToString();
+    }
+
+    public void HideGameFinished()
+    {
+        WinnerUI.SetActive(false);
+    }
+
+    public void ShowGameFinished()
+    {
+        WinnerText.text = "Winning team is " + ( centurionGame.WinnerTeam == Team.TeamType.ttRed ? "Red" : "Blue" ) + " team";
+        WinnerUI.SetActive(true);
     }
 
     public void UpdateTurnIDs()

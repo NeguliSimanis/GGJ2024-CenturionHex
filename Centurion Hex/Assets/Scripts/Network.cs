@@ -6,6 +6,7 @@ using System;
 using UnityEngine.Events;
 using UnityEngine.Networking;
 using UnityEngine.TextCore.Text;
+using System.Security.Cryptography;
 
 public class Network : MonoBehaviour
 {
@@ -598,5 +599,11 @@ public class Network : MonoBehaviour
         outgoingData.writeByte((byte)x);
         outgoingData.writeByte((byte)y);
         Send("place_building");
+    }
+
+    public void ResetGame()
+    {
+        outgoingData.writeByte((byte)Messages.op_login);
+        Send("relogin");
     }
 }
