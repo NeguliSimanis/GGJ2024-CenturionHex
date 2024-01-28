@@ -434,6 +434,12 @@ public class Network : MonoBehaviour
             case Messages.op_update_points:
                 Game.OnUpdatePoints((Team.TeamType)incomingData.readByte(), incomingData.readByte());
                 break;
+            case Messages.op_place_character:
+                Game.OnPlaceCharacter(incomingData.readUnsignedInt(), (Team.TeamType)incomingData.readByte(), incomingData.readByte(), incomingData.readByte() );
+                break;
+            case Messages.op_place_building:
+                Game.OnPlaceBuilding(incomingData.readUnsignedInt(), (Team.TeamType)incomingData.readByte(), incomingData.readByte(), incomingData.readByte());
+                break;
             default:
                 UnityEngine.Debug.LogError("Message not handled: " + command);
                 throw new NotImplementedException("Message not handled: " + command);
@@ -572,5 +578,21 @@ public class Network : MonoBehaviour
     {
         outgoingData.writeByte((byte)Messages.op_buy_character_card);
         Send("buy_character");
+    }
+    public void PlaceCharacter(uint cid, int x, int y )
+    {
+        outgoingData.writeByte((byte)Messages.op_place_character);
+        outgoingData.writeUnsignedInt(cid);
+        outgoingData.writeByte((byte)x);
+        outgoingData.writeByte((byte)y);
+        Send("place_character");
+    }
+    public void PlaceBuilding(uint cid, int x, int y)
+    {
+        outgoingData.writeByte((byte)Messages.op_place_building);
+        outgoingData.writeUnsignedInt(cid);
+        outgoingData.writeByte((byte)x);
+        outgoingData.writeByte((byte)y);
+        Send("place_building");
     }
 }
