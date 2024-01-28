@@ -604,6 +604,7 @@ public class Network : MonoBehaviour
     public void ResetGame()
     {
         outgoingData.writeByte((byte)Messages.op_login);
+        outgoingData.writeUTF(SystemInfo.deviceUniqueIdentifier);
         Send("relogin");
     }
 }
