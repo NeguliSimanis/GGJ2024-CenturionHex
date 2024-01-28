@@ -160,6 +160,17 @@ public class TileSpawner_Simanis : MonoBehaviour
         }
     }
 
+    public void PlayGoldTileAnimation()
+    {
+        foreach (TileVisual_Simanis tileVisual in allTiles)
+        {
+            if (tileVisual.tile == centurionGame.lastTileCovered)
+            {
+                tileVisual.SpawnGoldGain();
+            }
+        }
+    }
+
     public void SpawnBuildingOnTile(Tile tile, Transform parent,
         TileVisual_Simanis tileVisual, int x, int y)
     {

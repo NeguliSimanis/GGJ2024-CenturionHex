@@ -463,6 +463,9 @@ MonoBehaviour:
   explosionLocation: {fileID: 56735991645179552}
   victoryAnimator: {fileID: 8017596146001562164}
   victoryAnimObject: {fileID: 2959420840454717141}
+  animationImage: {fileID: 7021470270608579580}
+  victorySprite: {fileID: 154903687, guid: 5b409189c74ed3b46b2598a1b6ab3f68, type: 3}
+  coinSprite: {fileID: 21300000, guid: ecfddd75b2426134fbbbf2977eeed982, type: 3}
 --- !u!1 &1914725400335419392
 GameObject:
   m_ObjectHideFlags: 0
