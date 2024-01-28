@@ -149,6 +149,17 @@ public class TileSpawner_Simanis : MonoBehaviour
         Debug.Log("spawnin " + tile.currentCharacter.type);
     }
 
+    public void PlayVictoryPointAnimation()
+    {
+        foreach(TileVisual_Simanis tileVisual in allTiles)
+        {
+           if (tileVisual.tile.tileType == Tile.TileType.ttCenter)
+            {
+                tileVisual.SpawnVictoryPointGain();
+            }
+        }
+    }
+
     public void SpawnBuildingOnTile(Tile tile, Transform parent,
         TileVisual_Simanis tileVisual, int x, int y)
     {
@@ -178,7 +189,7 @@ public class TileSpawner_Simanis : MonoBehaviour
         }
         tileVisual.xCoord = row;
         tileVisual.yCoord = collumn;
-        tileVisual.SetTileVisuals();
+        tileVisual.SetTileVisuals(this);
         allTiles.Add(tileVisual);
 
         SpawnCharacterOnTile(tile, spawnPos, tileVisual.unitTransformPos, tileVisual,

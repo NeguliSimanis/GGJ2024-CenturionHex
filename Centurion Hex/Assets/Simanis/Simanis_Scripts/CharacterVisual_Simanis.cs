@@ -163,6 +163,16 @@ public class CharacterVisual_Simanis : MonoBehaviour
     {
         if (isDead)
             return;
+        CenturionGame centurionGame = tileSpawner.centurionGame;
+        if (centurionGame.lastHurterB == null
+            && centurionGame.lastHurterC == null)
+        {
+            Debug.Log("last hurter was a mine");
+            TileVisual_Simanis explosionTile = FindTileCharIsOn();
+            explosionTile.SpawnExplosion();
+            
+        }
+
         SetLifeUI();
         if (character.Health <= 0)
         {
@@ -183,6 +193,20 @@ public class CharacterVisual_Simanis : MonoBehaviour
             }
         }
         Destroy(gameObject);
+    }
+
+    public TileVisual_Simanis FindTileCharIsOn()
+    {
+        TileVisual_Simanis tileStandingOn = tileSpawner.allTiles[0];
+        foreach (TileVisual_Simanis tileVisual in tileSpawner.allTiles)
+        {
+            if (tileVisual.xCoord == character.x
+                && tileVisual.yCoord == character.y)
+            {
+                tileStandingOn = tileVisual;
+            }
+        }
+        return tileStandingOn;
     }
 
     public void MoveCharacter(float speed)

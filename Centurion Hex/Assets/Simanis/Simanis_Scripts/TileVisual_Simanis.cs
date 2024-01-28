@@ -23,6 +23,8 @@ public class TilePrefab_Simanis
 
 public class TileVisual_Simanis : MonoBehaviour
 {
+    public TileSpawner_Simanis tileSpawner;
+
     public bool allowFlip = false;
     public GameObject tileCenter;
 
@@ -35,9 +37,17 @@ public class TileVisual_Simanis : MonoBehaviour
 
     public Transform unitTransformPos;
 
+    [Header("Explosion")]
+    public GameObject explosionPrefab;
+    public Transform explosionLocation;
 
-    public void SetTileVisuals()
+    [Header("VICTORY POINT ANIM")]
+    public Animator victoryAnimator;
+    public GameObject victoryAnimObject;
+
+    public void SetTileVisuals(TileSpawner_Simanis spawner)
     {
+        tileSpawner = spawner;
         Tile.TileType type = tile.tileType;
         if (tile.tileCover.Type == TileCover.CoverType.ctTransparent)
         {
@@ -56,6 +66,34 @@ public class TileVisual_Simanis : MonoBehaviour
             else
                 prefab.gameObject.SetActive(false);
         }
+    }
+
+    public void SpawnExplosion()
+    {
+        Debug.Log("spawning explosion");
+        GameObject newExplosion = Instantiate(explosionPrefab, tileCenter.transform);
+        explosionPrefab.transform.localPosition = explosionLocation.transform.localPosition;
+        explosionPrefab.transform.localRotation = explosionLocation.transform.localRotation;
+        //explosionPrefab.transform.localRotation = Quaternion.identity;
+
+    }
+
+
+    public void SpawnVictoryPointGain()
+    {
+        // flip if u are team red
+        if (tileSpawner.centurionGame.RedMove)
+        {
+            victoryAnimObject.transform.localScale = new Vector3(-1, -1, 1);
+        }
+        else
+        {
+            victoryAnimObject.transform.localScale = new Vector3(1, 1, 1);
+        }
+
+        Debug.Log("spawning victory point gain");
+        victoryAnimator.SetTrigger("Find");
+
     }
 
     public void DiscoverTile()
