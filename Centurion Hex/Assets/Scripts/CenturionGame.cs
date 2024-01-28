@@ -22,6 +22,8 @@ public class CenturionGame : MonoBehaviour
     public RoundState mRoundState;
 
     public static CenturionGame Instance { get; private set; }
+    public Team.TeamType WinnerTeam;
+
     public UnityEvent onGameReload;
     public UnityEvent onRoundStateChange;
     public UnityEvent onWealthFromBuilding;
@@ -38,6 +40,7 @@ public class CenturionGame : MonoBehaviour
     public UnityEvent onUpdatePoints;
     public UnityEvent onPlaceCharacter;
     public UnityEvent onPlaceBuilding;
+    public UnityEvent onGameFinished;
 
     public Board Board = new Board();
 
@@ -583,5 +586,11 @@ public class CenturionGame : MonoBehaviour
         lastPlacedBuilding = c;
 
         onPlaceBuilding.Invoke();
+    }
+
+    public void OnGameFinished(Team.TeamType tt)
+    {
+        WinnerTeam = tt;
+        onGameFinished.Invoke();
     }
 }
