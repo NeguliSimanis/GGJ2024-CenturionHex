@@ -140,6 +140,7 @@ public class TileSpawner_Simanis : MonoBehaviour
         CharacterVisual_Simanis characterVisual = newChar.GetComponent<CharacterVisual_Simanis>();
         characterVisual.character = tile.currentCharacter;
         characterVisual.SetCharacterVisuals(tile.currentCharacter.type, this);
+        characterVisual.SetSpeedUI();
         characterVisual.xCoord = x;
         characterVisual.yCoord = y;
         allCharacters.Add(characterVisual);

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 
 [System.Serializable]
@@ -23,6 +24,20 @@ public class CharacterVisual_Simanis : MonoBehaviour
 
     public int xCoord;
     public int yCoord;
+
+    [Header("STATS")]
+    public Transform lifeParent;
+    public Transform speedParent;
+    public GameObject speedIcon;
+    public GameObject lifeIcon;
+
+    [Header("ANIMATIONS")]
+    public float scaleSpeed = 1.0f; // Adjust the speed as needed
+    public float maxScaleY = 1.08f;
+    public float minScaleY = 1.0f;
+    public Transform scaleAnimationTarget;
+
+    private bool scalingUp = true;
 
     public void SetCharacterVisuals(Character.CharacterType type, TileSpawner_Simanis newTileSpawner)
     {
@@ -72,10 +87,75 @@ public class CharacterVisual_Simanis : MonoBehaviour
         activePrefab.transform.localScale = currentScale;
     }
 
+    public void SetLifeUI()
+    {
+        int remainingLife = character.Health;
+        Debug.Log(character.type + " life remaining " + remainingLife
+            + ". Normal life: " + character.InitialHealth);
+
+        int lifeDisplayed = 0;
+        foreach (Transform life in lifeParent)
+        {
+            if (life.gameObject.activeInHierarchy)
+                lifeDisplayed++;
+        }
+        Debug.Log("life displayed " + lifeDisplayed);
+        for (int i = 0; i < lifeDisplayed; i++)
+        {
+            if (lifeDisplayed > remainingLife)
+            {
+                lifeDisplayed--;
+                lifeParent.GetChild(i).gameObject.SetActive(false);
+            }
+            
+        }
+        while (lifeDisplayed < remainingLife
+            && lifeDisplayed < 50)
+        {
+            GameObject newLifeIcon = Instantiate(lifeIcon, lifeParent);
+            lifeDisplayed++;
+        }
+    }
+
+    public void SetSpeedUI()
+    {
+        //character.StepsPerTurn
+        //character.StepsUsed
+
+        int remainingSpeed = character.StepsPerTurn - character.StepsUsed;
+        Debug.Log(character.type + " speed remaining " + remainingSpeed
+            + ". Steps per turn: " + character.StepsPerTurn);
+
+        int speedDisplayed = 0;
+        foreach (Transform speed in speedParent)
+        {
+            if (speed.gameObject.activeInHierarchy)
+                speedDisplayed++;
+        }
+        Debug.Log("speedDisplayed" + speedDisplayed + ". remaining speed " + remainingSpeed);
+        for (int i = 0; i < speedParent.childCount; i++)
+        {
+            if (speedDisplayed > remainingSpeed)
+            {
+                speedDisplayed--;
+                speedParent.GetChild(i).gameObject.SetActive(false);
+            }
+
+        }
+        while (speedDisplayed < remainingSpeed
+            && speedDisplayed < 50)
+        {
+            GameObject newLifeIcon = Instantiate(speedIcon, speedParent);
+            Debug.Log(character.type + " adding speed");
+            speedDisplayed++;
+        }
+    }
+
     public void WoundCharacter()
     {
         if (isDead)
             return;
+        SetLifeUI();
         if (character.Health <= 0)
         {
             Die();
@@ -113,6 +193,7 @@ public class CharacterVisual_Simanis : MonoBehaviour
             }
         }
         Debug.Log("MOVE CALLED");
+        SetSpeedUI();
         transform.DOLocalMove(moveTarget, speed)
            .SetEase(Ease.InOutQuad).OnComplete(() => hudManager.ListenToRaycast());
     }
@@ -133,5 +214,37 @@ public class CharacterVisual_Simanis : MonoBehaviour
 
         return moveTarget;
     }
-    
+
+  
+
+    void Update()
+    {
+        float newYScale = scaleAnimationTarget.transform.localScale.y;
+
+        if (scalingUp)
+        {
+            newYScale += Time.deltaTime * scaleSpeed;
+            if (newYScale >= maxScaleY)
+            {
+                newYScale = maxScaleY;
+                scalingUp = false;
+            }
+        }
+        else
+        {
+            newYScale -= Time.deltaTime * scaleSpeed;
+            if (newYScale <= minScaleY)
+            {
+                newYScale = minScaleY;
+                scalingUp = true;
+            }
+        }
+
+        // Apply the new scale
+        scaleAnimationTarget.transform.localScale = 
+            new Vector3(scaleAnimationTarget.transform.localScale.x, 
+            newYScale,
+            scaleAnimationTarget.transform.localScale.z);
+    }
+
 }

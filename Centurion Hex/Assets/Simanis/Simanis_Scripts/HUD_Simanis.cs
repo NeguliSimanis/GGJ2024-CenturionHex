@@ -50,6 +50,7 @@ public class HUD_Simanis : MonoBehaviour
     [Header("end turn")]
     public EndTurnButton_Simanis endTurnButton;
 
+    [Header("MOVE INPUT PROCESSING")]
     public float listenForMoveSuccessDuration = 0.03f;
     public bool isListeningToMoveSuccess = false;
     private float moveStartTime;
@@ -67,17 +68,35 @@ public class HUD_Simanis : MonoBehaviour
         processRaycast = true;
     }
 
+    public bool IsMyTurn()
+    {
+        bool isMy = false;
+        if (centurionGame.RedMove && centurionGame.PlayingAsRed)
+        {
+            isMy = true;
+        }
+        if (!centurionGame.RedMove && !centurionGame.PlayingAsRed)
+        {
+            isMy = true;
+        }
+        return isMy;
+    }
+
+    public void RemoveCustomCursorIfNotTurn()
+    {
+        if(!IsMyTurn())
+        {
+            customCursor.SetCursor(false, cursorAction: CursorAction.undefined);
+        }
+    }
+
     public void UpdateCurHighlight(RaycastInteract raycastInteract)
     {
         // only highlight stuff if its ur turn
-        if (centurionGame.RedMove && !centurionGame.PlayingAsRed)
+        if (!IsMyTurn())
         {
             ClearHighlights();
-            return;
-        }
-        if (!centurionGame.RedMove && centurionGame.PlayingAsRed)
-        {
-            ClearHighlights();
+            RemoveCustomCursorIfNotTurn();
             return;
         }
 
@@ -290,7 +309,6 @@ public class HUD_Simanis : MonoBehaviour
                     if (interactionTarget.type == RaycastInteract.Type.Tile
                         && oldHighlight.type == RaycastInteract.Type.Character)
                     {
-                        lookingForExtraInteractionTarget = false;
                         processRaycast = false;
                         TryToMoveToTile();
                     }
@@ -299,7 +317,6 @@ public class HUD_Simanis : MonoBehaviour
                     if (interactionTarget.type == RaycastInteract.Type.Character
                         && oldHighlight.type == RaycastInteract.Type.Character)
                     {
-                        lookingForExtraInteractionTarget = false;
                         processRaycast = false;
                         TryToAttackTile(attackChar: true);
                     }
@@ -308,7 +325,6 @@ public class HUD_Simanis : MonoBehaviour
                     if (interactionTarget.type == RaycastInteract.Type.Building
                         && oldHighlight.type == RaycastInteract.Type.Character)
                     {
-                        lookingForExtraInteractionTarget = false;
                         processRaycast = false;
                         TryToAttackTile(attackChar: false);
                     }
