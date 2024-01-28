@@ -124,6 +124,8 @@ public class CenturionGame : MonoBehaviour
     private Tile lastPointTile;
     public Character lastCharacterMoved;
     public Tile lastTileCovered;
+    public Character lastHurterC;
+    public Building lastHurterB;
     public Character lastHurtCharacter;
     public Building lastHurtBuilding;
     public Building lastBoughtBuilding;
@@ -466,7 +468,7 @@ public class CenturionGame : MonoBehaviour
         onPointsFromBuilding.Invoke();
     }
 
-    public void OnCharacterHurt(uint charid, int health)
+    public void OnCharacterHurt(uint charid, int health, uint reason)
     {
         Character ch = GetBoardCharacter(charid);
         ch.Health = health;
@@ -484,10 +486,12 @@ public class CenturionGame : MonoBehaviour
                 ch.Team.Governor.Characters.Remove(ch);
             }
         }
+        lastHurterC = reason != 0 ? ( GetCharacter(reason) ) : null;
+        lastHurterB = reason != 0 ? (GetBuilding(reason)) : null;
         lastHurtCharacter = ch;
         onCharacterHurt.Invoke();
     }
-    public void OnBuildingHurt(uint bid, int health)
+    public void OnBuildingHurt(uint bid, int health, uint reason)
     {
         Building ch = GetBoardBuilding(bid);
         ch.Health = health;
@@ -505,6 +509,8 @@ public class CenturionGame : MonoBehaviour
                 ch.Team.Governor.Buildings.Remove(ch);
             }
         }
+        lastHurterC = reason != 0 ? (GetCharacter(reason)) : null;
+        lastHurterB = reason != 0 ? (GetBuilding(reason)) : null;
         lastHurtBuilding = ch;
         onBuildingHurt.Invoke();
     }

@@ -429,10 +429,10 @@ public class Network : MonoBehaviour
                 Game.OnPointFromBuilding((Team.TeamType)incomingData.readByte(), incomingData.readByte(), incomingData.readUnsignedInt());
                 break;
             case Messages.op_character_hurt:
-                Game.OnCharacterHurt(incomingData.readUnsignedInt(), incomingData.readByte());
+                Game.OnCharacterHurt(incomingData.readUnsignedInt(), incomingData.readByte(), incomingData.readUnsignedInt());
                 break;
             case Messages.op_building_hurt:
-                Game.OnBuildingHurt(incomingData.readUnsignedInt(), incomingData.readByte());
+                Game.OnBuildingHurt(incomingData.readUnsignedInt(), incomingData.readByte(), incomingData.readUnsignedInt());
                 break;
             case Messages.op_buy_building_card:
                 Game.OnBuildingBought(incomingData.readUnsignedInt(), (Team.TeamType)incomingData.readByte());
