@@ -433,16 +433,16 @@ MonoBehaviour:
   tileCenter: {fileID: 9050414402601754950}
   tilePrefabs:
   - gameObject: {fileID: 7705721773704980189}
-    type: 2
+    type: 3
     isCover: 0
   - gameObject: {fileID: 5760065063483295276}
-    type: 3
+    type: 2
     isCover: 0
   - gameObject: {fileID: 8534238517611385990}
     type: 4
     isCover: 0
   - gameObject: {fileID: 6773981361725786435}
-    type: 5
+    type: 2
     isCover: 0
   - gameObject: {fileID: 5623541272906651414}
     type: 1
@@ -4291,6 +4291,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SenateTile
       objectReference: {fileID: 0}
+    - target: {fileID: 5665889177331819736, guid: 14f544ae932e30c4b92f93c475dbe963,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5941707844427406415, guid: 14f544ae932e30c4b92f93c475dbe963,
         type: 3}
       propertyPath: m_RootOrder
@@ -4427,6 +4432,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ForestTileBuild
       objectReference: {fileID: 0}
+    - target: {fileID: 5865881129106703996, guid: d2a6e96accc8623499d4569a11b183d3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2a6e96accc8623499d4569a11b183d3, type: 3}
 --- !u!4 &2635053587299197125 stripped
@@ -4452,6 +4462,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ForestTile
+      objectReference: {fileID: 0}
+    - target: {fileID: 539757646858617941, guid: c5c0334e575734a41981d524f4b07ce9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7224567252022120466, guid: c5c0334e575734a41981d524f4b07ce9,
         type: 3}
@@ -4589,6 +4604,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrassTile
       objectReference: {fileID: 0}
+    - target: {fileID: 5595787702544531846, guid: 41254292475cb334a9ba7629b0f5726c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41254292475cb334a9ba7629b0f5726c, type: 3}
 --- !u!4 &1488246760735700791 stripped
@@ -4709,6 +4729,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GrassTileBuild
+      objectReference: {fileID: 0}
+    - target: {fileID: 1911957441656513445, guid: a39fe93c70e524a4889895dff87fc30c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3023378595980652999, guid: a39fe93c70e524a4889895dff87fc30c,
         type: 3}
@@ -4951,6 +4976,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SlowTile
+      objectReference: {fileID: 0}
+    - target: {fileID: 573755254879788579, guid: 1d7be4a366df72748bdd5cde7bcae158,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2324480853561406446, guid: 1d7be4a366df72748bdd5cde7bcae158,
         type: 3}
