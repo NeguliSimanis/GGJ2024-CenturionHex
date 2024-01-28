@@ -52,6 +52,7 @@ Material:
     - _B: 0.4
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
+    - _Saturation: 1
     m_Colors:
     - _Color: {r: 0.7882353, g: 0.0482359, b: 0, a: 1}
     - _New_Color: {r: 0, g: 0.22222233, b: 1, a: 1}
