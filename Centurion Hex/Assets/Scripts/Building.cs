@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static TileCover;
 
 public class Building
 {
@@ -37,8 +38,8 @@ public class Building
     public int y;
 
     public bool requireNextToAlly;
-    public Tile.TileType requiredTileType;//void if can build on any
-
+    public CoverType requiredTileType;//void if can build on any
+    public int victoryPoints;
     public int price;
     public string Name;
     public string Description;
@@ -63,7 +64,8 @@ public class Building
         x = data.readByte();
         y = data.readByte();
         requireNextToAlly = data.readBoolean();
-        requiredTileType = (Tile.TileType)data.readByte();
+        requiredTileType = (CoverType)data.readByte();
+        victoryPoints = data.readByte();
         price = data.readByte();
         Name = data.readUTF();
         Description = data.readUTF();
