@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static Building;
+using static Character;
+using UnityEngine.TextCore.Text;
 
 [System.Serializable]
 public class CardImage
@@ -46,26 +49,55 @@ public class CardVisual_Simanis : MonoBehaviour
     public TextMeshProUGUI unitDamage;
     public TextMeshProUGUI unitSpeed;
 
-    public void DisplayCharacterCardVisuals(Character.CharacterType type)
+    public void DisplayCharacterCardVisuals(Character character)
     {
-        foreach(CardImage cardImage in cardImages)
-        {
-            if (cardImage.isCharacter && cardImage.charType == type)
-            {
-                cardMainImage.sprite = cardImage.sprite;
-            }
-        }
-    }
+        cardTypeIcon.sprite = character.isWarUnit ? warUnitIcon : civilUnitIcon;
 
-    public void DisplayBuildCardVisuals(Building.BuildingType type)
-    {
         foreach (CardImage cardImage in cardImages)
         {
-            if (!cardImage.isCharacter && cardImage.buildingType == type)
+            if (cardImage.isCharacter && cardImage.charType == character.type)
             {
                 cardMainImage.sprite = cardImage.sprite;
             }
         }
+        buildingStats.SetActive(false);
+        unitStats.SetActive(true);
+
+        cardTitle.text = character.Name;
+        cardAbility.text = character.Description;
+        cardCost.text = character.Price.ToString();
+        unitDamage.text = character.AttackDamage.ToString();
+        unitSpeed.text = character.StepsPerTurn.ToString();
+
+        //hacky
+        unitRange.GetComponentInChildren<TextMeshProUGUI>().text = character.AttackRange.ToString();
+        life2.SetActive(character.InitialHealth > 1);
     }
 
+    public void DisplayBuildCardVisuals(Building building)
+    {
+        cardTypeIcon.sprite = building.Class == BuildingClass.bcWar ? warBuildIcon : civilBuildIcon;
+
+        foreach (CardImage cardImage in cardImages)
+        {
+            if (!cardImage.isCharacter && cardImage.buildingType == building.Type)
+            {
+                cardMainImage.sprite = cardImage.sprite;
+            }
+        }
+        cardTitle.text = building.Name;
+        cardAbility.text = building.Description;
+        cardCost.text = building.price.ToString();
+
+        buildingStats.SetActive(true);
+        unitStats.SetActive(false);
+
+        buildPlaceNextToAlly.SetActive( building.requireNextToAlly );
+        buildPlaceAny.SetActive(building.requiredTileType == TileCover.CoverType.ctUndefined );
+        buildPlaceWood.SetActive(building.requiredTileType == TileCover.CoverType.ctForest);
+        buildPlaceGrass.SetActive(building.requiredTileType == TileCover.CoverType.ctGrass);
+        vicPointAmount.text = building.victoryPoints.ToString();
+
+        life2.SetActive(building.InitialHealth > 1);
+    }
 }
