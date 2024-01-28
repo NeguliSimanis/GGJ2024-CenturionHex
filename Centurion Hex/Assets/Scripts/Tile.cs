@@ -43,4 +43,10 @@ public class Tile
         tileType = (TileType)data.readByte();
         tileCover.LoadFromNetwork(data);
     }
+
+    public void Reset()
+    {
+        currentCharacter = null;
+        currentBuilding = null;
+    }
 }

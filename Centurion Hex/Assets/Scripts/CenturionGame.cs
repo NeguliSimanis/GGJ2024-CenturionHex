@@ -160,6 +160,8 @@ public class CenturionGame : MonoBehaviour
         CivilBuildings.Clear(); 
         BoardBuildings.Clear();
 
+        Board.Reset();
+
         Teams[0].General.ResetGame();
         Teams[0].Governor.ResetGame();
         Teams[1].General.ResetGame();
