@@ -19,10 +19,10 @@ public class CenturionGame : MonoBehaviour
         rsManagement,
     };
 
-    public RoundState mRoundState;
+    [HideInInspector] public RoundState mRoundState;
 
     public static CenturionGame Instance { get; private set; }
-    public Team.TeamType WinnerTeam;
+    [HideInInspector] public Team.TeamType WinnerTeam;
 
     public UnityEvent onGameReload;
     public UnityEvent onRoundStateChange;
@@ -43,23 +43,23 @@ public class CenturionGame : MonoBehaviour
     public UnityEvent onGameFinished;
     public UnityEvent onOnlineOffline;
 
-    public Board Board = new Board();
+    [HideInInspector] public Board Board = new Board();
 
     //all characters in deck
-    public List<Character> Characters = new List<Character>();
+    [HideInInspector] public List<Character> Characters = new List<Character>();
 
     //shortcuts
-    public List<Character> WarCharacters = new List<Character>();
-    public List<Character> CivilCharacters = new List<Character>();
-    public List<Character> BoardCharacters = new List<Character>();
+    [HideInInspector] public List<Character> WarCharacters = new List<Character>();
+    [HideInInspector] public List<Character> CivilCharacters = new List<Character>();
+    [HideInInspector] public List<Character> BoardCharacters = new List<Character>();
 
     //all biuldings in deck
-    public List<Building> Buildings = new List<Building>();
+    [HideInInspector] public List<Building> Buildings = new List<Building>();
 
     //shortcuts
-    public List<Building> WarBuildings = new List<Building>();
-    public List<Building> CivilBuildings = new List<Building>();
-    public List<Building> BoardBuildings = new List<Building>();
+    [HideInInspector] public List<Building> WarBuildings = new List<Building>();
+    [HideInInspector] public List<Building> CivilBuildings = new List<Building>();
+    [HideInInspector] public List<Building> BoardBuildings = new List<Building>();
 
     public Building GetBoardBuilding(uint id )
     {
@@ -101,20 +101,20 @@ public class CenturionGame : MonoBehaviour
         return null;
     }
 
-    public Team[] Teams = new Team[2];
+    [HideInInspector] public Team[] Teams = new Team[2];
 
-    public bool StartWithRed;//start with random red/blue
-    public bool RedMove;//current team
-    public bool GeneralMove = true;//start with general move
+    [HideInInspector] public bool StartWithRed;//start with random red/blue
+    [HideInInspector] public bool RedMove;//current team
+    [HideInInspector] public bool GeneralMove = true;//start with general move
 
-    public bool PlayingAsRed = true;
-    public bool PlayingAsGeneral = true;
-    public bool PlayingAsGovernor = true;
+    [HideInInspector] public bool PlayingAsRed = true;
+    [HideInInspector] public bool PlayingAsGeneral = true;
+    [HideInInspector] public bool PlayingAsGovernor = true;
 
     public bool UseNetwork = false;
-    public Building lastSourceBuilding;
-    public int lastWealthAmount;
-    public int lastPointAmount;
+    [HideInInspector] public Building lastSourceBuilding;
+    [HideInInspector] public int lastWealthAmount;
+    [HideInInspector] public int lastPointAmount;
 
     private Tile lastWealthTile;
     private Tile lastPointTile;
