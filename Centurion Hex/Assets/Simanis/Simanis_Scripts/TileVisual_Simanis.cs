@@ -44,6 +44,9 @@ public class TileVisual_Simanis : MonoBehaviour
     [Header("VICTORY POINT ANIM")]
     public Animator victoryAnimator;
     public GameObject victoryAnimObject;
+    public Image animationImage;
+    public Sprite victorySprite;
+    public Sprite coinSprite;
 
     public void SetTileVisuals(TileSpawner_Simanis spawner)
     {
@@ -78,18 +81,36 @@ public class TileVisual_Simanis : MonoBehaviour
 
     }
 
+    public void SpawnGoldGain()
+    {
+        Debug.Log("spawning gold gain");
+        if (tileSpawner.centurionGame.RedMove)
+        {
+            victoryAnimObject.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            victoryAnimObject.transform.localScale = new Vector3(1, 1, 1);
+        }
+        animationImage.sprite = coinSprite;
+        
+        victoryAnimator.SetTrigger("Find");
+
+    }
+
 
     public void SpawnVictoryPointGain()
     {
         // flip if u are team red
         if (tileSpawner.centurionGame.RedMove)
         {
-            victoryAnimObject.transform.localScale = new Vector3(-1, -1, 1);
+            victoryAnimObject.transform.localScale = new Vector3(-1, 1, 1);
         }
         else
         {
             victoryAnimObject.transform.localScale = new Vector3(1, 1, 1);
         }
+        animationImage.sprite = victorySprite;
 
         Debug.Log("spawning victory point gain");
         victoryAnimator.SetTrigger("Find");
