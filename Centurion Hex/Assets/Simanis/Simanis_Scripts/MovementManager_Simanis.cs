@@ -37,6 +37,28 @@ public class MovementManager_Simanis : MonoBehaviour
         }
     }
 
+    public void HurtBuilding()
+    {
+        Debug.Log("Attempting to wound building");
+        Building buildingToWound = centurionGame.lastHurtBuilding;
+        //for (int i = 0; i < spawner.allCharacters.Count; i++)
+        //{
+        //    if (spawner.allCharacters[i].character == charToWound)
+        //    {
+        //        charVisual.WoundCharacter();
+
+        //    }
+        //}
+        foreach (BuildingVisual_Simanis buildVisual in spawner.allBuildings)
+        {
+            if (buildVisual.building == buildingToWound)
+            {
+                buildVisual.WoundBuilding();
+                break;
+            }
+        }
+    }
+
     public void MoveCharacter()
     {
         Debug.Log("LOOKIN FOR MOVE CHAACTER");

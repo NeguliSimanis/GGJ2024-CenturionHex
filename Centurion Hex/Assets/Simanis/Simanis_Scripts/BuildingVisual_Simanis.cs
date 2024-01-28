@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 
 [System.Serializable]
@@ -12,6 +13,8 @@ public class BuildingVisualPrefab
 
 public class BuildingVisual_Simanis : MonoBehaviour
 {
+    public bool isDead = false;
+
     public BuildingVisualPrefab[] buildingPrefabs;
     public Building building;
 
@@ -49,5 +52,32 @@ public class BuildingVisual_Simanis : MonoBehaviour
             isMy = true;
         }
         return isMy;
+    }
+
+    public void WoundBuilding()
+    {
+        if (isDead)
+            return;
+        if (building.Health <= 0)
+        {
+            Die();
+        }
+    }
+
+    public void Die()
+    {
+        isDead = true;
+        tileSpawner.allBuildings.Remove(this);
+        /*
+         * if (hudManager.oldHighlight)
+        {
+            if (hudManager.oldHighlight.type == RaycastInteract.Type.Character
+                && hudManager.oldHighlight.characterVisualControl == this)
+            {
+                hudManager.ClearHighlights();
+            }
+        }
+        */
+        Destroy(gameObject);
     }
 }

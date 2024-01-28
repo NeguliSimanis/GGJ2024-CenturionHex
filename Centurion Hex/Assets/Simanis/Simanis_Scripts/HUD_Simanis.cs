@@ -146,6 +146,11 @@ public class HUD_Simanis : MonoBehaviour
         goldTeam0.text = centurionGame.Teams[0].Gold.ToString();
         goldTeam1.text = centurionGame.Teams[1].Gold.ToString();
     }
+    public void UpdateTeamVictoryPoints()
+    {
+        vicPointsTeam0.text = centurionGame.Teams[0].VictoryPoints.ToString();
+        vicPointsTeam1.text = centurionGame.Teams[1].VictoryPoints.ToString();
+    }
 
     public void UpdateTurnIDs()
     {
