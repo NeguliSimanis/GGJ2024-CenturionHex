@@ -28,4 +28,9 @@ public class BuildingVisual_Simanis : MonoBehaviour
             }
         }
     }
+
+    public bool IsMyBuilding()
+    {
+        return false;
+    }
 }

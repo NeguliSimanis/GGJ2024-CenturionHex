@@ -25,6 +25,10 @@ public class RaycastInteract : MonoBehaviour
     //public bool isTile = false;
     public TileVisual_Simanis tileVisualControl;
 
+    [Header("building control")]
+    //public bool isTile = false;
+    public BuildingVisual_Simanis buildingVisualControl;
+
 
     private void Start()
     {

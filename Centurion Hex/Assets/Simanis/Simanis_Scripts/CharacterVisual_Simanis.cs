@@ -97,7 +97,7 @@ public class CharacterVisual_Simanis : MonoBehaviour
     public void MoveCharacter(float speed)
     {
         Vector3 moveTarget = Vector3.zero;
-
+        hudManager.isListeningToMoveSuccess = false;
         foreach (TileVisual_Simanis tileVisual in tileSpawner.allTiles)
         {
             if (tileVisual.xCoord == character.x
