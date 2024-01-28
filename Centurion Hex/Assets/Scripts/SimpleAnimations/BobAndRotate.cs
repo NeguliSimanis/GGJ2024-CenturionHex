@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteAlways]
 public class BobAndRotate : MonoBehaviour
 {
 	private Transform _transform;
