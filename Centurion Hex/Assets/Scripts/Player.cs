@@ -44,4 +44,14 @@ public class Player
         Type = (PlayerType)data.readByte();
         NetworkPlayerID = data.readUTF();
     }
+
+    public void ResetGame()
+    {
+        Characters.Clear();
+        Buildings.Clear();
+        StandByCharacters.Clear();
+        StandByBuildings.Clear();
+        DeadCharacters.Clear();
+        DeadBuildings.Clear();
+    }
 }

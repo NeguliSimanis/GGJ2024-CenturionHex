@@ -149,8 +149,27 @@ public class CenturionGame : MonoBehaviour
 #endif
     }
 
+    public void ResetGame()
+    {
+        Characters.Clear();
+        WarCharacters.Clear();
+        CivilCharacters.Clear();
+        BoardCharacters.Clear();
+        Buildings.Clear();
+        WarBuildings.Clear(); 
+        CivilBuildings.Clear(); 
+        BoardBuildings.Clear();
+
+        Teams[0].General.ResetGame();
+        Teams[0].Governor.ResetGame();
+        Teams[1].General.ResetGame();
+        Teams[1].Governor.ResetGame();
+    }
+
     public void LoadFromNetwork(ByteArray data)
     {
+        ResetGame();
+
         StartWithRed = data.readBoolean();
         RedMove = data.readBoolean();
         GeneralMove = data.readBoolean();
