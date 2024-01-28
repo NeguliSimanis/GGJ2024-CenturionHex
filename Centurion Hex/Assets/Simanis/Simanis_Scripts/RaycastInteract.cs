@@ -30,6 +30,7 @@ public class RaycastInteract : MonoBehaviour
     {
         if (!shouldHighlightComponent)
         {
+            Debug.Log(gameObject.name);
             highlightObject.SetActive(false);
         }
         else

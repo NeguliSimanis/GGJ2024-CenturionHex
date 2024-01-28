@@ -11889,7 +11889,6 @@ GameObject:
   - component: {fileID: 5213984643937090264}
   - component: {fileID: 5213984643937090265}
   - component: {fileID: 5213984643937090266}
-  - component: {fileID: 7392947272611686247}
   m_Layer: 0
   m_Name: UnitRotatorAndRaycastInteract
   m_TagString: Untagged
@@ -11991,24 +11990,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e115e0d2bacaafb448c309984094b518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7392947272611686247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5213984643937090260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e09d4102d6fc6764aa4019cbf4dfea85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  shouldHighlightComponent: 0
-  highlightObject: {fileID: 0}
-  highlightComponent: {fileID: 0}
-  characterVisualControl: {fileID: 0}
-  tileVisualControl: {fileID: 0}
 --- !u!1 &5213984644822653453
 GameObject:
   m_ObjectHideFlags: 0
