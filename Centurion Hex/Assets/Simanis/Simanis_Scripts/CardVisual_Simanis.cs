@@ -20,7 +20,7 @@ public class CardVisual_Simanis : MonoBehaviour
 
     public TextMeshProUGUI cardTitle;
     public TextMeshProUGUI cardAbility;
-    public TextMeshPro cardCost;
+    public TextMeshProUGUI cardCost;
 
     public GameObject life1;
     public GameObject life2;
