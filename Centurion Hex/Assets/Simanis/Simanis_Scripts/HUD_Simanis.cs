@@ -121,9 +121,9 @@ public class HUD_Simanis : MonoBehaviour
                 if (!raycastInteract.buildingVisualControl.IsMyBuilding())
                 {
                     Debug.Log("todo attack building");
-                    //interactionTarget = raycastInteract;
-                    //raycastInteract.SetHighlight(true);
-                    //customCursor.SetCursor(true, CursorAction.attack);
+                    interactionTarget = raycastInteract;
+                    raycastInteract.SetHighlight(true);
+                    customCursor.SetCursor(true, CursorAction.attack);
                 }
             }
             return;
@@ -161,7 +161,7 @@ public class HUD_Simanis : MonoBehaviour
         }
     }
 
-    private void TryToAttackTile()
+    private void TryToAttackTile(bool attackChar)
     {
         Debug.Log("try to attack tile");
 
@@ -173,8 +173,18 @@ public class HUD_Simanis : MonoBehaviour
             ClearHighlights();
 
         //  target x y interactionTarget.type == RaycastInteract.Type.Tile
-        int xPos = interactionTarget.characterVisualControl.xCoord;
-        int yPos = interactionTarget.characterVisualControl.yCoord;
+        int xPos;
+        int yPos;
+        if (attackChar)
+        {
+            xPos = interactionTarget.characterVisualControl.xCoord;
+            yPos = interactionTarget.characterVisualControl.yCoord;
+        }
+        else
+        {
+            xPos = interactionTarget.buildingVisualControl.xCoord;
+            yPos = interactionTarget.buildingVisualControl.yCoord;
+        }
 
         Network.instance.HurtTile(id, xPos, yPos);
     }
@@ -260,13 +270,22 @@ public class HUD_Simanis : MonoBehaviour
                         TryToMoveToTile();
                     }
 
-                    // TRY ATTACK
+                    // TRY ATTACK CHAR
                     if (interactionTarget.type == RaycastInteract.Type.Character
                         && oldHighlight.type == RaycastInteract.Type.Character)
                     {
                         lookingForExtraInteractionTarget = false;
                         processRaycast = false;
-                        TryToAttackTile();
+                        TryToAttackTile(attackChar: true);
+                    }
+
+                    // TRY ATTACK BUILD
+                    if (interactionTarget.type == RaycastInteract.Type.Building
+                        && oldHighlight.type == RaycastInteract.Type.Character)
+                    {
+                        lookingForExtraInteractionTarget = false;
+                        processRaycast = false;
+                        TryToAttackTile(attackChar: false);
                     }
                     return;
                 }

@@ -15,6 +15,9 @@ public class BuildingVisual_Simanis : MonoBehaviour
     public BuildingVisualPrefab[] buildingPrefabs;
     public Building building;
 
+    public int xCoord;
+    public int yCoord;
+
     public void SetBuildingVisuals(Building.BuildingType type)
     {
         foreach (BuildingVisualPrefab prefab in buildingPrefabs)

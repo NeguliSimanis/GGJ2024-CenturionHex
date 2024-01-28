@@ -120,21 +120,6 @@ public class TileSpawner_Simanis : MonoBehaviour
         {
             Vector3 oldPos = rowParents[i].transform.position;
             float newPosX = oldPos.x + rowOffsetX * i;
-
-            //if (i > 3)
-            //{
-            //    bool addRow = false;
-            //    if (oldAddedX == 0 || oldAddedX == +1)
-            //    {
-            //        newPosX = oldPos.x + rowOffsetX * (3) - rowOffsetX * (i - 3);
-            //        oldAddedX = -1;
-            //    }
-            //    else
-            //    {
-            //        oldAddedX = 1;
-            //        newPosX = oldPos.x + rowOffsetX * (3) + rowOffsetX * (i - 3);
-            //    }
-            //}
             rowParents[i].transform.position = new Vector3(newPosX, oldPos.y,
                 oldPos.z + rowOffsetZ*i);
         }
@@ -162,7 +147,7 @@ public class TileSpawner_Simanis : MonoBehaviour
     }
 
     public void SpawnBuildingOnTile(Tile tile, Transform parent,
-        TileVisual_Simanis tileVisual)
+        TileVisual_Simanis tileVisual, int x, int y)
     {
         if (tile.currentBuilding == null)
             return;
@@ -171,6 +156,8 @@ public class TileSpawner_Simanis : MonoBehaviour
 
         BuildingVisual_Simanis buildingVisual = newBuild.GetComponent<BuildingVisual_Simanis>();
         buildingVisual.building = tile.currentBuilding;
+        buildingVisual.xCoord = x;
+        buildingVisual.yCoord = y;
         buildingVisual.SetBuildingVisuals(tile.currentBuilding.Type);
         allBuildings.Add(buildingVisual);
     }
@@ -193,7 +180,8 @@ public class TileSpawner_Simanis : MonoBehaviour
 
         SpawnCharacterOnTile(tile, spawnPos, tileVisual.unitTransformPos, tileVisual,
             x: row, y: collumn);
-        SpawnBuildingOnTile(tile, newTileObject.transform, tileVisual);
+        SpawnBuildingOnTile(tile, newTileObject.transform, tileVisual,
+            x:row, y: collumn);
         //tileVisual.ShowMessage(row + "." + collumn + "." + tile.tileType);
     }
 }
