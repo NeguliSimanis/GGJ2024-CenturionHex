@@ -158,7 +158,7 @@ public class TileSpawner_Simanis : MonoBehaviour
         buildingVisual.building = tile.currentBuilding;
         buildingVisual.xCoord = x;
         buildingVisual.yCoord = y;
-        buildingVisual.SetBuildingVisuals(tile.currentBuilding.Type);
+        buildingVisual.SetBuildingVisuals(tile.currentBuilding.Type, this);
         allBuildings.Add(buildingVisual);
     }
 

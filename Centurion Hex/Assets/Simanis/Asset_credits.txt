@@ -13,3 +13,8 @@ gems (victory points): https://gatoparty.itch.io/gem-pack
 cards: https://ladyluck.itch.io/rpg-card-template
 hamme icon: https://iconscout.com/free-icon/hammer-3858732
 tree icon: https://iconscout.com/free-icon/tree-3352488
+grass icon: https://clipart-library.com/clipart/grass-clip-art-28.htm
+font: https://www.1001fonts.com/kelmscottroman-font.html
+Outline asset: https://assetstore.unity.com/packages/tools/particles-effects/quick-outline-115488
+2d outline asset: https://assetstore.unity.com/packages/vfx/shaders/2d-sprite-outline-109669
+animated arows: https://spikerman.itch.io/animated-arrows-cursors

@@ -18,8 +18,11 @@ public class BuildingVisual_Simanis : MonoBehaviour
     public int xCoord;
     public int yCoord;
 
-    public void SetBuildingVisuals(Building.BuildingType type)
+    TileSpawner_Simanis tileSpawner;
+
+    public void SetBuildingVisuals(Building.BuildingType type, TileSpawner_Simanis newTileSpawner)
     {
+        tileSpawner = newTileSpawner;
         foreach (BuildingVisualPrefab prefab in buildingPrefabs)
         {
             if (prefab.type != type)
@@ -34,6 +37,17 @@ public class BuildingVisual_Simanis : MonoBehaviour
 
     public bool IsMyBuilding()
     {
-        return false;
+        bool isMy = false;
+        CenturionGame centurionGame = tileSpawner.centurionGame;
+
+        if (building.Team.Type == Team.TeamType.ttBlue && !centurionGame.PlayingAsRed)
+        {
+            isMy = true;
+        }
+        if (building.Team.Type == Team.TeamType.ttRed && centurionGame.PlayingAsRed)
+        {
+            isMy = true;
+        }
+        return isMy;
     }
 }
