@@ -192,7 +192,7 @@ public class TileSpawner_Simanis : MonoBehaviour
         allTiles.Add(tileVisual);
 
         SpawnCharacterOnTile(tile, spawnPos, tileVisual.unitTransformPos, tileVisual,
-            tileVisual.xCoord, tileVisual.yCoord);
+            x: row, y: collumn);
         SpawnBuildingOnTile(tile, newTileObject.transform, tileVisual);
         //tileVisual.ShowMessage(row + "." + collumn + "." + tile.tileType);
     }

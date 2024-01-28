@@ -104,6 +104,8 @@ public class CharacterVisual_Simanis : MonoBehaviour
                 && tileVisual.yCoord == character.y)
             {
                 transform.parent = tileVisual.unitTransformPos;
+                xCoord = tileVisual.xCoord;
+                yCoord = tileVisual.yCoord;
                 Debug.Log("COD FIND " + tileVisual.xCoord + "." + tileVisual.yCoord);
             }
         }
