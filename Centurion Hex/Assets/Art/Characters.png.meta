@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -276,7 +276,7 @@ TextureImporter:
       name: Characters_Princess
       rect:
         serializedVersion: 2
-        x: 823
+        x: 819
         y: 16
         width: 68
         height: 166
@@ -297,12 +297,12 @@ TextureImporter:
       name: Surveyor
       rect:
         serializedVersion: 2
-        x: 901
+        x: 891
         y: 16
-        width: 60
+        width: 58
         height: 166
       alignment: 9
-      pivot: {x: 0.45000002, y: 0}
+      pivot: {x: 0.46551725, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -310,6 +310,27 @@ TextureImporter:
       bones: []
       spriteID: 19ed1a30a9452014993be4ef8b8d2b62
       internalID: -944406494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Characters_0
+      rect:
+        serializedVersion: 2
+        x: 949
+        y: 16
+        width: 72
+        height: 164
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58d62f034164fe94eb4bbadc9bdc7049
+      internalID: -51331686
       vertices: []
       indices: 
       edges: []
@@ -333,6 +354,7 @@ TextureImporter:
       Characters_Raptor: -248414012
       Characters_Bartender: 12903134
       Characters_Arbalest: -1066041663
+      Characters_0: -51331686
       Characters_TaxCollector: -473627714
       Characters_Senator: 2010602105
   spritePackingTag: 
