@@ -31,6 +31,7 @@ public class ShopUI : MonoBehaviour
             Network.instance.BuyCharacter();
         });
         HideUI();
+        FillPlayerHand();
     }
 
     // Update is called once per frame
@@ -44,7 +45,12 @@ public class ShopUI : MonoBehaviour
         Debug.Log("Checking shop " + game.mRoundState);
         if( game.mRoundState == CenturionGame.RoundState.rsManagement )
         {
-            if ( game.RedMove == game.PlayingAsRed )
+            if ( game.RedMove && game.PlayingAsRed )
+            {
+                Debug.Log("Showing UI");
+                ShowUI();
+            }
+            else if (!game.RedMove && !game.PlayingAsRed)
             {
                 Debug.Log("Showing UI");
                 ShowUI();
@@ -62,6 +68,87 @@ public class ShopUI : MonoBehaviour
         }
     }
 
+    public void FillPlayerHand()
+    {
+        //fill cards from hand
+        if (game.PlayingAsRed)
+        {
+            //my turn
+            int offset = 0;
+            Player p = game.RedMove ? 
+                (game.GeneralMove ? game.Teams[0].General : game.Teams[0].Governor) : 
+                (game.GeneralMove ? game.Teams[1].General : game.Teams[1].Governor);
+
+            if (game.GeneralMove)
+            {
+                p = game.Teams[0].General;
+                Debug.Log("displaying red team (0) general cards");
+            }
+            else
+            {
+                p = game.Teams[0].Governor;
+                Debug.Log("displaying red team (0) governor cards");
+            }
+            for (int k = 0; k < p.StandByCharacters.Count; k++)
+            {
+                offset = AddCardToPlayerHand(p, k, isBuilding: false, offset);
+            }
+            for (int k = 0; k < p.StandByBuildings.Count; k++)
+            {
+                offset = AddCardToPlayerHand(p, k, isBuilding: true, offset);
+            }
+        }
+        else
+        {
+            //my turn
+            int offset = 0;
+
+            // cant understand this so I just change variable later
+            Player p = !game.RedMove ? 
+                // STATEMENT 1
+                (game.GeneralMove ?
+                game.Teams[1].General : game.Teams[1].Governor) :
+                // STATEMENT 2
+                (game.GeneralMove ?
+                game.Teams[0].General : game.Teams[0].Governor);
+
+            if (game.GeneralMove)
+            {
+                Debug.Log("displaying blue team (1) general cards");
+                p = game.Teams[1].General;
+            }
+            else
+            {
+                Debug.Log("displaying blue team (1) governor cards");
+                p = game.Teams[1].Governor;
+            }
+
+            for (int k = 0; k < p.StandByCharacters.Count; k++)
+            {
+                offset = AddCardToPlayerHand(p, k, isBuilding: false, offset);
+            }
+            for (int k = 0; k < p.StandByBuildings.Count; k++)
+            {
+                offset = AddCardToPlayerHand(p, k, isBuilding: true, offset);
+            }
+        }
+    }
+
+    public int AddCardToPlayerHand(Player p, int cardID, bool isBuilding, int offset)
+    {
+        GameObject card = Instantiate(CardPrefabForHandCards);
+        CardVisual_Simanis cardVisual = card.GetComponent<CardVisual_Simanis>();
+        if (isBuilding)
+            cardVisual.DisplayBuildCardVisuals(p.StandByBuildings[cardID]);
+        else
+            cardVisual.DisplayCharacterCardVisuals(p.StandByCharacters[cardID]);
+        cardVisual.AddCardToPlayerHand();
+        card.transform.SetParent(HandCardHolder.transform);
+        card.transform.Translate(offset, 0, 0);
+        offset += 120;
+        return offset;
+    }
+
     public void ShowUI()
     {
         foreach (Transform child in HandCardHolder.transform)
@@ -69,29 +156,7 @@ public class ShopUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        //fill cards from hand
-        if( game.RedMove == game.PlayingAsRed )
-        {
-            //my turn
-            int offset = 0;
-            Player p = game.RedMove ? (game.GeneralMove ? game.Teams[0].General : game.Teams[0].Governor) : (game.GeneralMove ? game.Teams[1].General : game.Teams[1].Governor);
-            for( int k = 0; k < p.StandByCharacters.Count; k++ )
-            {
-                GameObject card = Instantiate(CardPrefabForHandCards);
-                card.GetComponent<CardVisual_Simanis>().DisplayCharacterCardVisuals(p.StandByCharacters[k]);
-                card.transform.SetParent(HandCardHolder.transform);
-                card.transform.Translate(offset, 0, 0);
-                offset += 120;
-            }
-            for (int k = 0; k < p.StandByBuildings.Count; k++)
-            {
-                GameObject card = Instantiate(CardPrefabForHandCards);
-                card.GetComponent<CardVisual_Simanis>().DisplayBuildCardVisuals(p.StandByBuildings[k]);
-                card.transform.SetParent(HandCardHolder.transform);
-                card.transform.Translate(offset, 0, 0);
-                offset += 120;
-            }
-        }
+        FillPlayerHand();
 
         if ( game.GeneralMove )
         {

@@ -55,6 +55,10 @@ public class HUD_Simanis : MonoBehaviour
     public bool isListeningToMoveSuccess = false;
     private float moveStartTime;
 
+    [Header("PLACE UNITS PROCESSING")]
+    public bool cardPlacementInputAllowed = false;
+
+
     private void Start()
     {
         //UpdateTeamWealth();
@@ -82,6 +86,14 @@ public class HUD_Simanis : MonoBehaviour
         return isMy;
     }
 
+    public bool IsManagementPhase()
+    {
+        bool isManagePhase = false;
+        if (centurionGame.mRoundState == CenturionGame.RoundState.rsManagement)
+            isManagePhase = true;
+        return isManagePhase;
+   }
+
     public void RemoveCustomCursorIfNotTurn()
     {
         if(!IsMyTurn())
@@ -90,7 +102,12 @@ public class HUD_Simanis : MonoBehaviour
         }
     }
 
-    public void UpdateCurHighlight(RaycastInteract raycastInteract)
+    public void UpdateManagementPhaseHighlights(RaycastInteract raycastInteract)
+    {
+
+    }
+
+    public void UpdateMovementPhaseHighlight(RaycastInteract raycastInteract)
     {
         // only highlight stuff if its ur turn
         if (!IsMyTurn())
@@ -99,6 +116,9 @@ public class HUD_Simanis : MonoBehaviour
             RemoveCustomCursorIfNotTurn();
             return;
         }
+
+        if (IsManagementPhase())
+            return;
 
         if (!processRaycast)
             return;

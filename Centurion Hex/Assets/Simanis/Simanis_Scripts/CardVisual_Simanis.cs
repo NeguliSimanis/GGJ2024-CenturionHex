@@ -18,6 +18,11 @@ public class CardImage
 
 public class CardVisual_Simanis : MonoBehaviour
 {
+    /// <summary>
+    /// is this a card visual in card stack (true) or player hand (false)
+    /// </summary>
+    public bool isCardInShop = true;
+
     public CardImage[] cardImages;
     public Image cardMainImage;
 
@@ -48,6 +53,26 @@ public class CardVisual_Simanis : MonoBehaviour
     public GameObject unitRange;
     public TextMeshProUGUI unitDamage;
     public TextMeshProUGUI unitSpeed;
+
+    [Header("PLAYER HAND")]
+    public Button handCardInteract;
+
+    private void Start()
+    {
+        handCardInteract.onClick.AddListener(TryPlayCard);
+    }
+
+    public void AddCardToPlayerHand()
+    {
+        Debug.Log("Card Added to hand " + cardTitle.text);
+        handCardInteract.enabled = true;
+        isCardInShop = false;
+    }
+
+    public void TryPlayCard()
+    {
+        Debug.Log("trying to play card " + cardTitle.text);
+    }
 
     public void DisplayCharacterCardVisuals(Character character)
     {
