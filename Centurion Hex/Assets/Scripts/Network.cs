@@ -41,7 +41,9 @@ public class Network : MonoBehaviour
         op_user_offline,
         op_stack_update_character,
         op_stack_update_building,
-        op_wealth_from_character
+        op_wealth_from_character,
+        op_debug_end_move,
+        op_debug_set_money_per_senate,
     }
 
     public enum NetworkStateEnum
@@ -629,5 +631,18 @@ public class Network : MonoBehaviour
         outgoingData.writeUTF(SystemInfo.deviceUniqueIdentifier);
         outgoingData.writeUTF(username);
         Send("relogin");
+    }
+
+    public void DebugEndMove()
+    {
+        outgoingData.writeByte((byte)Messages.op_debug_end_move);
+        Send("debug_end_move");
+    }
+    public void DebugSetGoldParams( int GoldPerRound, int GoldInitial )
+    {
+        outgoingData.writeByte((byte)Messages.op_debug_set_money_per_senate);
+        outgoingData.writeByte((byte)GoldPerRound);
+        outgoingData.writeByte((byte)GoldInitial);
+        Send("debug_end_move");
     }
 }
