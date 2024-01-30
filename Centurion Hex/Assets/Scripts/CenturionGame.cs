@@ -64,9 +64,9 @@ public class CenturionGame : MonoBehaviour
     [HideInInspector] public List<Building> CivilBuildings = new List<Building>();
     [HideInInspector] public List<Building> BoardBuildings = new List<Building>();
 
-    public Building GetBoardBuilding(uint id )
+    public Building GetBoardBuilding(uint id)
     {
-        for( int k = 0; k < BoardBuildings.Count; k++ )
+        for (int k = 0; k < BoardBuildings.Count; k++)
         {
             if (BoardBuildings[k].id == id)
                 return BoardBuildings[k];
@@ -83,6 +83,56 @@ public class CenturionGame : MonoBehaviour
         }
         return null;
     }
+
+    public Tile[] GetTilesAdjacentToBuilding(uint buildingID,
+        bool tilesWithoutUnits = true,
+        bool onlyDiscoveredTiles = true)
+    {
+        if (!tilesWithoutUnits)
+        {
+            Debug.LogError("functionality not implemenmted");
+            return null;
+        }
+
+        if (!onlyDiscoveredTiles)
+        {
+            Debug.LogError("functionality not implemenmted");
+            return null;
+        }
+
+        Building building = null;
+
+        for (int k = 0; k < Buildings.Count; k++)
+        {
+            if (Buildings[k].id == buildingID)
+                building = Buildings[k];
+        }
+
+        if (building == null)
+        {
+            Debug.LogError("building not found");
+            return null;
+        }
+        Debug.Log("FOUND MY SENATE AT " + building.x + "." + building.y);
+        Tile[] adjacentTiles = Board.GetAdjacentTiles(building.x, building.y);
+        Tile[] adjacentEmptyTiles = new Tile[] { null, null, null, null, null, null};
+
+        for (int i = 0; i < adjacentTiles.Length; i++) 
+        {
+            if (adjacentTiles[i] != null)
+            {
+                if (adjacentTiles[i].currentBuilding == null &&
+                    adjacentTiles[i].currentCharacter == null)
+                {
+                    adjacentEmptyTiles[i] = adjacentTiles[i];
+                }
+            }
+        }
+
+        return adjacentEmptyTiles;
+    }
+
+
 
     public Character GetBoardCharacter(uint id )
     {

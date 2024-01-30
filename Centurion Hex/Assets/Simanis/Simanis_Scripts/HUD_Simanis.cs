@@ -9,6 +9,7 @@ public class HUD_Simanis : MonoBehaviour
 {
 
     public CenturionGame centurionGame;
+    public static HUD_Simanis instance;
 
     public TextMeshProUGUI redTeamIdentifier; // team 0
     public string redTeamIdentifierText = "Ally Team";
@@ -55,9 +56,18 @@ public class HUD_Simanis : MonoBehaviour
     public bool isListeningToMoveSuccess = false;
     private float moveStartTime;
 
-    [Header("PLACE UNITS PROCESSING")]
+    [Header("PLACE CARDS PROCESSING")]
     public bool cardPlacementInputAllowed = false;
+    public GameObject cardPrefabBeingPlayed;
+    public Character characterBeingPlaced;
+    public RaycastInteract cardPlacementTarget;
+    public bool canPlaceCardThere = false;
+    public List<TileVisual_Simanis> allowedCardPlacementTiles = new List<TileVisual_Simanis>();
 
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -102,9 +112,65 @@ public class HUD_Simanis : MonoBehaviour
         }
     }
 
+    public void ShowAllowedCharPlacementTiles(GameObject card, Character charBeingPlaced)
+    {
+        characterBeingPlaced = charBeingPlaced;
+        Debug.Log("Showing tiles where character can be placed on board");
+
+        // find MY senate
+        BuildingVisual_Simanis mySenate = null;
+        foreach (BuildingVisual_Simanis buildingVisual in TileSpawner_Simanis.instance.allBuildings)
+        {
+            Building senate;
+            if (buildingVisual.building.Type == Building.BuildingType.btSenate)
+            {
+                senate = buildingVisual.building;
+
+                if (centurionGame.PlayingAsRed && senate.Team == centurionGame.Teams[0])
+                    mySenate = buildingVisual;
+                if (!centurionGame.PlayingAsRed && senate.Team == centurionGame.Teams[1])
+                    mySenate = buildingVisual;
+            }
+        }
+
+        if (mySenate == null)
+        {
+            Debug.LogError("couldnt find your senat");
+            return;
+        }
+
+        // find adjacent empty tiles
+        Tile[] allowedTiles = CenturionGame.Instance.GetTilesAdjacentToBuilding(
+            mySenate.building.id);
+
+        // highlight adjacent empty tiles
+        foreach(Tile allowedTile in allowedTiles)
+        {
+            if (allowedTile != null)
+            {
+                TileVisual_Simanis newAllowedTile = TileSpawner_Simanis.instance.GetTileVisual(allowedTile);
+                allowedCardPlacementTiles.Add(newAllowedTile);
+                newAllowedTile.HighlightTile(true);
+            }
+        }
+
+        cardPlacementInputAllowed = true;
+    }
+
     public void UpdateManagementPhaseHighlights(RaycastInteract raycastInteract)
     {
+        if (!cardPlacementInputAllowed)
+            return;
 
+        // Placing cards - check if placing on tile
+        if (raycastInteract.type == RaycastInteract.Type.Tile)
+        {
+            cardPlacementTarget = raycastInteract;   
+        }
+        else
+        {
+            cardPlacementTarget = null;
+        }
     }
 
     public void UpdateMovementPhaseHighlight(RaycastInteract raycastInteract)
@@ -272,6 +338,14 @@ public class HUD_Simanis : MonoBehaviour
             x: xPos, y: yPos);
     }
 
+    public void TryToPlaceUnitOnTile()
+    {
+        Debug.Log("try to place char on tile");
+        Network.instance.PlaceCharacter(characterBeingPlaced.id, 
+            x: cardPlacementTarget.tileVisualControl.xCoord,
+            y: cardPlacementTarget.tileVisualControl.yCoord);
+    }
+
     public void ClearHighlights()
     {
         lookingForExtraInteractionTarget = false;
@@ -286,6 +360,12 @@ public class HUD_Simanis : MonoBehaviour
             oldHighlight.SetHighlight(false);
             oldHighlight = null;
         }
+        foreach (TileVisual_Simanis tileVisual in TileSpawner_Simanis.instance.allTiles)
+        {
+            tileVisual.HighlightTile(false);
+        }
+        allowedCardPlacementTiles.Clear();
+        characterBeingPlaced = null;
         ListenToRaycast();
     }
 
@@ -321,6 +401,19 @@ public class HUD_Simanis : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            // PLACING UNITS ON BOARD
+            if(cardPlacementInputAllowed && cardPlacementTarget)
+            {
+                foreach(TileVisual_Simanis tileVisual in allowedCardPlacementTiles)
+                {
+                    if (tileVisual == cardPlacementTarget.tileVisualControl)
+                    {
+                        TryToPlaceUnitOnTile();
+                    }
+                }
+            }
+
+            // UNIT MOVING/ATTACK LOGIC
             if (oldHighlight != null)
             {
                 if (lookingForExtraInteractionTarget && interactionTarget)

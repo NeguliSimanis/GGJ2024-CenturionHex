@@ -48,6 +48,9 @@ public class TileVisual_Simanis : MonoBehaviour
     public Sprite victorySprite;
     public Sprite coinSprite;
 
+    [Header("TILE HIGHLIHGTS")]
+    public GameObject tileHighlight;
+
     public void SetTileVisuals(TileSpawner_Simanis spawner)
     {
         tileSpawner = spawner;
@@ -68,6 +71,18 @@ public class TileVisual_Simanis : MonoBehaviour
                 prefab.gameObject.SetActive(true);
             else
                 prefab.gameObject.SetActive(false);
+        }
+    }
+
+    public void SetTileCoords(int xC, int yC, bool debug = false)
+    {
+        xCoord = xC;
+        yCoord = yC;
+
+        if (debug)
+        {
+            debugTextHolder.SetActive(true);
+            debugText.text = xCoord + "." + yCoord;
         }
     }
 
@@ -146,5 +161,10 @@ public class TileVisual_Simanis : MonoBehaviour
     {
         debugTextHolder.SetActive(true);
         debugText.text = message;
+    }
+
+    public void HighlightTile(bool highlight)
+    {
+        tileHighlight.SetActive(highlight);
     }
 }

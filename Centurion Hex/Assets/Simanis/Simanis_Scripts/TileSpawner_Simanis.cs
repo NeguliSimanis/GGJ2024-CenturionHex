@@ -5,6 +5,7 @@ using UnityEngine;
 public class TileSpawner_Simanis : MonoBehaviour
 {
 
+    public static TileSpawner_Simanis instance;
     public CenturionGame centurionGame;
     private Board centurionBoard;
 
@@ -28,6 +29,11 @@ public class TileSpawner_Simanis : MonoBehaviour
     [Header("Buildings")]
     public GameObject buildingPrefab;
     public List<BuildingVisual_Simanis> allBuildings = new List<BuildingVisual_Simanis>();
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
@@ -198,8 +204,7 @@ public class TileSpawner_Simanis : MonoBehaviour
         {
             tileVisual.FlipTile();
         }
-        tileVisual.xCoord = row;
-        tileVisual.yCoord = collumn;
+        tileVisual.SetTileCoords(xC: row, yC: collumn, debug: true);
         tileVisual.SetTileVisuals(this);
         allTiles.Add(tileVisual);
 
@@ -208,5 +213,15 @@ public class TileSpawner_Simanis : MonoBehaviour
         SpawnBuildingOnTile(tile, newTileObject.transform, tileVisual,
             x:row, y: collumn);
         //tileVisual.ShowMessage(row + "." + collumn + "." + tile.tileType);
+    }
+
+    public TileVisual_Simanis GetTileVisual(Tile tile)
+    {
+        foreach (TileVisual_Simanis tileVisual in allTiles)
+        {
+            if (tileVisual.tile == tile)
+                return tileVisual;
+        }
+        return null;
     }
 }

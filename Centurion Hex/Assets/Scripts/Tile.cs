@@ -18,8 +18,8 @@ public class Tile
 
     public TileType tileType = TileType.ttVoid;
     public TileCover tileCover = new TileCover();
-    public Character currentCharacter;
-    public Building currentBuilding;
+    public Character currentCharacter = null;
+    public Building currentBuilding = null;
 
     bool CanWalkOnThis()
     {

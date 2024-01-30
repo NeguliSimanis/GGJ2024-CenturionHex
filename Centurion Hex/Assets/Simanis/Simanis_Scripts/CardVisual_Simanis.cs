@@ -22,6 +22,10 @@ public class CardVisual_Simanis : MonoBehaviour
     /// is this a card visual in card stack (true) or player hand (false)
     /// </summary>
     public bool isCardInShop = true;
+    private bool isCharacter = true; // false if is building
+    
+    private Character cardCharacter;
+    private Building cardBuilding;
 
     public CardImage[] cardImages;
     public Image cardMainImage;
@@ -72,12 +76,51 @@ public class CardVisual_Simanis : MonoBehaviour
     public void TryPlayCard()
     {
         Debug.Log("trying to play card " + cardTitle.text);
+        if (!CanAffordCard())
+            return;
+
+        HighlightSelectedCard();
+        HUD_Simanis hud = HUD_Simanis.instance;
+        hud.ShowAllowedCharPlacementTiles(this.gameObject, cardCharacter);
+    }
+
+    private void HighlightSelectedCard()
+    {
+        Debug.Log("highlight selected carc");
+    }
+
+    private bool CanAffordCard()
+    {
+        bool afford = true;
+
+        int myGold = CenturionGame.Instance.Teams[0].Gold;
+        if (!CenturionGame.Instance.PlayingAsRed)
+            myGold = CenturionGame.Instance.Teams[1].Gold;
+
+        if (isCharacter)
+        {
+            if (cardCharacter.Price > myGold)
+            {
+                afford = false;
+                Debug.Log("Can't afford card");
+            }
+        }
+        else 
+        {
+            if (cardBuilding.price > myGold)
+            {
+                afford = false;
+                Debug.Log("Can't afford card");
+            }
+        }
+        return afford;
     }
 
     public void DisplayCharacterCardVisuals(Character character)
     {
         cardTypeIcon.sprite = character.isWarUnit ? warUnitIcon : civilUnitIcon;
-
+        isCharacter = true;
+        cardCharacter = character;
         foreach (CardImage cardImage in cardImages)
         {
             if (cardImage.isCharacter && cardImage.charType == character.type)
@@ -102,6 +145,9 @@ public class CardVisual_Simanis : MonoBehaviour
     public void DisplayBuildCardVisuals(Building building)
     {
         cardTypeIcon.sprite = building.Class == BuildingClass.bcWar ? warBuildIcon : civilBuildIcon;
+
+        isCharacter = false;
+        cardBuilding = building;
 
         foreach (CardImage cardImage in cardImages)
         {

@@ -11,6 +11,49 @@ public class Board
         return Tiles[ x, y ];
     }
 
+    public Tile [] GetAdjacentTiles(int x, int y)
+    {
+        Tile[] adjacentTiles = new Tile[] {null, null, null, null, null, null};
+
+        // tiles in higher row
+        if (x < 6)
+        {
+            adjacentTiles[0] = GetTile(x + 1, y);
+            Debug.Log("found tile on " + (x + 1) + "." + (y));
+            if (y > 0)
+            {
+                adjacentTiles[1] = GetTile(x + 1, y - 1);
+                Debug.Log("found tile on " + (x + 1) + "." + (y - 1));
+            }
+        }
+
+        // tiles in same row
+        if (y < 6)
+        {
+            adjacentTiles[2] = GetTile(x, y + 1);
+            Debug.Log("found tile on " + (x) + "." + (y + 1));
+        }
+        if (y > 0)
+        {
+            adjacentTiles[3] = GetTile(x, y - 1);
+            Debug.Log("found tile on " + (x) + "." + (y-1));
+        }
+
+        // tiles in lower row
+        if (x > 0)
+        {
+            adjacentTiles[4] = GetTile(x - 1, y);
+            Debug.Log("found tile on " + (x - 1) + "." + y);
+            if (y < 6)
+            {
+                adjacentTiles[5] = GetTile(x - 1, y + 1);
+                Debug.Log("found tile on " + (x - 1) + "." + y+1);
+            }
+        }
+
+        return adjacentTiles;
+    }
+
     public Board()
     {
         Tile.TileType[,] BoardTileTypes =
