@@ -11,12 +11,8 @@ public class HUD_Simanis : MonoBehaviour
     public CenturionGame centurionGame;
     public static HUD_Simanis instance;
 
-    public TextMeshProUGUI redTeamIdentifier; // team 0
-    public string redTeamIdentifierText = "Ally Team";
-    public string redTeamIdentifierTextEnemy = "Enemy Team";
-    public TextMeshProUGUI blueTeamIdentifier; // team 1
-    public string blueTeamIdentifierText = "Ally Team";
-    public string blueTeamIdentifierTextEnemy = "Enemy Team";
+    public TextMeshProUGUI redTeamIdentifier; 
+    public TextMeshProUGUI blueTeamIdentifier;
 
     public TextMeshProUGUI generalOrGovernorText;
     public string team0String = "-Team 1-";
@@ -29,11 +25,11 @@ public class HUD_Simanis : MonoBehaviour
     public Color govTurnColor;
     public TextMeshProUGUI teamTurnText;
 
-    public TextMeshProUGUI goldTeam0;
-    public TextMeshProUGUI goldTeam1;
+    public TextMeshProUGUI goldAllyTeam;
+    public TextMeshProUGUI goldEnemyTeam;
 
-    public TextMeshProUGUI vicPointsTeam0;
-    public TextMeshProUGUI vicPointsTeam1;
+    public TextMeshProUGUI vicPointsAlly;
+    public TextMeshProUGUI vicPointsEnemy;
 
     public TextMeshProUGUI WinnerText;
     public GameObject WinnerUI;
@@ -253,13 +249,29 @@ public class HUD_Simanis : MonoBehaviour
 
     public void UpdateTeamWealth()
     {
-        goldTeam0.text = centurionGame.Teams[0].Gold.ToString();
-        goldTeam1.text = centurionGame.Teams[1].Gold.ToString();
+        if (centurionGame.PlayingAsRed)
+        {
+            goldAllyTeam.text = centurionGame.Teams[0].Gold.ToString();
+            goldEnemyTeam.text = centurionGame.Teams[1].Gold.ToString();
+        }
+        else
+        {
+            goldAllyTeam.text = centurionGame.Teams[1].Gold.ToString();
+            goldEnemyTeam.text = centurionGame.Teams[0].Gold.ToString();
+        }
     }
     public void UpdateTeamVictoryPoints()
     {
-        vicPointsTeam0.text = centurionGame.Teams[0].VictoryPoints.ToString();
-        vicPointsTeam1.text = centurionGame.Teams[1].VictoryPoints.ToString();
+        if (centurionGame.PlayingAsRed)
+        {
+            vicPointsAlly.text = centurionGame.Teams[0].VictoryPoints.ToString();
+            vicPointsEnemy.text = centurionGame.Teams[1].VictoryPoints.ToString();
+        }
+        else
+        {
+            vicPointsAlly.text = centurionGame.Teams[1].VictoryPoints.ToString();
+            vicPointsEnemy.text = centurionGame.Teams[0].VictoryPoints.ToString();
+        }
     }
 
     public void HideGameFinished()
@@ -282,13 +294,13 @@ public class HUD_Simanis : MonoBehaviour
     {
         if (centurionGame.PlayingAsRed)
         {
-            redTeamIdentifier.text = redTeamIdentifierText;
-            blueTeamIdentifier.text = blueTeamIdentifierTextEnemy;
+            //redTeamIdentifier.text = redTeamIdentifierText;
+            //blueTeamIdentifier.text = blueTeamIdentifierTextEnemy;
         }
         else // (centurionGame.PlayingAsRed)
         {
-            redTeamIdentifier.text = redTeamIdentifierTextEnemy;
-            blueTeamIdentifier.text = blueTeamIdentifierText;
+            //redTeamIdentifier.text = redTeamIdentifierTextEnemy;
+            //blueTeamIdentifier.text = blueTeamIdentifierText;
         }
     }
 
@@ -480,11 +492,11 @@ public class HUD_Simanis : MonoBehaviour
                 endTurnButton.gameObject.SetActive(true);
                 endTurnButton.endButtonTeam0.SetActive(true);
                 endTurnButton.endButtonTeam1.SetActive(false);
-                teamTurnText.text = redTeamIdentifierText;
+                teamTurnText.text = "Ally Team";
             }
             else
             {
-                teamTurnText.text = redTeamIdentifierTextEnemy;
+                teamTurnText.text = "Enemy Team";
 
                 endTurnButton.gameObject.SetActive(false);
             }
@@ -499,12 +511,12 @@ public class HUD_Simanis : MonoBehaviour
                 endTurnButton.gameObject.SetActive(true);
                 endTurnButton.endButtonTeam1.SetActive(true);
                 endTurnButton.endButtonTeam0.SetActive(false);
-                teamTurnText.text = blueTeamIdentifierText;
+                teamTurnText.text = "Ally Team";
             }
             else
             {
                 endTurnButton.gameObject.SetActive(false);
-                teamTurnText.text = blueTeamIdentifierTextEnemy;
+                teamTurnText.text = "Enemy Team";
             }
         }
         switch (centurionGame.mRoundState)

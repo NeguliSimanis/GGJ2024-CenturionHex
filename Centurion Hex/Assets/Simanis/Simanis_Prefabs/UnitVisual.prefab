@@ -93,6 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 421169267838115362}
+  - component: {fileID: 8403808263441993975}
   m_Layer: 0
   m_Name: Raptor
   m_TagString: Untagged
@@ -116,6 +117,21 @@ Transform:
   m_Father: {fileID: 2416449462290196619}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8403808263441993975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327839217090294534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a98a6b73a2b840bd3c496b79a9313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 3451304891647274188}
+  team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
+  team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
 --- !u!1 &478658371291300378
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,6 +329,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3093604512877698822}
+  - component: {fileID: 6567637346662777132}
   m_Layer: 0
   m_Name: Madman
   m_TagString: Untagged
@@ -336,6 +353,21 @@ Transform:
   m_Father: {fileID: 2416449462290196619}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6567637346662777132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038437697990885014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a98a6b73a2b840bd3c496b79a9313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 4364403750335819594}
+  team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
+  team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
 --- !u!1 &2274486619250899407
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,13 +377,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8308336747513866202}
+  - component: {fileID: 9072467249256954772}
   m_Layer: 0
   m_Name: Princess
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8308336747513866202
 Transform:
   m_ObjectHideFlags: 0
@@ -368,6 +401,21 @@ Transform:
   m_Father: {fileID: 2416449462290196619}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9072467249256954772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2274486619250899407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a98a6b73a2b840bd3c496b79a9313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1438761145471141077}
+  team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
+  team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
 --- !u!1 &2514942394399646284
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +635,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1506884928504344684}
+  - component: {fileID: 2291138913819271564}
   m_Layer: 0
   m_Name: Diplomat
   m_TagString: Untagged
@@ -610,6 +659,21 @@ Transform:
   m_Father: {fileID: 2416449462290196619}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2291138913819271564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3718930177446791467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a98a6b73a2b840bd3c496b79a9313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 5745615036912513544}
+  team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
+  team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
 --- !u!1 &4043176881281866070
 GameObject:
   m_ObjectHideFlags: 0
@@ -975,6 +1039,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5170021504171222438}
+  - component: {fileID: 2530343980271383744}
   m_Layer: 0
   m_Name: Legionary
   m_TagString: Untagged
@@ -998,6 +1063,21 @@ Transform:
   m_Father: {fileID: 2416449462290196619}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2530343980271383744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4607272678240788991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a98a6b73a2b840bd3c496b79a9313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 5108081781104543475}
+  team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
+  team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
 --- !u!1 &5032779326322883037
 GameObject:
   m_ObjectHideFlags: 0
@@ -1007,6 +1087,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5682602526308317688}
+  - component: {fileID: 939113203155893061}
   m_Layer: 0
   m_Name: Barista
   m_TagString: Untagged
@@ -1030,6 +1111,21 @@ Transform:
   m_Father: {fileID: 2416449462290196619}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &939113203155893061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5032779326322883037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a98a6b73a2b840bd3c496b79a9313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 5699678771954790710}
+  team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
+  team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
 --- !u!1 &5424614147229752501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1142,6 +1238,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5179524917848233420}
+  - component: {fileID: 5733987126996286191}
   m_Layer: 0
   m_Name: Witch
   m_TagString: Untagged
@@ -1165,6 +1262,21 @@ Transform:
   m_Father: {fileID: 2416449462290196619}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5733987126996286191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5553176617475558013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a98a6b73a2b840bd3c496b79a9313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 8400007980940262702}
+  team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
+  team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
 --- !u!1 &5851517717530162934
 GameObject:
   m_ObjectHideFlags: 0
@@ -1342,6 +1454,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5977237763528047298}
+  - component: {fileID: 9085436742932231168}
   m_Layer: 0
   m_Name: Sniper
   m_TagString: Untagged
@@ -1365,6 +1478,21 @@ Transform:
   m_Father: {fileID: 2416449462290196619}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9085436742932231168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6743689142393898646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a98a6b73a2b840bd3c496b79a9313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 7820464015899813446}
+  team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
+  team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
 --- !u!1 &7284573694803793678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1802,13 +1930,14 @@ GameObject:
   m_Component:
   - component: {fileID: 7283931739700947534}
   - component: {fileID: 7226604698982102096}
+  - component: {fileID: 3425674798157529282}
   m_Layer: 0
   m_Name: Scout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7283931739700947534
 Transform:
   m_ObjectHideFlags: 0
@@ -1845,6 +1974,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3425674798157529282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7284573700571996426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a98a6b73a2b840bd3c496b79a9313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 7487973585838711276}
+  team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
+  team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
 --- !u!1 &7284573700772930536
 GameObject:
   m_ObjectHideFlags: 0
@@ -2751,6 +2895,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1438579081269314664}
+  - component: {fileID: 1544595682212666952}
   m_Layer: 0
   m_Name: Surveyor
   m_TagString: Untagged
@@ -2774,6 +2919,21 @@ Transform:
   m_Father: {fileID: 2416449462290196619}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1544595682212666952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8810510833204899108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a98a6b73a2b840bd3c496b79a9313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 1164815793824988502}
+  team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
+  team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
 --- !u!1 &9214745128255055285
 GameObject:
   m_ObjectHideFlags: 0
@@ -2783,6 +2943,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2659326594041053697}
+  - component: {fileID: 6597263751359068209}
   m_Layer: 0
   m_Name: Merchant
   m_TagString: Untagged
@@ -2806,6 +2967,21 @@ Transform:
   m_Father: {fileID: 2416449462290196619}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6597263751359068209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9214745128255055285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024a98a6b73a2b840bd3c496b79a9313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 3969481632154704808}
+  team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
+  team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
 --- !u!1001 &864537060629824540
 PrefabInstance:
   m_ObjectHideFlags: 0

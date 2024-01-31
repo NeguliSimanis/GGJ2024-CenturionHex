@@ -24,6 +24,11 @@ public class CenturionGame : MonoBehaviour
     public static CenturionGame Instance { get; private set; }
     [HideInInspector] public Team.TeamType WinnerTeam;
 
+    [Header("COLORS")]
+    public Color team0Color = Color.red;
+    public Color team1Color = Color.blue;
+
+    [Header("EVENTS")]
     public UnityEvent onGameReload;
     public UnityEvent onRoundStateChange;
     public UnityEvent onWealthFromBuilding;

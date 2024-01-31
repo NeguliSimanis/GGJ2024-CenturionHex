@@ -56,6 +56,19 @@ public class CharacterVisual_Simanis : MonoBehaviour
         }
         if (IsMyUnit())
             FlipCharacter();
+        ColorUnit();
+    }
+
+    private void ColorUnit()
+    {
+        CharacterColorChanger_Simanis colorChanger;
+        colorChanger = activePrefab.GetComponent<CharacterColorChanger_Simanis>();
+
+        int teamID = 0; // red
+        if (!isMyUnit)
+            teamID = 1;
+        Debug.Log("im playing as red " + CenturionGame.Instance.PlayingAsRed + "");
+        colorChanger.ChangeColor(teamID);
     }
 
     public bool IsMyUnit()
