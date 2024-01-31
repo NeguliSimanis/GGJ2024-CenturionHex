@@ -9,6 +9,7 @@ public class Character
     {
         ctScout,
         ctSurveyor,
+        undefined
     }
     public enum CharacterState
     {

@@ -132,7 +132,7 @@ public class TileSpawner_Simanis : MonoBehaviour
         RotateBoard();
     }
 
-    public void SpawnCharacterOnTile(Tile tile, Vector3 spawnPos, Transform parent,
+    public void SpawnCharacterOnTile(Tile tile, Transform parent,
         TileVisual_Simanis tileVisual, int x, int y)
     {
         if (tile.currentCharacter == null)
@@ -177,6 +177,24 @@ public class TileSpawner_Simanis : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Called by CenturionGame.cs event set in editor
+    /// </summary>
+    public void PlaceCharacter()
+    {
+        Character characterToPlace = centurionGame.lastPlacedCharacter;
+        RaycastInteract target = HUD_Simanis.instance.cardPlacementTarget;
+        Destroy(HUD_Simanis.instance.cardPrefabBeingPlayed);
+
+        SpawnCharacterOnTile(
+            tile: target.tileVisualControl.tile,
+            parent: target.tileVisualControl.unitTransformPos,
+            tileVisual: target.tileVisualControl,
+            x: target.tileVisualControl.xCoord,
+            y: target.tileVisualControl.yCoord
+            );
+    }
+
     public void SpawnBuildingOnTile(Tile tile, Transform parent,
         TileVisual_Simanis tileVisual, int x, int y)
     {
@@ -208,7 +226,7 @@ public class TileSpawner_Simanis : MonoBehaviour
         tileVisual.SetTileVisuals(this);
         allTiles.Add(tileVisual);
 
-        SpawnCharacterOnTile(tile, spawnPos, tileVisual.unitTransformPos, tileVisual,
+        SpawnCharacterOnTile(tile, tileVisual.unitTransformPos, tileVisual,
             x: row, y: collumn);
         SpawnBuildingOnTile(tile, newTileObject.transform, tileVisual,
             x:row, y: collumn);

@@ -122,7 +122,8 @@ public class CenturionGame : MonoBehaviour
             if (adjacentTiles[i] != null)
             {
                 if (adjacentTiles[i].currentBuilding == null &&
-                    adjacentTiles[i].currentCharacter == null)
+                    adjacentTiles[i].currentCharacter == null &&
+                    adjacentTiles[i].tileCover.Type != TileCover.CoverType.ctUndefined)
                 {
                     adjacentEmptyTiles[i] = adjacentTiles[i];
                 }
@@ -131,8 +132,6 @@ public class CenturionGame : MonoBehaviour
 
         return adjacentEmptyTiles;
     }
-
-
 
     public Character GetBoardCharacter(uint id )
     {

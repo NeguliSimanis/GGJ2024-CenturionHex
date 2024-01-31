@@ -10,6 +10,7 @@ public class CharacterVisualPrefab
 {
     public Character.CharacterType type;
     public GameObject gameObject;
+    public string characterName;
 }
 
 public class CharacterVisual_Simanis : MonoBehaviour
@@ -45,13 +46,13 @@ public class CharacterVisual_Simanis : MonoBehaviour
         hudManager = tileSpawner.gameObject.GetComponent<HUD_Simanis>();
         foreach (CharacterVisualPrefab prefab in charPrefabs)
         {
-            if (prefab.type != type)
-                prefab.gameObject.SetActive(false);
-            else
+            if (prefab.type == type || prefab.characterName == character.Name)
             {
                 activePrefab = prefab.gameObject;
                 prefab.gameObject.SetActive(true);
             }
+            else
+                prefab.gameObject.SetActive(false);
         }
         if (IsMyUnit())
             FlipCharacter();

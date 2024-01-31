@@ -7,7 +7,7 @@ public class TileCover
 {
     public enum CoverType
     {
-        ctUndefined,//when cover is not applied
+        ctUndefined,//fog of war?
         ctGrass,
         ctSwamp,
         ctForest,

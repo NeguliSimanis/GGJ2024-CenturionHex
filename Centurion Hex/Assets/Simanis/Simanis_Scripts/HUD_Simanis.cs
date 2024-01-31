@@ -115,6 +115,7 @@ public class HUD_Simanis : MonoBehaviour
     public void ShowAllowedCharPlacementTiles(GameObject card, Character charBeingPlaced)
     {
         characterBeingPlaced = charBeingPlaced;
+        cardPrefabBeingPlayed = card;
         Debug.Log("Showing tiles where character can be placed on board");
 
         // find MY senate

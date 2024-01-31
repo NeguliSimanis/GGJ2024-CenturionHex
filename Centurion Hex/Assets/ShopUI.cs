@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ShopUI : MonoBehaviour
 {
+    public static ShopUI instance;
     public GameObject Shop;
     public TextMeshProUGUI BuildingStackTitle;
     public CardVisual_Simanis BuildingsStack;
@@ -17,7 +18,12 @@ public class ShopUI : MonoBehaviour
     public GameObject CardPrefabForHandCards;
     public GameObject HandCardHolder;
 
-    // Start is called before the first frame update
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
         BuyBuilding.onClick.AddListener(() =>
