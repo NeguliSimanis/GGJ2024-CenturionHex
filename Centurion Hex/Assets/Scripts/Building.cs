@@ -15,7 +15,18 @@ public class Building
 
     public enum BuildingType
     {
-        btSenate,
+    btSenate,
+    btAltar,
+    btBarracks,
+    btLaboratory,
+    btLandmine,
+    btMine,
+    btParticleAccelerator,
+    btSawmill,
+    btShrine,
+    btSlums,
+    btTrebuchet,
+    btWarTent
     }
 
     public enum BuildingState

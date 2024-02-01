@@ -7,8 +7,18 @@ public class Character
 {
     public enum CharacterType
     {
-        ctScout,
-        ctSurveyor,
+    ctScout,
+    ctSurveyor,
+    ctSenator,
+    ctMerchant,
+    ctBarista,
+    ctDiplomat,
+    ctMadman,
+    ctPrincess,
+    ctLegionary,
+    ctRaptor,
+    ctSniper,
+    ctWitch,
         undefined
     }
     public enum CharacterState
