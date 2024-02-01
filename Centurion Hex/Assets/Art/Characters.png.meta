@@ -101,6 +101,18 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -315,7 +327,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Characters_0
+      name: Madman
       rect:
         serializedVersion: 2
         x: 949
@@ -351,10 +363,10 @@ TextureImporter:
       Characters_Legionary: 441824873
       Surveyor: -944406494
       Characters_Princess: -841805884
+      Madman: -51331686
       Characters_Raptor: -248414012
       Characters_Bartender: 12903134
       Characters_Arbalest: -1066041663
-      Characters_0: -51331686
       Characters_TaxCollector: -473627714
       Characters_Senator: 2010602105
   spritePackingTag: 

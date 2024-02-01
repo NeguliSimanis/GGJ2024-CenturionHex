@@ -130,9 +130,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Shop: {fileID: 5047581090142655470}
   BuildingStackTitle: {fileID: 1144902023162527780}
-  BuildingsStack: {fileID: 4546585032823424776}
+  BuildingsStack: {fileID: 7130026458438837014}
   CharactersStackTitle: {fileID: 5600442272255123162}
-  CharactersStack: {fileID: 9026322234128456182}
+  CharactersStack: {fileID: 2353614081757396456}
   game: {fileID: 0}
   BuyBuilding: {fileID: 1537189337529584777}
   BuyCharacter: {fileID: 6273082511490519671}
@@ -711,6 +711,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e2a3d60213dead41b6697d7a8a45860, type: 3}
+--- !u!114 &2353614081757396456 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1621165900703053329, guid: 9e2a3d60213dead41b6697d7a8a45860,
+    type: 3}
+  m_PrefabInstance: {fileID: 3951414192105327609}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d7064175dddce84a85dd201e3c11eae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3834389024943507275 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 279296590815562930, guid: 9e2a3d60213dead41b6697d7a8a45860,
@@ -739,18 +751,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &9026322234128456182 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
-    type: 3}
-  m_PrefabInstance: {fileID: 3951414192105327609}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d7064175dddce84a85dd201e3c11eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8398501395812291847
@@ -877,8 +877,98 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
         type: 3}
+      propertyPath: life1
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: life2
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: cardCost
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: cardTitle
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: unitRange
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: unitSpeed
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: unitStats
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: unitDamage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: cardAbility
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: cardTypeIcon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: buildPlaceAny
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: buildingStats
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: cardMainImage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: buildPlaceWood
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: vicPointAmount
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: buildPlaceGrass
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: handCardInteract
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
+      propertyPath: buildPlaceNextToAlly
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+        type: 3}
       propertyPath: cardImages.Array.size
-      value: 0
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8011064558188531159, guid: 9e2a3d60213dead41b6697d7a8a45860,
         type: 3}
@@ -911,9 +1001,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4546585032823424776 stripped
+--- !u!114 &7130026458438837014 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5446486348453106191, guid: 9e2a3d60213dead41b6697d7a8a45860,
+  m_CorrespondingSourceObject: {fileID: 1621165900703053329, guid: 9e2a3d60213dead41b6697d7a8a45860,
     type: 3}
   m_PrefabInstance: {fileID: 8398501395812291847}
   m_PrefabAsset: {fileID: 0}

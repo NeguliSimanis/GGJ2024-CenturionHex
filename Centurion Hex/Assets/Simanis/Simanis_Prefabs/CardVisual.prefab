@@ -1947,7 +1947,87 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isCardInShop: 1
-  cardImages: []
+  cardImages:
+  - isCharacter: 1
+    sprite: {fileID: -1722362154, guid: 64a4cf0f8200748439304b5cd18c9cbf, type: 3}
+    charType: 0
+    buildingType: 0
+  - isCharacter: 1
+    sprite: {fileID: -1066041663, guid: 64a4cf0f8200748439304b5cd18c9cbf, type: 3}
+    charType: 10
+    buildingType: 0
+  - isCharacter: 1
+    sprite: {fileID: 12903134, guid: 64a4cf0f8200748439304b5cd18c9cbf, type: 3}
+    charType: 4
+    buildingType: 0
+  - isCharacter: 1
+    sprite: {fileID: -671610225, guid: 64a4cf0f8200748439304b5cd18c9cbf, type: 3}
+    charType: 11
+    buildingType: 0
+  - isCharacter: 1
+    sprite: {fileID: 441824873, guid: 64a4cf0f8200748439304b5cd18c9cbf, type: 3}
+    charType: 8
+    buildingType: 0
+  - isCharacter: 1
+    sprite: {fileID: -841805884, guid: 64a4cf0f8200748439304b5cd18c9cbf, type: 3}
+    charType: 7
+    buildingType: 0
+  - isCharacter: 1
+    sprite: {fileID: -248414012, guid: 64a4cf0f8200748439304b5cd18c9cbf, type: 3}
+    charType: 9
+    buildingType: 0
+  - isCharacter: 1
+    sprite: {fileID: 2010602105, guid: 64a4cf0f8200748439304b5cd18c9cbf, type: 3}
+    charType: 2
+    buildingType: 0
+  - isCharacter: 1
+    sprite: {fileID: -473627714, guid: 64a4cf0f8200748439304b5cd18c9cbf, type: 3}
+    charType: 3
+    buildingType: 0
+  - isCharacter: 1
+    sprite: {fileID: -51331686, guid: 64a4cf0f8200748439304b5cd18c9cbf, type: 3}
+    charType: 6
+    buildingType: 0
+  - isCharacter: 1
+    sprite: {fileID: -944406494, guid: 64a4cf0f8200748439304b5cd18c9cbf, type: 3}
+    charType: 1
+    buildingType: 0
+  - isCharacter: 0
+    sprite: {fileID: 21300000, guid: 058eeabb329d45d4f8c246fded73db1b, type: 3}
+    charType: 1
+    buildingType: 2
+  - isCharacter: 0
+    sprite: {fileID: 21300000, guid: 9c7769930f3a96d42a74458104b64f56, type: 3}
+    charType: 1
+    buildingType: 3
+  - isCharacter: 0
+    sprite: {fileID: 21300000, guid: b89aff2e39f1db748acdd0e4457053ed, type: 3}
+    charType: 1
+    buildingType: 7
+  - isCharacter: 0
+    sprite: {fileID: 21300000, guid: 1d098069702fa9640abbe4ab899fde31, type: 3}
+    charType: 1
+    buildingType: 6
+  - isCharacter: 0
+    sprite: {fileID: 21300000, guid: 0a45300ebe99b2c4a8482005728889ea, type: 3}
+    charType: 1
+    buildingType: 5
+  - isCharacter: 0
+    sprite: {fileID: 21300000, guid: dbdccff1917df7e418c321e867dcf6fd, type: 3}
+    charType: 12
+    buildingType: 8
+  - isCharacter: 0
+    sprite: {fileID: 21300000, guid: 75d6c9a2b9c9d4d479b7c23f695aaddd, type: 3}
+    charType: 1
+    buildingType: 9
+  - isCharacter: 0
+    sprite: {fileID: 21300000, guid: 10a78d1d2e6289548974ada26156d6a0, type: 3}
+    charType: 1
+    buildingType: 10
+  - isCharacter: 0
+    sprite: {fileID: 21300000, guid: 138bf2494d919c140b514c43c7872a6e, type: 3}
+    charType: 1
+    buildingType: 11
   cardMainImage: {fileID: 2038187923635792661}
   cardTitle: {fileID: 3289802526420737925}
   cardAbility: {fileID: 3289802526626244827}

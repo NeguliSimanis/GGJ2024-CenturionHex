@@ -125,6 +125,7 @@ public class CardVisual_Simanis : MonoBehaviour
         {
             if (cardImage.isCharacter && cardImage.charType == character.type)
             {
+                Debug.Log("pic found");
                 cardMainImage.sprite = cardImage.sprite;
             }
         }
@@ -153,6 +154,7 @@ public class CardVisual_Simanis : MonoBehaviour
         {
             if (!cardImage.isCharacter && cardImage.buildingType == building.Type)
             {
+                Debug.Log("pic found");
                 cardMainImage.sprite = cardImage.sprite;
             }
         }
