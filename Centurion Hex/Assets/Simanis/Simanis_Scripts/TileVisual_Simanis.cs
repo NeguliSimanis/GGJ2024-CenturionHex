@@ -92,6 +92,7 @@ public class TileVisual_Simanis : MonoBehaviour
         GameObject newExplosion = Instantiate(explosionPrefab, tileCenter.transform);
         explosionPrefab.transform.localPosition = explosionLocation.transform.localPosition;
         explosionPrefab.transform.localRotation = explosionLocation.transform.localRotation;
+        newExplosion.SetActive(true);
         //explosionPrefab.transform.localRotation = Quaternion.identity;
 
     }
