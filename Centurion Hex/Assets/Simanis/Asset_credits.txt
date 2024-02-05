@@ -18,3 +18,4 @@ font: https://www.1001fonts.com/kelmscottroman-font.html
 Outline asset: https://assetstore.unity.com/packages/tools/particles-effects/quick-outline-115488
 2d outline asset: https://assetstore.unity.com/packages/vfx/shaders/2d-sprite-outline-109669
 animated arows: https://spikerman.itch.io/animated-arrows-cursors
+explosion effect: https://bdragon1727.itch.io/free-effect-bullet-impact-explosion-32x32
