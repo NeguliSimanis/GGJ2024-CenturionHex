@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class RaycastInteract : MonoBehaviour
 {
+    public enum HighlightType
+    {
+        MoveUnit,
+        Undefined
+    }
+
     public enum Type
     {
         Character,
@@ -46,8 +52,40 @@ public class RaycastInteract : MonoBehaviour
 
   //  public void 
 
-    public void SetHighlight(bool set)
+    public bool BelongsToThisPlayer()
     {
+        bool belongsToThisPlayer = false;
+
+        if (type == RaycastInteract.Type.Building)
+        {
+            if (buildingVisualControl.IsMyBuilding())
+                belongsToThisPlayer = true;
+        }
+        else if (type == RaycastInteract.Type.Character)
+        {
+            if (characterVisualControl.isMyUnit)
+                belongsToThisPlayer = true;
+        }
+
+        return belongsToThisPlayer;
+    }
+
+
+    public void SetHighlight(
+        bool set, 
+        RaycastInteract.HighlightType highlightType = RaycastInteract.HighlightType.Undefined)
+    {
+        // exception - don't highlight enemy unit
+        if (highlightType == RaycastInteract.HighlightType.MoveUnit && set)
+        {
+            if (type == RaycastInteract.Type.Character && !BelongsToThisPlayer())
+            {
+                Debug.Log("Won't highlight unit, belongs to enemy ");
+                return;
+            }
+        }
+
+        // highlight
         if (shouldHighlightComponent)
         {
             highlightComponent.enabled = set;

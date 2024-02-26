@@ -34,8 +34,15 @@ public class HUD_Simanis : MonoBehaviour
     public TextMeshProUGUI WinnerText;
     public GameObject WinnerUI;
 
-    [Header("HOVER HIGHLIGHT")]
+    // GAME CURSOR
+    ///// <summary>
+    ///// During enemy turn only default cursor available
+    ///// </summary>
+    //[HideInInspector]
+    //public bool showOnlyDefaultCursor;
     private CustomCursor_Simanis customCursor;
+
+    [Header("HOVER HIGHLIGHT")]
     public bool processRaycast = true;
     public RaycastInteract oldHighlight;
     public RaycastInteract.Type currSelection = RaycastInteract.Type.Null;
@@ -100,12 +107,10 @@ public class HUD_Simanis : MonoBehaviour
         return isManagePhase;
    }
 
-    public void RemoveCustomCursorIfNotTurn()
+    public void RemoveCustomCursor()
     {
-        if(!IsMyTurn())
-        {
             customCursor.SetCursor(false, cursorAction: CursorAction.undefined);
-        }
+
     }
 
     public void ShowAllowedCharPlacementTiles(GameObject card, Character charBeingPlaced)
@@ -176,7 +181,7 @@ public class HUD_Simanis : MonoBehaviour
         if (!IsMyTurn())
         {
             ClearHighlights();
-            RemoveCustomCursorIfNotTurn();
+            RemoveCustomCursor();
             return;
         }
 
@@ -185,7 +190,6 @@ public class HUD_Simanis : MonoBehaviour
 
         if (!processRaycast)
             return;
-
         // looking for intereaction target once something is already selected
         if (lookingForExtraInteractionTarget && currSelection == RaycastInteract.Type.Character)
         {
@@ -243,7 +247,7 @@ public class HUD_Simanis : MonoBehaviour
         }
         customCursor.SetCursor(false, CursorAction.walk);
         oldHighlight = raycastInteract;
-        raycastInteract.SetHighlight(true);
+        raycastInteract.SetHighlight(true, highlightType: RaycastInteract.HighlightType.MoveUnit);
         currSelection = raycastInteract.type;
     }
 

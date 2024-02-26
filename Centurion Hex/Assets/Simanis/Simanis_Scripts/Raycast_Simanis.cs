@@ -28,9 +28,13 @@ public class Raycast_Simanis : MonoBehaviour
             {
                 // Object is being hovered
                 if (CenturionGame.Instance.mRoundState == CenturionGame.RoundState.rsMovingCharacters)
+                {
                     hudManager.UpdateMovementPhaseHighlight(hit.collider.gameObject.GetComponent<RaycastInteract>());
+                }
                 else if (CenturionGame.Instance.mRoundState == CenturionGame.RoundState.rsManagement)
+                {
                     hudManager.UpdateManagementPhaseHighlights(hit.collider.gameObject.GetComponent<RaycastInteract>());
+                }
             }
         }
         else

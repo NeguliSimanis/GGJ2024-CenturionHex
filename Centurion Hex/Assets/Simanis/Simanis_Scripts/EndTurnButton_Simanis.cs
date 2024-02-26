@@ -22,7 +22,7 @@ public class EndTurnButton_Simanis : MonoBehaviour
 
     public void EndTurn()
     {
-        Debug.Log("yay");
+        //Debug.Log("yay");
         Network.instance.EndMove();
     }
 }

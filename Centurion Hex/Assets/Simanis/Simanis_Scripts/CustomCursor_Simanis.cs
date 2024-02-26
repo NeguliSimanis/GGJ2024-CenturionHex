@@ -21,17 +21,18 @@ public class CustomCursor_Simanis : MonoBehaviour
 {
     public ActionCursor[] actionCursors;
 
-    public void SetCursor(bool isActive, CursorAction cursorAction)
+    public void SetCursor(bool showCustomCursor, CursorAction cursorAction)
     {
         //Debug.Log("setting custom cursor");
-        if (!isActive)
+        if (!showCustomCursor)
         {
             Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
             Cursor.visible = true;
+            //return;
         }
         foreach(ActionCursor cursor in actionCursors)
         {
-            if (cursor.action == cursorAction && isActive)
+            if (cursor.action == cursorAction && showCustomCursor)
             {
                 Cursor.SetCursor(cursor.sprite, Vector2.zero, CursorMode.ForceSoftware);
             }
