@@ -110,7 +110,6 @@ public class HUD_Simanis : MonoBehaviour
     public void RemoveCustomCursor()
     {
             customCursor.SetCursor(false, cursorAction: CursorAction.undefined);
-
     }
 
     public void ShowAllowedCharPlacementTiles(GameObject card, Character charBeingPlaced)
@@ -201,10 +200,21 @@ public class HUD_Simanis : MonoBehaviour
             // character trying to interact with a tile
             if (raycastInteract.type == RaycastInteract.Type.Tile)
             {
-
-                interactionTarget = raycastInteract;
-                raycastInteract.SetHighlight(true);
-                customCursor.SetCursor(true, CursorAction.walk);
+                // check if character has movement remaining 
+                bool hasMovementRemaining = false;
+                if (oldHighlight != null)
+                {
+                    Debug.Log("OLD HIGHLIGHT EXISTS: " + oldHighlight);
+                    if (oldHighlight.characterVisualControl.character.RemainingStepsThisTurn() > 0)
+                        hasMovementRemaining = true;
+                }
+                // 
+                if (hasMovementRemaining)
+                {
+                    interactionTarget = raycastInteract;
+                    raycastInteract.SetHighlight(true);
+                    customCursor.SetCursor(true, CursorAction.walk);
+                }
             }
             // ATTACKING
             // check if u have any attack

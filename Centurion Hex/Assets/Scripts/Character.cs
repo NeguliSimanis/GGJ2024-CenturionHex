@@ -53,6 +53,14 @@ public class Character
         return StepsPerTurn;//override if some other logic
     }
 
+    public int RemainingStepsThisTurn()
+    {
+        int remainingSteps = GetStepsPerTurn() - StepsUsed;
+        if (remainingSteps < 0)
+            remainingSteps = 0;
+        return remainingSteps;
+    }
+
     public virtual void onPlayed()
     {
         //action to do when placed on board

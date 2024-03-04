@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public enum TileVisualType
 {
@@ -47,6 +48,7 @@ public class TileVisual_Simanis : MonoBehaviour
     public Image animationImage;
     public Sprite victorySprite;
     public Sprite coinSprite;
+    public float vicAnimationDuration = 1f;
 
     [Header("TILE HIGHLIHGTS")]
     public GameObject tileHighlight;
@@ -131,6 +133,10 @@ public class TileVisual_Simanis : MonoBehaviour
 
         Debug.Log("spawning victory point gain");
         victoryAnimator.SetTrigger("Find");
+        DOVirtual.DelayedCall(vicAnimationDuration, () =>
+        {
+            victoryAnimator.SetTrigger("Hide");
+        });
 
     }
 

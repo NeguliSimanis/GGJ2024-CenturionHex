@@ -20,6 +20,12 @@ public class ActionCursor
 public class CustomCursor_Simanis : MonoBehaviour
 {
     public ActionCursor[] actionCursors;
+    public static CustomCursor_Simanis instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void SetCursor(bool showCustomCursor, CursorAction cursorAction)
     {

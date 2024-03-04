@@ -61,13 +61,17 @@ public class MovementManager_Simanis : MonoBehaviour
 
     public void MoveCharacter()
     {
-        Debug.Log("LOOKIN FOR MOVE CHAACTER");
+        //Debug.Log("LOOKIN FOR MOVE CHAACTER");
         Character charToMove = centurionGame.lastCharacterMoved;
         foreach(CharacterVisual_Simanis charVisual in spawner.allCharacters)
         {
             if (charVisual.character == charToMove)
             {
                 charVisual.MoveCharacter(moveSpeed);
+
+                // remove custom move cursor if no more speed remaining
+                if (charToMove.RemainingStepsThisTurn() < 1)
+                    CustomCursor_Simanis.instance.SetCursor(false, CursorAction.undefined);
             }
         }
     }
