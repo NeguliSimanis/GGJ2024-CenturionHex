@@ -10,17 +10,13 @@ public class HUD_Simanis : MonoBehaviour
 
     public CenturionGame centurionGame;
     public static HUD_Simanis instance;
+    [HideInInspector]
+    public AnnouncementUi_Simanis announcement_UI;
 
-    public TextMeshProUGUI redTeamIdentifier; 
-    public TextMeshProUGUI blueTeamIdentifier;
+    public TextMeshProUGUI allyTeamIdentifier; 
+    public TextMeshProUGUI enemyTeamIdentifier;
 
     public TextMeshProUGUI generalOrGovernorText;
-    public string team0String = "-Team 1-";
-    public string team1String = "-Team 2-";
-    public string govString = "Governor Turn";
-    public string generalString = "General Turn";
-    public string movePhaseSuffix = "- Movement phase";
-    public string managementPhaseSuffix = "- Management phase";
     public Color generalTurnColor;
     public Color govTurnColor;
     public TextMeshProUGUI teamTurnText;
@@ -77,7 +73,15 @@ public class HUD_Simanis : MonoBehaviour
         //UpdateTeamWealth();
         //UpdateTurnText();
         customCursor = GetComponent<CustomCursor_Simanis>();
+        announcement_UI = AnnouncementUi_Simanis.instance;
         HideGameFinished();
+        SetTeamIdentifierTexts();
+    }
+
+    private void SetTeamIdentifierTexts()
+    {
+        enemyTeamIdentifier.text = "Enemy";
+        allyTeamIdentifier.text = "Ally";
     }
 
     public void ListenToRaycast()
@@ -204,7 +208,7 @@ public class HUD_Simanis : MonoBehaviour
                 bool hasMovementRemaining = false;
                 if (oldHighlight != null)
                 {
-                    Debug.Log("OLD HIGHLIGHT EXISTS: " + oldHighlight);
+                   // Debug.Log("OLD HIGHLIGHT EXISTS: " + oldHighlight);
                     if (oldHighlight.characterVisualControl.character.RemainingStepsThisTurn() > 0)
                         hasMovementRemaining = true;
                 }
@@ -486,19 +490,35 @@ public class HUD_Simanis : MonoBehaviour
     {
         Debug.Log("Updating Turn phase text");
         UpdateTurnIDs();
+
+        /*
+         * So the turn can be:
+         *  - enemy or ally:
+         *      > teamTurnText - dunno where this is
+         *  - governor or general:
+         *      > generalOrGovernorText - big text in corner of screen
+         *  - movement or management
+         *      > teamTurnText - suffix to that
+         */
+        string bigAnnounceString = "turn";
+        string smallAnnounceString = " war/civil x phase";
+
         // general
         if (centurionGame.GeneralMove)
         {
-            generalOrGovernorText.text = generalString;
-            generalOrGovernorText.color = generalTurnColor;
+            generalOrGovernorText.text = "General Turn";
+            smallAnnounceString = "War ";
+           // generalOrGovernorText.color = generalTurnColor;
         }
         // governor
         else
         {
-            generalOrGovernorText.text = govString;
-            generalOrGovernorText.color = govTurnColor;
+            generalOrGovernorText.text = "Governor Turn";
+            smallAnnounceString = "Civil ";
+            //generalOrGovernorText.color = govTurnColor;
         }
-        // team 1
+
+        // TEAM 1
         if (centurionGame.RedMove)
         {
             if (centurionGame.PlayingAsRed)
@@ -507,40 +527,51 @@ public class HUD_Simanis : MonoBehaviour
                 endTurnButton.endButtonTeam0.SetActive(true);
                 endTurnButton.endButtonTeam1.SetActive(false);
                 teamTurnText.text = "Ally Team";
+                bigAnnounceString = "Ally Turn";
             }
             else
             {
                 teamTurnText.text = "Enemy Team";
-
+                bigAnnounceString = "Enemy Turn";
                 endTurnButton.gameObject.SetActive(false);
             }
-            //teamTurnText.text = team0String;
         }
         // Team 2
         else
         {
-            // im playing as blue
+            // im playing as blue and is blue turn
             if (!centurionGame.PlayingAsRed)
             {
                 endTurnButton.gameObject.SetActive(true);
                 endTurnButton.endButtonTeam1.SetActive(true);
                 endTurnButton.endButtonTeam0.SetActive(false);
                 teamTurnText.text = "Ally Team";
-            }
+                bigAnnounceString = "Ally Turn";
+            } 
+            // playing red and is blue turn
             else
             {
                 endTurnButton.gameObject.SetActive(false);
                 teamTurnText.text = "Enemy Team";
+                bigAnnounceString = "Enemy Turn";
             }
         }
         switch (centurionGame.mRoundState)
         {
             case CenturionGame.RoundState.rsManagement:
-                teamTurnText.text += managementPhaseSuffix;
+                teamTurnText.text += " - Management phase";
+                smallAnnounceString += "management phase";
                 break;
             default:
-                teamTurnText.text += movePhaseSuffix;
+                teamTurnText.text += " - Movement phase";
+                smallAnnounceString += "movement phase";
                 break;
         }
+        announcement_UI.ShowAnnouncmentText(
+            bigAnnounce: bigAnnounceString,
+            smallAnnounce: smallAnnounceString,
+            appearDuration: 0.8f,
+            disappearDelay: 1.8f,
+            disappearDuration: 1f);
     }
 }
