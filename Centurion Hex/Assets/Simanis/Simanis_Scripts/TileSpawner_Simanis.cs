@@ -186,7 +186,7 @@ public class TileSpawner_Simanis : MonoBehaviour
         RaycastInteract target = HUD_Simanis.instance.cardPlacementTarget;
         Destroy(HUD_Simanis.instance.cardPrefabBeingPlayed);
 
-        SpawnCharacterOnTile(
+        SpawnBuildingOnTile(
             tile: target.tileVisualControl.tile,
             parent: target.tileVisualControl.unitTransformPos,
             tileVisual: target.tileVisualControl,
@@ -196,6 +196,23 @@ public class TileSpawner_Simanis : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// Called by CenturionGame.cs event set in editor
+    /// </summary>
+    public void PlaceBuilding()
+    {
+        Building buildingToPlace = centurionGame.lastPlacedBuilding;
+        RaycastInteract target = HUD_Simanis.instance.cardPlacementTarget;
+        Destroy(HUD_Simanis.instance.cardPrefabBeingPlayed);
+
+        SpawnCharacterOnTile(
+            tile: target.tileVisualControl.tile,
+            parent: target.tileVisualControl.unitTransformPos,
+            tileVisual: target.tileVisualControl,
+            x: target.tileVisualControl.xCoord,
+            y: target.tileVisualControl.yCoord
+            );
+    }
 
     public void SpawnBuildingOnTile(Tile tile, Transform parent,
         TileVisual_Simanis tileVisual, int x, int y)

@@ -59,6 +59,8 @@ public class HUD_Simanis : MonoBehaviour
     public bool cardPlacementInputAllowed = false;
     public GameObject cardPrefabBeingPlayed;
     public Character characterBeingPlaced;
+    public Building buildingBeingPlaced;
+    public bool tryingToPlaceBuilding = false;
     public RaycastInteract cardPlacementTarget;
     public bool canPlaceCardThere = false;
     public List<TileVisual_Simanis> allowedCardPlacementTiles = new List<TileVisual_Simanis>();
@@ -114,6 +116,122 @@ public class HUD_Simanis : MonoBehaviour
     public void RemoveCustomCursor()
     {
             customCursor.SetCursor(false, cursorAction: CursorAction.undefined);
+    }
+
+    public void ShowAllowedBuildPlacementTiles(GameObject card, Building buildBeingPlaced)
+    {
+        allowedCardPlacementTiles.Clear();
+        Debug.Log("show allowed building placement tiles");
+        buildingBeingPlaced = buildBeingPlaced;
+        cardPrefabBeingPlayed = card;
+
+        // can build next to own buildings
+        if (buildBeingPlaced.requireNextToAlly)
+        {
+            // get a list of own buildings
+            List<BuildingVisual_Simanis> allBuildingVisuals = TileSpawner_Simanis.instance.allBuildings;
+            List<BuildingVisual_Simanis> myBuildingVisuals = new List<BuildingVisual_Simanis>();
+            foreach (BuildingVisual_Simanis buildingVisual in allBuildingVisuals)
+            {
+                Building curBuilding = buildingVisual.building;
+
+                if (centurionGame.PlayingAsRed && curBuilding.Team == centurionGame.Teams[0])
+                    myBuildingVisuals.Add(buildingVisual);
+                if (!centurionGame.PlayingAsRed && curBuilding.Team == centurionGame.Teams[1])
+                    myBuildingVisuals.Add(buildingVisual);
+            }
+
+            
+            // get a list of buildable tiles adjacent to own buildings
+            foreach (BuildingVisual_Simanis buildingVisual in myBuildingVisuals)
+            {
+                Tile[] allowedTiles = CenturionGame.Instance.GetTilesAdjacentToBuilding(
+                buildingVisual.building.id,
+                onlyBuildableTiles: true);
+
+                // highlight adjacent empty tiles - next to own buildings
+                foreach (Tile allowedTile in allowedTiles)
+                {
+                    if (allowedTile != null )
+                    {
+                        TileVisual_Simanis newAllowedTile = TileSpawner_Simanis.instance.GetTileVisual(allowedTile);
+                        allowedCardPlacementTiles.Add(newAllowedTile);
+                        newAllowedTile.HighlightTile(true);
+                    }
+                }
+            }
+        }
+        // can be built anywhere
+        else if (buildBeingPlaced.requiredTileType == TileCover.CoverType.ctUndefined)
+        {
+            // can be built anywhere - get a list of buildable tiles 
+            Tile[,] allTiles = CenturionGame.Instance.Board.Tiles;
+
+            // can be built anywhere - highlight empty tiles
+            foreach (Tile currTile in allTiles)
+            {
+                if (currTile != null &&
+                currTile.currentBuilding == null &&
+                currTile.currentCharacter == null &&
+                currTile.tileType == Tile.TileType.ttBuildable)
+                {
+                    TileVisual_Simanis newAllowedTile = TileSpawner_Simanis.instance.GetTileVisual(currTile);
+                    allowedCardPlacementTiles.Add(newAllowedTile);
+                    newAllowedTile.HighlightTile(true);
+                }
+            }
+
+        }
+        // can be built FOREST
+        else if (buildBeingPlaced.requiredTileType == TileCover.CoverType.ctForest)
+        {
+            // FOREST - get a list of buildable tiles 
+            Tile[,] allTiles = CenturionGame.Instance.Board.Tiles;
+
+            // FOREST - highlight empty tiles
+            foreach (Tile currTile in allTiles)
+            {
+                if (currTile != null &&
+                currTile.currentBuilding == null &&
+                currTile.currentCharacter == null &&
+                currTile.tileType == Tile.TileType.ttBuildable &&
+                currTile.tileCover.Type == TileCover.CoverType.ctForest)
+                {
+                    TileVisual_Simanis newAllowedTile = TileSpawner_Simanis.instance.GetTileVisual(currTile);
+                    allowedCardPlacementTiles.Add(newAllowedTile);
+                    newAllowedTile.HighlightTile(true);
+                }
+            }
+        }
+        // can be built GRASS
+        else if (buildBeingPlaced.requiredTileType == TileCover.CoverType.ctGrass)
+        {
+            // FOREST - get a list of buildable tiles 
+            Tile[,] allTiles = CenturionGame.Instance.Board.Tiles;
+
+            // FOREST - highlight empty tiles
+            foreach (Tile currTile in allTiles)
+            {
+                if (currTile != null &&
+                currTile.currentBuilding == null &&
+                currTile.currentCharacter == null &&
+                currTile.tileType == Tile.TileType.ttBuildable &&
+                currTile.tileCover.Type == TileCover.CoverType.ctGrass)
+                {
+                    TileVisual_Simanis newAllowedTile = TileSpawner_Simanis.instance.GetTileVisual(currTile);
+                    allowedCardPlacementTiles.Add(newAllowedTile);
+                    newAllowedTile.HighlightTile(true);
+                }
+            }
+
+        }
+        // unknown error
+        else
+        {
+            Debug.LogError("Don't know where building can be placed");
+        }
+        if (allowedCardPlacementTiles.Count > 0)
+            tryingToPlaceBuilding = true;
     }
 
     public void ShowAllowedCharPlacementTiles(GameObject card, Character charBeingPlaced)
@@ -377,6 +495,14 @@ public class HUD_Simanis : MonoBehaviour
             y: cardPlacementTarget.tileVisualControl.yCoord);
     }
 
+    public void TryToPlaceBuildingOnTile()
+    {
+        Debug.Log("try to place build on tile");
+        Network.instance.PlaceBuilding(buildingBeingPlaced.id,
+            x: cardPlacementTarget.tileVisualControl.xCoord,
+            y: cardPlacementTarget.tileVisualControl.yCoord);
+    }
+
     public void ClearHighlights()
     {
         lookingForExtraInteractionTarget = false;
@@ -396,6 +522,7 @@ public class HUD_Simanis : MonoBehaviour
             tileVisual.HighlightTile(false);
         }
         allowedCardPlacementTiles.Clear();
+        cardPlacementInputAllowed = false;
         characterBeingPlaced = null;
         ListenToRaycast();
     }
@@ -432,14 +559,17 @@ public class HUD_Simanis : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            // PLACING UNITS ON BOARD
+            // PLACING CARDS ON BOARD
             if(cardPlacementInputAllowed && cardPlacementTarget)
             {
                 foreach(TileVisual_Simanis tileVisual in allowedCardPlacementTiles)
                 {
                     if (tileVisual == cardPlacementTarget.tileVisualControl)
                     {
-                        TryToPlaceUnitOnTile();
+                        if (!tryingToPlaceBuilding)
+                            TryToPlaceUnitOnTile();
+                        else
+                            TryToPlaceBuildingOnTile();
                     }
                 }
             }

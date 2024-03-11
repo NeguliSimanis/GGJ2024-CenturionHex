@@ -91,7 +91,8 @@ public class CenturionGame : MonoBehaviour
 
     public Tile[] GetTilesAdjacentToBuilding(uint buildingID,
         bool tilesWithoutUnits = true,
-        bool onlyDiscoveredTiles = true)
+        bool onlyDiscoveredTiles = true,
+        bool onlyBuildableTiles = false)
     {
         if (!tilesWithoutUnits)
         {
@@ -118,7 +119,6 @@ public class CenturionGame : MonoBehaviour
             Debug.LogError("building not found");
             return null;
         }
-        Debug.Log("FOUND MY SENATE AT " + building.x + "." + building.y);
         Tile[] adjacentTiles = Board.GetAdjacentTiles(building.x, building.y);
         Tile[] adjacentEmptyTiles = new Tile[] { null, null, null, null, null, null};
 
@@ -130,7 +130,13 @@ public class CenturionGame : MonoBehaviour
                     adjacentTiles[i].currentCharacter == null &&
                     adjacentTiles[i].tileCover.Type != TileCover.CoverType.ctUndefined)
                 {
-                    adjacentEmptyTiles[i] = adjacentTiles[i];
+                    if (onlyBuildableTiles)
+                    {
+                        if (adjacentTiles[i].tileType == Tile.TileType.ttBuildable)
+                            adjacentEmptyTiles[i] = adjacentTiles[i];
+                    }
+                    else
+                        adjacentEmptyTiles[i] = adjacentTiles[i];
                 }
             }
         }

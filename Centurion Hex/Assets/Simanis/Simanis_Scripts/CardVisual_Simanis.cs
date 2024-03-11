@@ -81,7 +81,14 @@ public class CardVisual_Simanis : MonoBehaviour
 
         HighlightSelectedCard();
         HUD_Simanis hud = HUD_Simanis.instance;
-        hud.ShowAllowedCharPlacementTiles(this.gameObject, cardCharacter);
+        if (isCharacter)
+            hud.ShowAllowedCharPlacementTiles(this.gameObject, cardCharacter);
+        else
+        {
+            hud.ShowAllowedBuildPlacementTiles(this.gameObject, cardBuilding);
+            if (cardBuilding == null)
+                Debug.Log("issue");
+        }
     }
 
     private void HighlightSelectedCard()
