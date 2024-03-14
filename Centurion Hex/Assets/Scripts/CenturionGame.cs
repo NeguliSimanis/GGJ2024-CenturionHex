@@ -559,6 +559,7 @@ public class CenturionGame : MonoBehaviour
         if (ch.Health == 0)
         {
             BoardBuildings.Remove(ch);
+            Board.GetTile(ch.x, ch.y).currentBuilding = null;
             if (ch.Class == Building.BuildingClass.bcWar)
             {
                 ch.Team.General.DeadBuildings.Add(ch);
