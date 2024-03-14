@@ -6,6 +6,7 @@ using TMPro;
 using static Building;
 using static Character;
 using UnityEngine.TextCore.Text;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class CardImage
@@ -61,6 +62,10 @@ public class CardVisual_Simanis : MonoBehaviour
     [Header("PLAYER HAND")]
     public Button handCardInteract;
 
+    [Header("CARD HIGHLIGHT")]
+    public GameObject cardHighlight;
+    public UnityEvent onCardHighlightEvent;
+
     private void Start()
     {
         handCardInteract.onClick.AddListener(TryPlayCard);
@@ -76,10 +81,11 @@ public class CardVisual_Simanis : MonoBehaviour
     public void TryPlayCard()
     {
         Debug.Log("trying to play card " + cardTitle.text);
+        HighlightSelectedCard();
         if (!CanAffordCard())
             return;
 
-        HighlightSelectedCard();
+        
         HUD_Simanis hud = HUD_Simanis.instance;
         if (isCharacter)
             hud.ShowAllowedCharPlacementTiles(this.gameObject, cardCharacter);
@@ -91,8 +97,11 @@ public class CardVisual_Simanis : MonoBehaviour
         }
     }
 
-    private void HighlightSelectedCard()
+    public void HighlightSelectedCard(bool highlight = true)
     {
+        if (highlight)
+            onCardHighlightEvent.Invoke();
+        cardHighlight.SetActive(highlight);
         Debug.Log("highlight selected carc");
     }
 

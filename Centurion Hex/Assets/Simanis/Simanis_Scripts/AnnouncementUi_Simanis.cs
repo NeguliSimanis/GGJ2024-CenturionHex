@@ -58,7 +58,7 @@ public class AnnouncementUi_Simanis : MonoBehaviour
     public void HideAnnouncmentText(float disappearDuration)
     {
         // Text color setup
-        Color transparentColor = new Color(1f, 1f, 1f, 0f);
+        Color transparentColor = new Color(0f, 0f, 0f, 0f);
 
         // Fade out text
         bigAnnouncmentText.DOColor(transparentColor, disappearDuration);

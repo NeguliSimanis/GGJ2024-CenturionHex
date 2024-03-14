@@ -20,6 +20,14 @@ public class EndTurnButton_Simanis : MonoBehaviour
 
     }
 
+    public void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            EndTurn();
+        }
+    }
+
     public void EndTurn()
     {
         //Debug.Log("yay");
