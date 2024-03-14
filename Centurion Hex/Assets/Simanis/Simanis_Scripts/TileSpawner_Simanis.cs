@@ -230,9 +230,7 @@ public class TileSpawner_Simanis : MonoBehaviour
     {
         Debug.Log("trying to place building");
         Building buildingToPlace = centurionGame.lastPlacedBuilding;
-        RaycastInteract target = HUD_Simanis.instance.cardPlacementTarget;
-        Destroy(HUD_Simanis.instance.cardPrefabBeingPlayed);
-        
+
         bool isMyBuilding = false;
 
         if (buildingToPlace.Team.Type == Team.TeamType.ttBlue
@@ -244,9 +242,11 @@ public class TileSpawner_Simanis : MonoBehaviour
 
         if (isMyBuilding)
         {
+            RaycastInteract target = HUD_Simanis.instance.cardPlacementTarget;
+            Destroy(HUD_Simanis.instance.cardPrefabBeingPlayed);
             SpawnBuildingOnTile(
                 tile: target.tileVisualControl.tile,
-                parent: target.tileVisualControl.unitTransformPos,
+                parent: target.tileVisualControl.buildingTransformPos,
                 tileVisual: target.tileVisualControl,
                 x: target.tileVisualControl.xCoord,
                 y: target.tileVisualControl.yCoord
@@ -258,7 +258,7 @@ public class TileSpawner_Simanis : MonoBehaviour
             TileVisual_Simanis buildTileVisual = GetTileVisual(buildTile);
             SpawnBuildingOnTile(
                 tile: buildTile,
-                parent: buildTileVisual.unitTransformPos,
+                parent: buildTileVisual.buildingTransformPos,
                 tileVisual: buildTileVisual,
                 x: buildingToPlace.x,
                 y: buildingToPlace.y

@@ -37,6 +37,7 @@ public class TileVisual_Simanis : MonoBehaviour
     public int yCoord;
 
     public Transform unitTransformPos;
+    public Transform buildingTransformPos;
 
     [Header("Explosion")]
     public GameObject explosionPrefab;
