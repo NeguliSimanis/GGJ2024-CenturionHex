@@ -382,9 +382,9 @@ public class Network : MonoBehaviour
     {
         Messages command = (Messages)incomingData.readByte();
 
-        //if (command != Messages.op_ping)
+        if (command != Messages.op_ping)
         {
-            //Debug.Log("Command received: " + command.ToString() );
+            Debug.Log("Command received: " + command.ToString() );
         }
 
         switch (command)

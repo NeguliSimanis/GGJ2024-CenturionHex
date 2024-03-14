@@ -173,6 +173,7 @@ public class HUD_Simanis : MonoBehaviour
                 if (currTile != null &&
                 currTile.currentBuilding == null &&
                 currTile.currentCharacter == null &&
+                currTile.tileCover.Type != TileCover.CoverType.ctUndefined &&
                 currTile.tileType == Tile.TileType.ttBuildable)
                 {
                     TileVisual_Simanis newAllowedTile = TileSpawner_Simanis.instance.GetTileVisual(currTile);
