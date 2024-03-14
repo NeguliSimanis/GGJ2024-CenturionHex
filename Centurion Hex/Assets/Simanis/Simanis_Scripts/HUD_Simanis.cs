@@ -493,18 +493,22 @@ public class HUD_Simanis : MonoBehaviour
 
     public void TryToPlaceUnitOnTile()
     {
+        
         Debug.Log("try to place char on tile");
         Network.instance.PlaceCharacter(characterBeingPlaced.id, 
             x: cardPlacementTarget.tileVisualControl.xCoord,
             y: cardPlacementTarget.tileVisualControl.yCoord);
+        //ClearHighlights();
     }
 
     public void TryToPlaceBuildingOnTile()
     {
+        //
         Debug.Log("try to place build on tile");
         Network.instance.PlaceBuilding(buildingBeingPlaced.id,
             x: cardPlacementTarget.tileVisualControl.xCoord,
             y: cardPlacementTarget.tileVisualControl.yCoord);
+       // ClearHighlights();
     }
 
     public void ClearHighlights()
