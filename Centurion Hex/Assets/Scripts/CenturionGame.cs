@@ -535,6 +535,7 @@ public class CenturionGame : MonoBehaviour
         if( ch.Health == 0 )
         {
             BoardCharacters.Remove(ch);
+            Board.GetTile(ch.x, ch.y).currentCharacter = null;
             if(ch.isWarUnit)
             {
                 ch.Team.General.DeadCharacters.Add(ch);
