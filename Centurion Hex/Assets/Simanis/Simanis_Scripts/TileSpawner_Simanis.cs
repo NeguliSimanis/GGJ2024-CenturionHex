@@ -186,13 +186,14 @@ public class TileSpawner_Simanis : MonoBehaviour
         RaycastInteract target = HUD_Simanis.instance.cardPlacementTarget;
         Destroy(HUD_Simanis.instance.cardPrefabBeingPlayed);
 
-        SpawnBuildingOnTile(
-            tile: target.tileVisualControl.tile,
-            parent: target.tileVisualControl.unitTransformPos,
-            tileVisual: target.tileVisualControl,
-            x: target.tileVisualControl.xCoord,
-            y: target.tileVisualControl.yCoord
-            );
+        SpawnCharacterOnTile(
+           tile: target.tileVisualControl.tile,
+           parent: target.tileVisualControl.unitTransformPos,
+           tileVisual: target.tileVisualControl,
+           x: target.tileVisualControl.xCoord,
+           y: target.tileVisualControl.yCoord
+           );
+
     }
 
 
@@ -201,17 +202,19 @@ public class TileSpawner_Simanis : MonoBehaviour
     /// </summary>
     public void PlaceBuilding()
     {
+        Debug.Log("trying to place building");
         Building buildingToPlace = centurionGame.lastPlacedBuilding;
         RaycastInteract target = HUD_Simanis.instance.cardPlacementTarget;
         Destroy(HUD_Simanis.instance.cardPrefabBeingPlayed);
 
-        SpawnCharacterOnTile(
-            tile: target.tileVisualControl.tile,
-            parent: target.tileVisualControl.unitTransformPos,
-            tileVisual: target.tileVisualControl,
-            x: target.tileVisualControl.xCoord,
-            y: target.tileVisualControl.yCoord
-            );
+        SpawnBuildingOnTile(
+          tile: target.tileVisualControl.tile,
+          parent: target.tileVisualControl.unitTransformPos,
+          tileVisual: target.tileVisualControl,
+          x: target.tileVisualControl.xCoord,
+          y: target.tileVisualControl.yCoord
+          );
+       
     }
 
     public void SpawnBuildingOnTile(Tile tile, Transform parent,
