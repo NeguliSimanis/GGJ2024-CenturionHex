@@ -689,7 +689,7 @@ public class CenturionGame : MonoBehaviour
     {
         Character ch = new Character();
         ch.LoadFromNetwork(incomingData);
-        addCharacter(ch, Team.TeamType.ttNone);
+        addCharacter(ch, (Team.TeamType)incomingData.readByte());
         onStackUpdateCharacter.Invoke();
     }
 
@@ -697,7 +697,7 @@ public class CenturionGame : MonoBehaviour
     {
         Building ch = new Building();
         ch.LoadFromNetwork(incomingData);
-        addBuilding(ch, Team.TeamType.ttNone);
+        addBuilding(ch, (Team.TeamType)incomingData.readByte());
         onStackUpdateBuilding.Invoke();
     }
 }
