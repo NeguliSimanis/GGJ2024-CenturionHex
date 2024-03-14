@@ -183,16 +183,42 @@ public class TileSpawner_Simanis : MonoBehaviour
     public void PlaceCharacter()
     {
         Character characterToPlace = centurionGame.lastPlacedCharacter;
-        RaycastInteract target = HUD_Simanis.instance.cardPlacementTarget;
-        Destroy(HUD_Simanis.instance.cardPrefabBeingPlayed);
 
-        SpawnCharacterOnTile(
-           tile: target.tileVisualControl.tile,
-           parent: target.tileVisualControl.unitTransformPos,
-           tileVisual: target.tileVisualControl,
-           x: target.tileVisualControl.xCoord,
-           y: target.tileVisualControl.yCoord
-           );
+        bool isMyChar = false;
+
+        if (characterToPlace.Team.Type == Team.TeamType.ttBlue
+            && !CenturionGame.Instance.PlayingAsRed)
+            isMyChar = true;
+        if (characterToPlace.Team.Type == Team.TeamType.ttRed
+            && CenturionGame.Instance.PlayingAsRed)
+            isMyChar = true;
+
+
+        if (isMyChar)
+        {
+            RaycastInteract target = HUD_Simanis.instance.cardPlacementTarget;
+            Destroy(HUD_Simanis.instance.cardPrefabBeingPlayed);
+
+            SpawnCharacterOnTile(
+               tile: target.tileVisualControl.tile,
+               parent: target.tileVisualControl.unitTransformPos,
+               tileVisual: target.tileVisualControl,
+               x: target.tileVisualControl.xCoord,
+               y: target.tileVisualControl.yCoord
+               );
+        }
+        else
+        {
+            Tile charTile = CenturionGame.Instance.Board.GetTile(characterToPlace.x, characterToPlace.y);
+            TileVisual_Simanis charTileVisual = GetTileVisual(charTile);
+            SpawnCharacterOnTile(
+               tile: charTile,
+               parent: charTileVisual.unitTransformPos,
+               tileVisual: charTileVisual,
+               x: characterToPlace.x,
+               y: characterToPlace.y
+               );
+        }
 
     }
 
@@ -206,15 +232,38 @@ public class TileSpawner_Simanis : MonoBehaviour
         Building buildingToPlace = centurionGame.lastPlacedBuilding;
         RaycastInteract target = HUD_Simanis.instance.cardPlacementTarget;
         Destroy(HUD_Simanis.instance.cardPrefabBeingPlayed);
+        
+        bool isMyBuilding = false;
 
-        SpawnBuildingOnTile(
-          tile: target.tileVisualControl.tile,
-          parent: target.tileVisualControl.unitTransformPos,
-          tileVisual: target.tileVisualControl,
-          x: target.tileVisualControl.xCoord,
-          y: target.tileVisualControl.yCoord
-          );
-       
+        if (buildingToPlace.Team.Type == Team.TeamType.ttBlue
+            && !CenturionGame.Instance.PlayingAsRed)
+            isMyBuilding = true;
+        if (buildingToPlace.Team.Type == Team.TeamType.ttRed
+            && CenturionGame.Instance.PlayingAsRed)
+            isMyBuilding = true;
+
+        if (isMyBuilding)
+        {
+            SpawnBuildingOnTile(
+                tile: target.tileVisualControl.tile,
+                parent: target.tileVisualControl.unitTransformPos,
+                tileVisual: target.tileVisualControl,
+                x: target.tileVisualControl.xCoord,
+                y: target.tileVisualControl.yCoord
+                );
+        }
+        else
+        {
+            Tile buildTile = CenturionGame.Instance.Board.GetTile(buildingToPlace.x, buildingToPlace.y);
+            TileVisual_Simanis buildTileVisual = GetTileVisual(buildTile);
+            SpawnBuildingOnTile(
+                tile: buildTile,
+                parent: buildTileVisual.unitTransformPos,
+                tileVisual: buildTileVisual,
+                x: buildingToPlace.x,
+                y: buildingToPlace.y
+                );
+        }
     }
 
     public void SpawnBuildingOnTile(Tile tile, Transform parent,
