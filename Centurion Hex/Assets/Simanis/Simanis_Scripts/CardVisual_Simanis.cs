@@ -7,6 +7,7 @@ using static Building;
 using static Character;
 using UnityEngine.TextCore.Text;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 [System.Serializable]
 public class CardImage
@@ -17,7 +18,7 @@ public class CardImage
     public Building.BuildingType buildingType;
 }
 
-public class CardVisual_Simanis : MonoBehaviour
+public class CardVisual_Simanis : MonoBehaviour, IPointerClickHandler
 {
     /// <summary>
     /// is this a card visual in card stack (true) or player hand (false)
@@ -65,6 +66,21 @@ public class CardVisual_Simanis : MonoBehaviour
     [Header("CARD HIGHLIGHT")]
     public GameObject cardHighlight;
     public UnityEvent onCardHighlightEvent;
+    public bool isImageClicked;
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>() != null)
+        {
+
+            onCardHighlightEvent.Invoke();
+            HighlightSelectedCard(true);
+        }
+        else
+        {
+            HighlightSelectedCard(false);
+        }
+    }
 
     private void Start()
     {
@@ -99,8 +115,7 @@ public class CardVisual_Simanis : MonoBehaviour
 
     public void HighlightSelectedCard(bool highlight = true)
     {
-        if (highlight)
-            onCardHighlightEvent.Invoke();
+
         cardHighlight.SetActive(highlight);
         Debug.Log("highlight selected carc");
     }

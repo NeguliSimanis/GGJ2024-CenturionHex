@@ -232,7 +232,10 @@ public class HUD_Simanis : MonoBehaviour
             Debug.LogError("Don't know where building can be placed");
         }
         if (allowedCardPlacementTiles.Count > 0)
+        {
             tryingToPlaceBuilding = true;
+            cardPlacementInputAllowed = true;
+        }
     }
 
     public void ShowAllowedCharPlacementTiles(GameObject card, Character charBeingPlaced)
@@ -567,6 +570,7 @@ public class HUD_Simanis : MonoBehaviour
                 {
                     if (tileVisual == cardPlacementTarget.tileVisualControl)
                     {
+                        Debug.Log("target for card placement found");
                         if (!tryingToPlaceBuilding)
                             TryToPlaceUnitOnTile();
                         else
