@@ -105,6 +105,7 @@ public class Network : MonoBehaviour
                     {
                         if (client != null)
                         {
+                            Debug.LogError("Failed to connect");
                             client.Close();
                         }
 
@@ -145,6 +146,7 @@ public class Network : MonoBehaviour
                         {
                             try
                             {
+                                Debug.LogError("socket closed before connected; e: " + e.ToString());
                                 client.Close();
                                 client = null;
                             }
@@ -223,7 +225,7 @@ public class Network : MonoBehaviour
                 }
                 catch (Exception e)
                 {
-                    Debug.Log("socket disconnected on read " + e.ToString());
+                    Debug.LogError("socket disconnected on read " + e.ToString());
                     try
                     {
                         client.Close();
@@ -301,6 +303,7 @@ public class Network : MonoBehaviour
 
     public void Disconnect()
     {
+        Debug.LogError("Disconnecting");
         if(client != null)
         {
             client.Close();
@@ -344,6 +347,7 @@ public class Network : MonoBehaviour
             {
                 try
                 {
+                    Debug.LogError("Failed to send data");
                     client.Close();
                 }
                 catch (Exception)
@@ -382,9 +386,9 @@ public class Network : MonoBehaviour
     {
         Messages command = (Messages)incomingData.readByte();
 
-        //if (command != Messages.op_ping)
+        if (command != Messages.op_ping)
         {
-            //Debug.Log("Command received: " + command.ToString() );
+            Debug.Log("Command received: " + command.ToString() );
         }
 
         switch (command)
@@ -624,7 +628,7 @@ public class Network : MonoBehaviour
         outgoingData.writeByte((byte)y);
         Send("place_building");
     }
-
+    
     public void ResetGame()
     {
         outgoingData.writeByte((byte)Messages.op_login);
