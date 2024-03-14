@@ -195,7 +195,8 @@ public class CenturionGame : MonoBehaviour
 
     CenturionGame()
     {
-        Instance = this;
+        if(Instance == null )
+            Instance = this;
         for( int i = 0; i < Teams.Length; i++ )
         {
             Teams[i] = new Team();
