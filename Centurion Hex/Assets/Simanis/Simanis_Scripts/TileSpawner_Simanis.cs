@@ -198,17 +198,7 @@ public class TileSpawner_Simanis : MonoBehaviour
         {
             RaycastInteract target = HUD_Simanis.instance.cardPlacementTarget;
             Destroy(HUD_Simanis.instance.cardPrefabBeingPlayed);
-
-            SpawnCharacterOnTile(
-               tile: target.tileVisualControl.tile,
-               parent: target.tileVisualControl.unitTransformPos,
-               tileVisual: target.tileVisualControl,
-               x: target.tileVisualControl.xCoord,
-               y: target.tileVisualControl.yCoord
-               );
         }
-        else
-        {
             Tile charTile = CenturionGame.Instance.Board.GetTile(characterToPlace.x, characterToPlace.y);
             TileVisual_Simanis charTileVisual = GetTileVisual(charTile);
             SpawnCharacterOnTile(
@@ -218,7 +208,7 @@ public class TileSpawner_Simanis : MonoBehaviour
                x: characterToPlace.x,
                y: characterToPlace.y
                );
-        }
+        
 
     }
 
@@ -242,18 +232,8 @@ public class TileSpawner_Simanis : MonoBehaviour
 
         if (isMyBuilding)
         {
-            RaycastInteract target = HUD_Simanis.instance.cardPlacementTarget;
             Destroy(HUD_Simanis.instance.cardPrefabBeingPlayed);
-            SpawnBuildingOnTile(
-                tile: target.tileVisualControl.tile,
-                parent: target.tileVisualControl.buildingTransformPos,
-                tileVisual: target.tileVisualControl,
-                x: target.tileVisualControl.xCoord,
-                y: target.tileVisualControl.yCoord
-                );
         }
-        else
-        {
             Tile buildTile = CenturionGame.Instance.Board.GetTile(buildingToPlace.x, buildingToPlace.y);
             TileVisual_Simanis buildTileVisual = GetTileVisual(buildTile);
             SpawnBuildingOnTile(
@@ -263,7 +243,6 @@ public class TileSpawner_Simanis : MonoBehaviour
                 x: buildingToPlace.x,
                 y: buildingToPlace.y
                 );
-        }
     }
 
     public void SpawnBuildingOnTile(Tile tile, Transform parent,
