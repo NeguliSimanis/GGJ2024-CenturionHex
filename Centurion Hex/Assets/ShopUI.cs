@@ -8,6 +8,7 @@ public class ShopUI : MonoBehaviour
 {
     public static ShopUI instance;
     public GameObject Shop;
+    public TextMeshProUGUI shopTitle;
     public TextMeshProUGUI BuildingStackTitle;
     public CardVisual_Simanis BuildingsStack;
     public TextMeshProUGUI CharactersStackTitle;
@@ -167,20 +168,22 @@ public class ShopUI : MonoBehaviour
         if ( game.GeneralMove )
         {
             //show war units
-            CharactersStackTitle.text = "War units";
-            CharactersStackTitle.color = Color.red;
-            BuildingStackTitle.text = "War buildings";
-            BuildingStackTitle.color = Color.red; 
+            shopTitle.text = "WAR DECK";
+            CharactersStackTitle.text = "Units";
+            //CharactersStackTitle.color = Color.red;
+            BuildingStackTitle.text = "Buildings";
+            //BuildingStackTitle.color = Color.red; 
             BuildingsStack.DisplayBuildCardVisuals(game.WarBuildings[0]);
             CharactersStack.DisplayCharacterCardVisuals(game.WarCharacters[0]);
         }
         else
         {
             //show civil units
-            CharactersStackTitle.text = "Civil units";
-            CharactersStackTitle.color = Color.blue;
-            BuildingStackTitle.text = "Civil buildings";
-            BuildingStackTitle.color = Color.blue;
+            shopTitle.text = "CIVIL DECK";
+            CharactersStackTitle.text = "Units";
+            //CharactersStackTitle.color = Color.blue;
+            BuildingStackTitle.text = "Buildings";
+            //BuildingStackTitle.color = Color.blue;
             BuildingsStack.DisplayBuildCardVisuals(game.CivilBuildings[0]);
             CharactersStack.DisplayCharacterCardVisuals(game.CivilCharacters[0]);
         }

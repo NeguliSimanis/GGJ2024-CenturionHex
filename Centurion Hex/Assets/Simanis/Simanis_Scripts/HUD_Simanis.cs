@@ -65,6 +65,12 @@ public class HUD_Simanis : MonoBehaviour
     public bool canPlaceCardThere = false;
     public List<TileVisual_Simanis> allowedCardPlacementTiles = new List<TileVisual_Simanis>();
 
+    [Header("CARD HAND/DECK HIGHLIGHTS")]
+    ///// <summary>
+    ///// the card that has been last clicked
+    ///// </summary>
+    public CardVisual_Simanis highlightedCardVisual;
+
     private void Awake()
     {
         instance = this;

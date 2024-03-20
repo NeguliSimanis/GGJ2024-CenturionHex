@@ -65,21 +65,17 @@ public class CardVisual_Simanis : MonoBehaviour, IPointerClickHandler
 
     [Header("CARD HIGHLIGHT")]
     public GameObject cardHighlight;
-    public UnityEvent onCardHighlightEvent;
     public bool isImageClicked;
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.pointerCurrentRaycast.gameObject.GetComponent<Image>() != null)
-        {
+        // remove highlight from currently highlighted card
+        if (HUD_Simanis.instance.highlightedCardVisual != null)
+            HUD_Simanis.instance.highlightedCardVisual.HighlightSelectedCard(false);
 
-            onCardHighlightEvent.Invoke();
-            HighlightSelectedCard(true);
-        }
-        else
-        {
-            HighlightSelectedCard(false);
-        }
+        HUD_Simanis.instance.highlightedCardVisual = this;
+        HighlightSelectedCard(true);
+     
     }
 
     private void Start()
