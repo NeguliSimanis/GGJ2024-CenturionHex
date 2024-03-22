@@ -631,6 +631,25 @@ public class HUD_Simanis : MonoBehaviour
         Debug.Log("its alive");
     }
 
+    /// <summary>
+    /// Called by CenturionGame.cs event in editor
+    /// </summary>
+    public void HandleRoundStateChange()
+    {
+        ClearHighlights();
+        UpdateTurnText();
+        RemoveCustomCursor();
+        ColorGreyInactiveUnits();
+    }
+
+    /// <summary>
+    /// Colors war units grey during governor turn and vice versa
+    /// </summary>
+    public void ColorGreyInactiveUnits()
+    {
+        TileSpawner_Simanis.instance.ColorGreyInactiveUnits();
+    }
+
     public void UpdateTurnText()
     {
         Debug.Log("Updating Turn phase text");
@@ -712,11 +731,12 @@ public class HUD_Simanis : MonoBehaviour
                 smallAnnounceString += "movement phase";
                 break;
         }
-        announcement_UI.ShowAnnouncmentText(
-            bigAnnounce: bigAnnounceString,
-            smallAnnounce: smallAnnounceString,
-            appearDuration: 0.8f,
-            disappearDelay: 1.8f,
-            disappearDuration: 1f);
+        if (announcement_UI != null)
+            announcement_UI.ShowAnnouncmentText(
+                bigAnnounce: bigAnnounceString,
+                smallAnnounce: smallAnnounceString,
+                appearDuration: 0.8f,
+                disappearDelay: 1.8f,
+                disappearDuration: 1f);
     }
 }

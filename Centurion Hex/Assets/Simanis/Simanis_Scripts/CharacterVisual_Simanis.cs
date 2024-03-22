@@ -71,6 +71,17 @@ public class CharacterVisual_Simanis : MonoBehaviour
         colorChanger.ChangeColor(teamID);
     }
 
+    public void ColorUnitGrey(bool color)
+    {
+        int teamID = 0; // red
+        if (!IsMyUnit())
+            teamID = 1;
+
+        CharacterColorChanger_Simanis colorChanger;
+        colorChanger = activePrefab.GetComponent<CharacterColorChanger_Simanis>();
+        colorChanger.ColorGrey(teamID, color);
+    }
+
     public bool IsMyUnit()
     {
         bool isMy = false;
@@ -87,6 +98,12 @@ public class CharacterVisual_Simanis : MonoBehaviour
             isMyUnit = true;
         }
         return isMy;
+    }
+
+    public bool IsWarUnit()
+    {
+        bool isWar = character.isWarUnit;
+        return isWar;
     }
 
     public void FlipCharacter()

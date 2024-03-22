@@ -37,7 +37,6 @@ public class TileSpawner_Simanis : MonoBehaviour
 
     private void Start()
     {
-       
         //SpawnTiles();
     }
 
@@ -62,7 +61,41 @@ public class TileSpawner_Simanis : MonoBehaviour
             if (tileVisual.tile == centurionGame.lastTileCovered)
                 tileVisual.DiscoverTile();
         }
-        
+    }
+
+    public void ColorGreyInactiveUnits()
+    {
+        foreach (CharacterVisual_Simanis charVisual in allCharacters)
+        {
+            // GENERAL MOVE
+            if (CenturionGame.Instance.GeneralMove && charVisual.IsMyUnit()
+                && HUD_Simanis.instance.IsMyTurn())
+            {
+                // NORMAL COLOR WAR UNITS
+                if (charVisual.IsWarUnit())
+                    charVisual.ColorUnitGrey(false);
+
+                // COLOR GREY CIVIL UNITS
+                else
+                    charVisual.ColorUnitGrey(true);
+            }
+            // GOVERNOR MOVE
+            else if (!CenturionGame.Instance.GeneralMove && charVisual.IsMyUnit()
+                && HUD_Simanis.instance.IsMyTurn())
+            {
+                //  COLOR GREY WAR UNITS
+                if (charVisual.IsWarUnit())
+                    charVisual.ColorUnitGrey(true);
+
+                // NORMAL COLOR CIVIL UNITS
+                else
+                    charVisual.ColorUnitGrey(false);
+            }
+            else
+            {
+                charVisual.ColorUnitGrey(false);
+            }
+        }
     }
 
     private void CleanOldBoard()
@@ -104,7 +137,7 @@ public class TileSpawner_Simanis : MonoBehaviour
             rowParents.Add(newParent);
         }
 
-        // Loop through the 2D array
+        // SPAWN TILE VISUALS - Loop through the 2D array
         for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < cols; j++)
@@ -119,6 +152,9 @@ public class TileSpawner_Simanis : MonoBehaviour
                // Debug.Log("Element at position (" + i + ", " + j + "): " + currTile);
             }
         }
+
+        // COLOR UNITS GREY/NORMAL DEPENDING ON ROUND PHASE
+        ColorGreyInactiveUnits();
 
         // align the rows
         int oldAddedX = 0;// -1 removed | 0 -undefined | +1 added

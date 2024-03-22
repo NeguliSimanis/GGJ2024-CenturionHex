@@ -132,6 +132,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 3451304891647274188}
   team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
   team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
+  greyMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &478658371291300378
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,6 +369,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4364403750335819594}
   team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
   team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
+  greyMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &2274486619250899407
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,6 +418,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1438761145471141077}
   team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
   team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
+  greyMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &2514942394399646284
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,6 +677,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5745615036912513544}
   team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
   team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
+  greyMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &4043176881281866070
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,6 +1082,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5108081781104543475}
   team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
   team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
+  greyMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &5032779326322883037
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,6 +1131,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5699678771954790710}
   team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
   team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
+  greyMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &5424614147229752501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,6 +1283,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 8400007980940262702}
   team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
   team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
+  greyMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &5851517717530162934
 GameObject:
   m_ObjectHideFlags: 0
@@ -1493,6 +1500,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 7820464015899813446}
   team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
   team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
+  greyMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &7284573694803793678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1989,6 +1997,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 7487973585838711276}
   team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
   team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
+  greyMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &7284573700772930536
 GameObject:
   m_ObjectHideFlags: 0
@@ -2294,7 +2303,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ccbd750296fc0344ab92de941981e810, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2817,8 +2826,8 @@ RectTransform:
   m_GameObject: {fileID: 8544414987852873647}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.33, y: 1.33, z: 1.33}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5466683434987599284}
   m_RootOrder: 0
@@ -2934,6 +2943,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 1164815793824988502}
   team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
   team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
+  greyMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &9214745128255055285
 GameObject:
   m_ObjectHideFlags: 0
@@ -2982,6 +2992,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 3969481632154704808}
   team0Material: {fileID: 2100000, guid: 07ea2de316daebe4fbf23bc92bd54876, type: 2}
   team1Material: {fileID: 2100000, guid: 2136a061b32eef349919dfdc1b11417b, type: 2}
+  greyMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1001 &864537060629824540
 PrefabInstance:
   m_ObjectHideFlags: 0
