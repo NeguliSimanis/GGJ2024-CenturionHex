@@ -8,6 +8,7 @@ using static Character;
 using UnityEngine.TextCore.Text;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 [System.Serializable]
 public class CardImage
@@ -18,7 +19,7 @@ public class CardImage
     public Building.BuildingType buildingType;
 }
 
-public class CardVisual_Simanis : MonoBehaviour, IPointerClickHandler
+public class CardVisual_Simanis : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     /// <summary>
     /// is this a card visual in card stack (true) or player hand (false)
@@ -28,6 +29,8 @@ public class CardVisual_Simanis : MonoBehaviour, IPointerClickHandler
     
     private Character cardCharacter;
     private Building cardBuilding;
+
+    public bool isCardInHand = false;
 
     public CardImage[] cardImages;
     public Image cardMainImage;
@@ -67,20 +70,55 @@ public class CardVisual_Simanis : MonoBehaviour, IPointerClickHandler
     public GameObject cardHighlight;
     public bool isImageClicked;
 
+    [Header("Raising card on hover")]
+    public RectTransform cardVisualContainer;
+    public float cardRaiseDuration = 4f; // card is raised on mouse hover. This determines how quickly
+   
+    private Tween cardRaiseTween;
+    private float cardRaiseDistance;
+    private bool isCardRaised = false;
+    private bool isRaisingCard = false;
+    private bool isLoweringCard = false;
+    private Vector3 cardVisualDefaultPos;
+
+
+    private void Start()
+    {
+        handCardInteract.onClick.AddListener(TryPlayCard);
+        cardRaiseDistance = cardVisualContainer.rect.height;
+
+        
+    }
+
+    private void Update()
+    {
+        //if (Input.GetKeyDown(KeyCode.Alpha1))
+        //{
+        //    if (cardRaiseTween != null && cardRaiseTween.IsActive())
+        //        cardRaiseTween.Kill();
+        //}
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         // remove highlight from currently highlighted card
         if (HUD_Simanis.instance.highlightedCardVisual != null)
             HUD_Simanis.instance.highlightedCardVisual.HighlightSelectedCard(false);
 
-        HUD_Simanis.instance.highlightedCardVisual = this;
         HighlightSelectedCard(true);
      
     }
 
-    private void Start()
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        handCardInteract.onClick.AddListener(TryPlayCard);
+        if (isCardInHand)
+            LiftCardVisual(true);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if(isCardInHand)
+            LiftCardVisual(false);
     }
 
     public void AddCardToPlayerHand()
@@ -88,6 +126,12 @@ public class CardVisual_Simanis : MonoBehaviour, IPointerClickHandler
         Debug.Log("Card Added to hand " + cardTitle.text);
         handCardInteract.enabled = true;
         isCardInShop = false;
+        
+        DOVirtual.DelayedCall(0.02f, () =>
+        {
+            isCardInHand = true;
+            cardVisualDefaultPos = cardVisualContainer.localPosition;
+        });
     }
 
     public void TryPlayCard()
@@ -109,9 +153,58 @@ public class CardVisual_Simanis : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public void LiftCardVisual(bool lift = true)
+    {
+        // don't raise card if raised
+        if (isCardRaised && lift)
+            return;
+        // don't raise if raising
+        if (isRaisingCard && lift)
+            return;
+        // don't lower if lowered
+        if (cardVisualDefaultPos.y == cardVisualContainer.position.y && !lift)
+            return;
+        // don't lower if lowring
+        if (isLoweringCard && !lift)
+            return;
+        // kill old tween
+        if (cardRaiseTween != null && cardRaiseTween.IsActive())
+            cardRaiseTween.Kill();
+
+        Vector3 targetPos = cardVisualDefaultPos;
+
+        // raise card
+        if (lift)
+        {
+            isRaisingCard = true;
+            isLoweringCard = false;
+            targetPos.y += cardRaiseDistance;
+            cardRaiseTween = cardVisualContainer.
+                DOLocalMove(targetPos, cardRaiseDuration).
+                SetEase(Ease.InOutQuad).OnComplete(()=>
+                {
+                    isCardRaised = true;
+                    isRaisingCard = false;
+                });
+        }
+        // lower card
+        else
+        {
+            isRaisingCard = false;
+            isLoweringCard = true;
+            isCardRaised = false;
+            cardRaiseTween = cardVisualContainer.
+                DOLocalMove(targetPos, cardRaiseDuration).
+                SetEase(Ease.InOutQuad).OnComplete(() =>
+                {
+                    isLoweringCard = false;
+                }); 
+        }
+    }
+
     public void HighlightSelectedCard(bool highlight = true)
     {
-
+        HUD_Simanis.instance.highlightedCardVisual = this;
         cardHighlight.SetActive(highlight);
         Debug.Log("highlight selected carc");
     }
