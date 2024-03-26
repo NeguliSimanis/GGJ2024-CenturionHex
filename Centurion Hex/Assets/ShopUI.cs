@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class ShopUI : MonoBehaviour
 {
+    private bool isShopOpen = false;
     public static ShopUI instance;
     public GameObject Shop;
     public TextMeshProUGUI shopTitle;
@@ -19,10 +21,18 @@ public class ShopUI : MonoBehaviour
     public GameObject CardPrefabForHandCards;
     public GameObject HandCardHolder;
 
+    [Header("Animations and timings")]
+    public float shopAppearDelay = 2.5f;
+    public float shopAppearDuration = 0.5f;
+    private Vector3 shopDefaultPos;
+    private float shopMoveDistance;
+    public Image shopBlurBG;
 
     private void Awake()
     {
         instance = this;
+        shopMoveDistance = Screen.height * 1.1f;
+        shopDefaultPos = Shop.transform.position;
     }
 
     void Start()
@@ -47,7 +57,7 @@ public class ShopUI : MonoBehaviour
         
     }
 
-    public void MaybeOpen()
+    public void MaybeOpen(bool animate)
     {
         Debug.Log("Checking shop " + game.mRoundState);
         if( game.mRoundState == CenturionGame.RoundState.rsManagement )
@@ -55,22 +65,30 @@ public class ShopUI : MonoBehaviour
             if ( game.RedMove && game.PlayingAsRed )
             {
                 Debug.Log("Showing UI");
-                ShowUI();
+                ShowUI(animate);
             }
             else if (!game.RedMove && !game.PlayingAsRed)
             {
                 Debug.Log("Showing UI");
-                ShowUI();
+                ShowUI(animate);
             }
             else
             {
                 Debug.Log("Cant show shop - not my turn");
-                HideUI();
+                if (animate)
+                    HideWithAnimationUI();
+                else
+                    HideUI();
             }
         }
         else
         {
-            HideUI();
+            if (animate && isShopOpen)
+                HideWithAnimationUI();
+            else
+            {
+                HideUI();
+            }
             Debug.Log("Shop cant open - no management phase");
         }
     }
@@ -151,13 +169,15 @@ public class ShopUI : MonoBehaviour
             cardVisual.DisplayCharacterCardVisuals(p.StandByCharacters[cardID]);
         cardVisual.AddCardToPlayerHand();
         card.transform.SetParent(HandCardHolder.transform);
+        card.transform.localScale = Vector3.one;
         card.transform.Translate(offset, 0, 0);
         offset += 120;
         return offset;
     }
 
-    public void ShowUI()
+    public void ShowUI(bool animate = false)
     {
+        isShopOpen = true;
         foreach (Transform child in HandCardHolder.transform)
         {
             Destroy(child.gameObject);
@@ -170,28 +190,87 @@ public class ShopUI : MonoBehaviour
             //show war units
             shopTitle.text = "WAR DECK";
             CharactersStackTitle.text = "Units";
-            //CharactersStackTitle.color = Color.red;
             BuildingStackTitle.text = "Buildings";
-            //BuildingStackTitle.color = Color.red; 
-            BuildingsStack.DisplayBuildCardVisuals(game.WarBuildings[0]);
-            CharactersStack.DisplayCharacterCardVisuals(game.WarCharacters[0]);
+            BuildingsStack.DisplayBuildCardVisuals(game.lastAddedWarBuilding) ;// WarBuildings[0]);
+            CharactersStack.DisplayCharacterCardVisuals(game.lastAddedWarCharacter);// WarCharacters[0]);
         }
         else
         {
             //show civil units
             shopTitle.text = "CIVIL DECK";
             CharactersStackTitle.text = "Units";
-            //CharactersStackTitle.color = Color.blue;
             BuildingStackTitle.text = "Buildings";
-            //BuildingStackTitle.color = Color.blue;
-            BuildingsStack.DisplayBuildCardVisuals(game.CivilBuildings[0]);
-            CharactersStack.DisplayCharacterCardVisuals(game.CivilCharacters[0]);
+            BuildingsStack.DisplayBuildCardVisuals(game.lastAddedCivilBuilding);//CivilBuildings[0]);
+            CharactersStack.DisplayCharacterCardVisuals(game.lastAddedCivilCharacter);//CivilCharacters[0]);
         }
+
+        // show draw button if management phase
+        if (game.mRoundState == CenturionGame.RoundState.rsManagement)
+        {
+            BuyBuilding.gameObject.SetActive(true);
+            BuyCharacter.gameObject.SetActive(true);
+        }
+        // hide draw buttons if it's not management phase
+        else
+        {
+            BuyBuilding.gameObject.SetActive(false);
+            BuyCharacter.gameObject.SetActive(false);
+        }
+
+        AnimateShopUI(animate);
+
         Shop.SetActive(true);
+        
+    }
+
+    private void AnimateShopUI(bool animate)
+    {
+        if (!animate)
+        {
+            Shop.transform.position = shopDefaultPos;
+            shopBlurBG.color = new Color(0, 0, 0, 0.5f);
+        }
+        else
+        {
+            // shop move animation
+            Vector3 targetPos = shopDefaultPos;
+            Vector3 startPos = targetPos;
+            startPos.y += shopMoveDistance;
+            Shop.transform.position = startPos;
+            Shop.transform.DOMove(targetPos, shopAppearDuration).
+                SetEase(Ease.InOutQuad);
+
+            // shop fade in bg blur
+            shopBlurBG.color = new Color(0, 0, 0, 0);
+            shopBlurBG.DOFade(0.5f, shopAppearDuration);
+        }
+        // enable shop bg
+        shopBlurBG.gameObject.SetActive(true);
+        shopBlurBG.raycastTarget = true;
+    }
+
+    public void HideWithAnimationUI()
+    {
+        Debug.Log("HIDING WITH ANIMATION " + Time.time);
+        // disable bg blur
+        shopBlurBG.raycastTarget = false;
+
+        // fade out bg blur
+        shopBlurBG.DOFade(0, shopAppearDuration);
+
+        // move shop ui
+        Vector3 targetPos = shopDefaultPos;
+        targetPos.y += shopMoveDistance;
+        Shop.transform.DOMove(targetPos, shopAppearDuration).
+            SetEase(Ease.InOutQuad).
+            OnComplete(()=> HideUI());
     }
 
     public void HideUI()
     {
+        Debug.Log("HIDING UI " + Time.time);
         Shop.SetActive(false);
+        shopBlurBG.gameObject.SetActive(false);
+        isShopOpen = false;
     }
 }

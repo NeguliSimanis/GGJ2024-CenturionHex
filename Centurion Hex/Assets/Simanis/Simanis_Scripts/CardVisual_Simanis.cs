@@ -245,7 +245,7 @@ public class CardVisual_Simanis : MonoBehaviour, IPointerClickHandler, IPointerE
         {
             if (cardImage.isCharacter && cardImage.charType == character.type)
             {
-                Debug.Log("pic found");
+                //Debug.Log("pic found");
                 cardMainImage.sprite = cardImage.sprite;
             }
         }
@@ -274,7 +274,7 @@ public class CardVisual_Simanis : MonoBehaviour, IPointerClickHandler, IPointerE
         {
             if (!cardImage.isCharacter && cardImage.buildingType == building.Type)
             {
-                Debug.Log("pic found");
+                //Debug.Log("pic found");
                 cardMainImage.sprite = cardImage.sprite;
             }
         }

@@ -158,8 +158,8 @@ public class CharacterVisual_Simanis : MonoBehaviour
         //character.StepsUsed
 
         int remainingSpeed = character.StepsPerTurn - character.StepsUsed;
-        Debug.Log(character.type + " speed remaining " + remainingSpeed
-            + ". Steps per turn: " + character.StepsPerTurn);
+        //Debug.Log(character.type + " speed remaining " + remainingSpeed
+        //    + ". Steps per turn: " + character.StepsPerTurn);
 
         int speedDisplayed = 0;
         foreach (Transform speed in speedParent)
@@ -167,7 +167,7 @@ public class CharacterVisual_Simanis : MonoBehaviour
             if (speed.gameObject.activeInHierarchy)
                 speedDisplayed++;
         }
-        Debug.Log("speedDisplayed" + speedDisplayed + ". remaining speed " + remainingSpeed);
+        //Debug.Log("speedDisplayed" + speedDisplayed + ". remaining speed " + remainingSpeed);
         for (int i = 0; i < speedParent.childCount; i++)
         {
             if (speedDisplayed > remainingSpeed)
@@ -185,7 +185,7 @@ public class CharacterVisual_Simanis : MonoBehaviour
             && speedDisplayed < 50)
         {
             GameObject newLifeIcon = Instantiate(speedIcon, speedParent);
-            Debug.Log(character.type + " adding speed");
+            //Debug.Log(character.type + " adding speed");
             speedDisplayed++;
         }
     }

@@ -58,7 +58,9 @@ public class CenturionGame : MonoBehaviour
 
     //shortcuts
     [HideInInspector] public List<Character> WarCharacters = new List<Character>();
+    [HideInInspector] public Character lastAddedWarCharacter;
     [HideInInspector] public List<Character> CivilCharacters = new List<Character>();
+    [HideInInspector] public Character lastAddedCivilCharacter;
     [HideInInspector] public List<Character> BoardCharacters = new List<Character>();
 
     //all biuldings in deck
@@ -67,7 +69,9 @@ public class CenturionGame : MonoBehaviour
     //shortcuts
     [HideInInspector] public List<Building> WarBuildings = new List<Building>();
     [HideInInspector] public List<Building> CivilBuildings = new List<Building>();
+    [HideInInspector] public Building lastAddedCivilBuilding;
     [HideInInspector] public List<Building> BoardBuildings = new List<Building>();
+    [HideInInspector] public Building lastAddedWarBuilding;
 
     public Building GetBoardBuilding(uint id)
     {
@@ -292,7 +296,7 @@ public class CenturionGame : MonoBehaviour
     private void addCharacter(Character unit, Team.TeamType team)
     {
         Characters.Add(unit);
-
+        
 
         switch (team)
         {
@@ -314,10 +318,12 @@ public class CenturionGame : MonoBehaviour
                 if (unit.isWarUnit)
                 {
                     WarCharacters.Add(unit);
+                    lastAddedWarCharacter = unit;
                 }
                 else
                 {
                     CivilCharacters.Add(unit);
+                    lastAddedCivilCharacter = unit;
                 }
                 break;
             case CharacterState.csHand:
@@ -376,9 +382,11 @@ public class CenturionGame : MonoBehaviour
                         break;
                     case BuildingClass.bcCivil:
                         CivilBuildings.Add(unit);
+                        lastAddedCivilBuilding = unit;
                         break;
                     case BuildingClass.bcWar:
                         WarBuildings.Add(unit);
+                        lastAddedWarBuilding = unit;
                         break;
                 }
                 break;
@@ -694,6 +702,7 @@ public class CenturionGame : MonoBehaviour
         ch.LoadFromNetwork(incomingData);
         addCharacter(ch, (Team.TeamType)incomingData.readByte());
         onStackUpdateCharacter.Invoke();
+        Debug.Log("event called. Character" + ch.Name);
     }
 
     public void OnStackUpdateBuilding(ByteArray incomingData)

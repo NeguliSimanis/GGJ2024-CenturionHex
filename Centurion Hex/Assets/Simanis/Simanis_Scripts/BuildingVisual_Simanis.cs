@@ -32,7 +32,7 @@ public class BuildingVisual_Simanis : MonoBehaviour
                 prefab.gameObject.SetActive(false);
             else// if (prefab.type != Building.BuildingType.btSenate)
             {
-                Debug.Log("building " + Building.BuildingType.btSenate);
+                //Debug.Log("building " + Building.BuildingType.btSenate);
                 prefab.gameObject.SetActive(true);
             }
         }

@@ -25,13 +25,13 @@ public class CharacterColorChanger_Simanis : MonoBehaviour
     {
         if (color)
         {
-            Debug.Log("COLORING ME GREY");
+            //Debug.Log("COLORING ME GREY");
             spriteRenderer.color = Color.black;
             spriteRenderer.material = greyMaterial;
         }
         else
         {
-            Debug.Log("COLORING ME MNOT GREY");
+            //Debug.Log("COLORING ME MNOT GREY");
             ChangeColor(teamID); spriteRenderer.color = Color.white;
         }
     }
