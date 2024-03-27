@@ -2170,7 +2170,7 @@ MonoBehaviour:
   - isCharacter: 0
     sprite: {fileID: 21300000, guid: 0a45300ebe99b2c4a8482005728889ea, type: 3}
     charType: 1
-    buildingType: 5
+    buildingType: 4
   - isCharacter: 0
     sprite: {fileID: 21300000, guid: dbdccff1917df7e418c321e867dcf6fd, type: 3}
     charType: 12
@@ -2187,6 +2187,14 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 138bf2494d919c140b514c43c7872a6e, type: 3}
     charType: 1
     buildingType: 11
+  - isCharacter: 0
+    sprite: {fileID: 21300000, guid: 8ca0e52f3e448de45a91d40096cfa07b, type: 3}
+    charType: 1
+    buildingType: 1
+  - isCharacter: 0
+    sprite: {fileID: 21300000, guid: b9ce07bc7a648b94089cab0f01aa29b2, type: 3}
+    charType: 1
+    buildingType: 5
   cardMainImage: {fileID: 2038187923635792661}
   cardTitle: {fileID: 3289802526420737925}
   cardAbility: {fileID: 3289802526626244827}
