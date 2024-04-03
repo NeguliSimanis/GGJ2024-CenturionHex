@@ -232,8 +232,9 @@ public class TileSpawner_Simanis : MonoBehaviour
 
         if (isMyChar)
         {
-            RaycastInteract target = HUD_Simanis.instance.cardPlacementTarget;
+           // RaycastInteract target = HUD_Simanis.instance.cardPlacementTarget;
             Destroy(HUD_Simanis.instance.cardPrefabBeingPlayed);
+            HUD_Simanis.instance.ClearHighlights();
         }
             Tile charTile = CenturionGame.Instance.Board.GetTile(characterToPlace.x, characterToPlace.y);
             TileVisual_Simanis charTileVisual = GetTileVisual(charTile);
@@ -244,8 +245,6 @@ public class TileSpawner_Simanis : MonoBehaviour
                x: characterToPlace.x,
                y: characterToPlace.y
                );
-        
-
     }
 
 
@@ -269,6 +268,7 @@ public class TileSpawner_Simanis : MonoBehaviour
         if (isMyBuilding)
         {
             Destroy(HUD_Simanis.instance.cardPrefabBeingPlayed);
+            HUD_Simanis.instance.ClearHighlights();
         }
             Tile buildTile = CenturionGame.Instance.Board.GetTile(buildingToPlace.x, buildingToPlace.y);
             TileVisual_Simanis buildTileVisual = GetTileVisual(buildTile);

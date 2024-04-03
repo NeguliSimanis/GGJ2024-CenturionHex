@@ -5,21 +5,24 @@ using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public enum TileVisualType
-{
-    GrassRegular,
-    GrassBuild,
-    ForestRegular,
-    ForestBuild,
-    Senate
-}
-
 [System.Serializable]
 public class TilePrefab_Simanis
 {
     public GameObject gameObject;
-    public Tile.TileType type;
+    //public Tile.TileType type;
+    public TileCover.CoverType environment;
     public bool isCover = false;
+}
+
+/// <summary>
+/// some extras that show if tile is buildable or smth
+/// </summary>
+[System.Serializable]
+public class TileDecoration_Simanis
+{
+    public GameObject gameObject;
+    public Tile.TileType type;
+    public bool showAlways = false;
 }
 
 public class TileVisual_Simanis : MonoBehaviour
@@ -29,6 +32,7 @@ public class TileVisual_Simanis : MonoBehaviour
     public bool allowFlip = false;
     public GameObject tileCenter;
 
+    public TileDecoration_Simanis[] tileDecorations;
     public TilePrefab_Simanis[] tilePrefabs;
     public Tile tile;
     public GameObject debugTextHolder;
@@ -70,6 +74,7 @@ public class TileVisual_Simanis : MonoBehaviour
         }
         foreach (TilePrefab_Simanis prefab in tilePrefabs)
         {
+            ShowTileDecorations(isDiscovered: false);
             if (prefab.isCover)
                 prefab.gameObject.SetActive(true);
             else
@@ -141,16 +146,34 @@ public class TileVisual_Simanis : MonoBehaviour
 
     }
 
-    public void DiscoverTile()
+    private void ShowTileDecorations(bool isDiscovered)
     {
         Tile.TileType type = tile.tileType;
+        foreach (TileDecoration_Simanis decor in tileDecorations)
+        {
+            decor.gameObject.SetActive(false);
+            if (decor.type == type)
+            {
+                if (isDiscovered || decor.showAlways)
+                    decor.gameObject.SetActive(true);
+            }
+        }
+    }
+
+    public void DiscoverTile()
+    {
+        // SET Environment visuals form Tile CoverType
+        TileCover.CoverType coverType = tile.tileCover.Type;
         foreach (TilePrefab_Simanis prefab in tilePrefabs)
         {
-            if (prefab.type != type)
+            if (prefab.environment != coverType)
                 prefab.gameObject.SetActive(false);
             else
                 prefab.gameObject.SetActive(true);
         }
+
+        // SHOW DECORATIONS
+        ShowTileDecorations(isDiscovered: true);
     }
 
     public void FlipTile()

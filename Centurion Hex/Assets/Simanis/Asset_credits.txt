@@ -1,6 +1,13 @@
 ~~~~~~~~~~~~~~~~~~~~~~~~Asset credits:
 
 Tile textures used: https://assetstore.unity.com/packages/3d/environments/low-poly-hexagon-tiles-and-objects-132355
+goldmine object: https://sketchfab.com/3d-models/goblins-gold-mine-game-ready-902be0202f0347d6acc6f23336428d99
+3d TILES: https://assetstore.unity.com/packages/3d/environments/low-poly-hexagon-tiles-and-objects-132355
+rocks, textures: https://assetstore.unity.com/packages/3d/props/4-types-of-rocks-188872
+hammer: https://assetstore.unity.com/packages/3d/props/tools/urethane-hammer-170156
+explosion effect: https://bdragon1727.itch.io/free-effect-bullet-impact-explosion-32x32
+plants: https://assetstore.unity.com/packages/3d/vegetation/plants/pbr-low-lying-plant-pack-150823
+toon shader: https://assetstore.unity.com/packages/vfx/shaders/simple-toon-185038
 
 ~~~~~~~~~~~~~~~~~~~~~~~~UNUSED Asset credits:
 Tile textures: https://lynocs.itch.io/texture-pack
@@ -18,4 +25,4 @@ font: https://www.1001fonts.com/kelmscottroman-font.html
 Outline asset: https://assetstore.unity.com/packages/tools/particles-effects/quick-outline-115488
 2d outline asset: https://assetstore.unity.com/packages/vfx/shaders/2d-sprite-outline-109669
 animated arows: https://spikerman.itch.io/animated-arrows-cursors
-explosion effect: https://bdragon1727.itch.io/free-effect-bullet-impact-explosion-32x32
+
