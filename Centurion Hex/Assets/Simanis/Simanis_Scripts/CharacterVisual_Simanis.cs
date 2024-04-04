@@ -33,12 +33,19 @@ public class CharacterVisual_Simanis : MonoBehaviour
     public GameObject lifeIcon;
 
     [Header("ANIMATIONS")]
+    public GameObject zzzAnimation;
     public float scaleSpeed = 1.0f; // Adjust the speed as needed
     public float maxScaleY = 1.08f;
     public float minScaleY = 1.0f;
     public Transform scaleAnimationTarget;
 
     private bool scalingUp = true;
+
+    private void Start()
+    {
+        //zzzAnimation.SetActive(false);
+    }
+
 
     public void SetCharacterVisuals(Character.CharacterType type, TileSpawner_Simanis newTileSpawner)
     {
@@ -64,22 +71,43 @@ public class CharacterVisual_Simanis : MonoBehaviour
         CharacterColorChanger_Simanis colorChanger;
         colorChanger = activePrefab.GetComponent<CharacterColorChanger_Simanis>();
 
-        int teamID = 0; // red
-        if (!isMyUnit)
-            teamID = 1;
+        int teamID = GetTeamColorID();
         Debug.Log("im playing as red " + CenturionGame.Instance.PlayingAsRed + "");
         colorChanger.ChangeColor(teamID);
     }
 
-    public void ColorUnitGrey(bool color)
+    public void MarkUnitAsInactive(bool markAsInactive)
     {
-        int teamID = 0; // red
-        if (!IsMyUnit())
-            teamID = 1;
+        if (markAsInactive)
+        {
+            zzzAnimation.SetActive(true);
+        }
+        else
+        {
+            zzzAnimation.SetActive(false);
+        }
+        //int teamID = GetTeamColorID();
+        //CharacterColorChanger_Simanis colorChanger;
+        //colorChanger = activePrefab.GetComponent<CharacterColorChanger_Simanis>();
+        //colorChanger.ColorGrey(teamID, markAsInactive);
+    }
 
-        CharacterColorChanger_Simanis colorChanger;
-        colorChanger = activePrefab.GetComponent<CharacterColorChanger_Simanis>();
-        colorChanger.ColorGrey(teamID, color);
+    /// <summary>
+    /// 0 - red team
+    /// 1 - not red team
+    /// </summary>
+    /// <returns></returns>
+    private int GetTeamColorID()
+    {
+        int teamID = 1;
+        // is red if is my unit and I'm playing as red
+        if (IsMyUnit() && CenturionGame.Instance.PlayingAsRed)
+            teamID = 0;
+
+        // is red if not my unit and not playing as red
+        if (!IsMyUnit() && !CenturionGame.Instance.PlayingAsRed)
+            teamID = 0;
+        return teamID;
     }
 
     public bool IsMyUnit()

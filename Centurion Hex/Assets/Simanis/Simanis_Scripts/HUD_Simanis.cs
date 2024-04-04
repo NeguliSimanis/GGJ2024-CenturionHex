@@ -647,7 +647,7 @@ public class HUD_Simanis : MonoBehaviour
     /// </summary>
     public void ColorGreyInactiveUnits()
     {
-        TileSpawner_Simanis.instance.ColorGreyInactiveUnits();
+        TileSpawner_Simanis.instance.MarkInactiveUnits();
     }
 
     public void UpdateTurnText()

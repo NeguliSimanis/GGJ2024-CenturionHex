@@ -9,6 +9,9 @@ public class ShopUI : MonoBehaviour
 {
     private bool isShopOpen = false;
     public static ShopUI instance;
+
+    public Button openShopButton;
+
     public GameObject Shop;
     public TextMeshProUGUI shopTitle;
     public TextMeshProUGUI BuildingStackTitle;
@@ -33,6 +36,7 @@ public class ShopUI : MonoBehaviour
         instance = this;
         shopMoveDistance = Screen.height * 1.1f;
         shopDefaultPos = Shop.transform.position;
+        openShopButton.onClick.AddListener(() =>ShowUI(showWithDelay: false, animate: true ));
     }
 
     void Start()
@@ -65,12 +69,12 @@ public class ShopUI : MonoBehaviour
             if ( game.RedMove && game.PlayingAsRed )
             {
                 Debug.Log("Showing UI");
-                ShowUI(animate);
+                ShowUI(showWithDelay: true, animate);
             }
             else if (!game.RedMove && !game.PlayingAsRed)
             {
                 Debug.Log("Showing UI");
-                ShowUI(animate);
+                ShowUI(showWithDelay: true, animate);
             }
             else
             {
@@ -175,7 +179,7 @@ public class ShopUI : MonoBehaviour
         return offset;
     }
 
-    public void ShowUI(bool animate = false)
+    public void ShowUI(bool showWithDelay, bool animate = false)
     {
         isShopOpen = true;
         foreach (Transform child in HandCardHolder.transform)
@@ -217,13 +221,13 @@ public class ShopUI : MonoBehaviour
             BuyCharacter.gameObject.SetActive(false);
         }
 
-        AnimateShopUI(animate);
-
-        Shop.SetActive(true);
+        AnimateShopUI(animate, showWithDelay);
+        if (!animate)
+            Shop.SetActive(true);
         
     }
 
-    private void AnimateShopUI(bool animate)
+    private void AnimateShopUI(bool animate, bool showWithDelay)
     {
         if (!animate)
         {
@@ -232,17 +236,38 @@ public class ShopUI : MonoBehaviour
         }
         else
         {
-            // shop move animation
+            // initialize shop
+            Shop.SetActive(true);
             Vector3 targetPos = shopDefaultPos;
             Vector3 startPos = targetPos;
             startPos.y += shopMoveDistance;
             Shop.transform.position = startPos;
-            Shop.transform.DOMove(targetPos, shopAppearDuration).
-                SetEase(Ease.InOutQuad);
 
-            // shop fade in bg blur
-            shopBlurBG.color = new Color(0, 0, 0, 0);
-            shopBlurBG.DOFade(0.5f, shopAppearDuration);
+            // show animation with delay
+            if (showWithDelay)
+            {
+                DOVirtual.DelayedCall(shopAppearDelay, () =>
+                {
+                // shop move animation
+                Shop.transform.DOMove(targetPos, shopAppearDuration).
+                        SetEase(Ease.InOutQuad);
+
+                // shop fade in bg blur
+                shopBlurBG.color = new Color(0, 0, 0, 0);
+                    shopBlurBG.DOFade(0.5f, shopAppearDuration);
+                });
+            }
+            // show animation without delay
+            else
+            {
+                // shop move animation
+                Shop.transform.DOMove(targetPos, shopAppearDuration).
+                        SetEase(Ease.InOutQuad);
+
+                // shop fade in bg blur
+                shopBlurBG.color = new Color(0, 0, 0, 0);
+                shopBlurBG.DOFade(0.5f, shopAppearDuration);
+            }
         }
         // enable shop bg
         shopBlurBG.gameObject.SetActive(true);

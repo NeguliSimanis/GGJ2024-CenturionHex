@@ -63,37 +63,49 @@ public class TileSpawner_Simanis : MonoBehaviour
         }
     }
 
-    public void ColorGreyInactiveUnits()
+    public void MarkInactiveUnits()
     {
         foreach (CharacterVisual_Simanis charVisual in allCharacters)
         {
+            // not my turn - mark all my units as inactive
+            if (charVisual.IsMyUnit()
+                && !HUD_Simanis.instance.IsMyTurn())
+            {
+                charVisual.MarkUnitAsInactive(true);
+                continue;
+            }
+
             // GENERAL MOVE
             if (CenturionGame.Instance.GeneralMove && charVisual.IsMyUnit()
                 && HUD_Simanis.instance.IsMyTurn())
             {
                 // NORMAL COLOR WAR UNITS
-                if (charVisual.IsWarUnit())
-                    charVisual.ColorUnitGrey(false);
+                if (charVisual.IsWarUnit() && centurionGame.mRoundState == CenturionGame.RoundState.rsMovingCharacters)
+                    charVisual.MarkUnitAsInactive(false);
 
                 // COLOR GREY CIVIL UNITS
                 else
-                    charVisual.ColorUnitGrey(true);
+                    charVisual.MarkUnitAsInactive(true);
             }
             // GOVERNOR MOVE
             else if (!CenturionGame.Instance.GeneralMove && charVisual.IsMyUnit()
                 && HUD_Simanis.instance.IsMyTurn())
             {
-                //  COLOR GREY WAR UNITS
-                if (charVisual.IsWarUnit())
-                    charVisual.ColorUnitGrey(true);
+                // && centurionGame.mRoundState == CenturionGame.RoundState.rsMovingCharacters
 
                 // NORMAL COLOR CIVIL UNITS
+                if (!charVisual.IsWarUnit() && centurionGame.mRoundState == CenturionGame.RoundState.rsMovingCharacters)
+                    charVisual.MarkUnitAsInactive(false);
+
+                //  COLOR GREY WAR UNITS
                 else
-                    charVisual.ColorUnitGrey(false);
+                    charVisual.MarkUnitAsInactive(true);
+
+                
             }
             else
             {
-                charVisual.ColorUnitGrey(false);
+                charVisual.MarkUnitAsInactive(false);
             }
         }
     }
@@ -154,7 +166,7 @@ public class TileSpawner_Simanis : MonoBehaviour
         }
 
         // COLOR UNITS GREY/NORMAL DEPENDING ON ROUND PHASE
-        ColorGreyInactiveUnits();
+        MarkInactiveUnits();
 
         // align the rows
         int oldAddedX = 0;// -1 removed | 0 -undefined | +1 added

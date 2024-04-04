@@ -86,8 +86,6 @@ public class CardVisual_Simanis : MonoBehaviour, IPointerClickHandler, IPointerE
     {
         handCardInteract.onClick.AddListener(TryPlayCard);
         cardRaiseDistance = cardVisualContainer.rect.height;
-
-        
     }
 
     private void Update()
@@ -106,7 +104,6 @@ public class CardVisual_Simanis : MonoBehaviour, IPointerClickHandler, IPointerE
             HUD_Simanis.instance.highlightedCardVisual.HighlightSelectedCard(false);
 
         HighlightSelectedCard(true);
-     
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -136,12 +133,15 @@ public class CardVisual_Simanis : MonoBehaviour, IPointerClickHandler, IPointerE
 
     public void TryPlayCard()
     {
+        if (!HUD_Simanis.instance.IsMyTurn())
+            return;
+        if (!HUD_Simanis.instance.IsManagementPhase())
+            return;
+
         Debug.Log("trying to play card " + cardTitle.text);
         HighlightSelectedCard();
         if (!CanAffordCard())
             return;
-
-        
         HUD_Simanis hud = HUD_Simanis.instance;
         if (isCharacter)
             hud.ShowAllowedCharPlacementTiles(this.gameObject, cardCharacter);
