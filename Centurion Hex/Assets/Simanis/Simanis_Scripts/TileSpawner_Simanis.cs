@@ -230,14 +230,37 @@ public class TileSpawner_Simanis : MonoBehaviour
         Debug.Log("lOOKING FOR TRAITOR");
         foreach (CharacterVisual_Simanis character in allCharacters)
         {
+            // traitors among my units
             if (character.isMyUnit)
             {
-                if (character.character.Team.Type == Team.TeamType.ttBlue && !centurionGame.PlayingAsRed)
+                // unit is red but im playing blue
+                if (character.character.Team.Type == Team.TeamType.ttRed && !centurionGame.PlayingAsRed)
                 {
                     character.ColorUnit();
                     Debug.Log("TRAITOR FOUND");
                 }
-                if (character.character.Team.Type == Team.TeamType.ttRed && centurionGame.PlayingAsRed)
+                // unit is blue but im playing red
+                if (character.character.Team.Type == Team.TeamType.ttBlue && centurionGame.PlayingAsRed)
+                {
+                    character.ColorUnit();
+                    Debug.Log("TRAITOR FOUND");
+                }
+            }
+            // traitors among enemy units
+            else
+            {
+                // enemy unit is red team and im playing red
+                if (!character.isMyUnit &&
+                    character.character.Team.Type == Team.TeamType.ttRed &&
+                    centurionGame.PlayingAsRed)
+                {
+                    character.ColorUnit();
+                    Debug.Log("TRAITOR FOUND");
+                }
+                // enemy unit is blue team and im playing blue
+                if (!character.isMyUnit && 
+                    character.character.Team.Type == Team.TeamType.ttBlue && 
+                    !centurionGame.PlayingAsRed)
                 {
                     character.ColorUnit();
                     Debug.Log("TRAITOR FOUND");
