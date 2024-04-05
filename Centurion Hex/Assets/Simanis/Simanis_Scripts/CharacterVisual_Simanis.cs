@@ -66,7 +66,7 @@ public class CharacterVisual_Simanis : MonoBehaviour
         ColorUnit();
     }
 
-    private void ColorUnit()
+    public void ColorUnit()
     {
         CharacterColorChanger_Simanis colorChanger;
         colorChanger = activePrefab.GetComponent<CharacterColorChanger_Simanis>();
@@ -185,7 +185,7 @@ public class CharacterVisual_Simanis : MonoBehaviour
         //character.StepsPerTurn
         //character.StepsUsed
 
-        int remainingSpeed = character.StepsPerTurn - character.StepsUsed;
+        int remainingSpeed = character.StepsPerTurn + character.AdditionalSteps - character.StepsUsed;
         //Debug.Log(character.type + " speed remaining " + remainingSpeed
         //    + ". Steps per turn: " + character.StepsPerTurn);
 

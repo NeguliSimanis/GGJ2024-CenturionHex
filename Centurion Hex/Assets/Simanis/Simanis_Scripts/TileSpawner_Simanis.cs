@@ -225,6 +225,27 @@ public class TileSpawner_Simanis : MonoBehaviour
         }
     }
 
+    public void FindAndColorTraitorUnit()
+    {
+        Debug.Log("lOOKING FOR TRAITOR");
+        foreach (CharacterVisual_Simanis character in allCharacters)
+        {
+            if (character.isMyUnit)
+            {
+                if (character.character.Team.Type == Team.TeamType.ttBlue && !centurionGame.PlayingAsRed)
+                {
+                    character.ColorUnit();
+                    Debug.Log("TRAITOR FOUND");
+                }
+                if (character.character.Team.Type == Team.TeamType.ttRed && centurionGame.PlayingAsRed)
+                {
+                    character.ColorUnit();
+                    Debug.Log("TRAITOR FOUND");
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// Called by CenturionGame.cs event set in editor
     /// </summary>
@@ -241,13 +262,29 @@ public class TileSpawner_Simanis : MonoBehaviour
             && CenturionGame.Instance.PlayingAsRed)
             isMyChar = true;
 
+        #region UNIT ABILITES
+        // ANIMATE MADMAN SWITCHING HANDS
+        if (characterToPlace.type == Character.CharacterType.ctMadman)
+        {
+            ShopUI.instance.ClearPlayerHand();
+            ShopUI.instance.FillPlayerHand();
+        }
 
+        // ANIMATE PRINCESS - UNIT SWITCHES SIDES
+        {
+            //FindAndColorTraitorUnit();
+        }
+        #endregion
+
+        // HIDE TILE HIGHLIGHTS
         if (isMyChar)
         {
-           // RaycastInteract target = HUD_Simanis.instance.cardPlacementTarget;
-            Destroy(HUD_Simanis.instance.cardPrefabBeingPlayed);
+            // RaycastInteract target = HUD_Simanis.instance.cardPlacementTarget;
+            if (characterToPlace.type != Character.CharacterType.ctMadman)
+                Destroy(HUD_Simanis.instance.cardPrefabBeingPlayed);
             HUD_Simanis.instance.ClearHighlights();
         }
+
             Tile charTile = CenturionGame.Instance.Board.GetTile(characterToPlace.x, characterToPlace.y);
             TileVisual_Simanis charTileVisual = GetTileVisual(charTile);
             SpawnCharacterOnTile(

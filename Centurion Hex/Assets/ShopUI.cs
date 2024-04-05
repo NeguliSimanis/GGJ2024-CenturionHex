@@ -178,14 +178,19 @@ public class ShopUI : MonoBehaviour
         offset += 120;
         return offset;
     }
-
-    public void ShowUI(bool showWithDelay, bool animate = false)
+    
+    public void ClearPlayerHand()
     {
-        isShopOpen = true;
         foreach (Transform child in HandCardHolder.transform)
         {
             Destroy(child.gameObject);
         }
+    }
+
+    public void ShowUI(bool showWithDelay, bool animate = false)
+    {
+        isShopOpen = true;
+        ClearPlayerHand();
 
         FillPlayerHand();
 
