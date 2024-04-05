@@ -297,9 +297,15 @@ public class TileSpawner_Simanis : MonoBehaviour
         TileVisual_Simanis tileVisual, int x, int y)
     {
         if (tile.currentBuilding == null)
+        {
+            Debug.Log("There's no buildign here");
             return;
+        }
+        Debug.Log("trying to build here");
         tileVisual.DiscoverTile();
         GameObject newBuild = Instantiate(buildingPrefab, parent);
+        buildingPrefab.SetActive(true);
+        buildingPrefab.transform.localPosition = Vector3.zero;
 
         BuildingVisual_Simanis buildingVisual = newBuild.GetComponent<BuildingVisual_Simanis>();
         buildingVisual.building = tile.currentBuilding;

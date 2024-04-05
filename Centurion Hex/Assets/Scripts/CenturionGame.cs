@@ -73,6 +73,33 @@ public class CenturionGame : MonoBehaviour
     [HideInInspector] public List<Building> BoardBuildings = new List<Building>();
     [HideInInspector] public Building lastAddedWarBuilding;
 
+    private void Update()
+    {
+#if UNITY_EDITOR
+        // Code here will only execute when running in the Unity Editor
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            DebugEndTurn();
+        }
+        return;
+#endif
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            EndTurn();
+        }
+    }
+
+    public void DebugEndTurn()
+    {
+        Network.instance.DebugEndMove();
+    }
+
+    public void EndTurn()
+    {
+        //Debug.Log("yay");
+        Network.instance.EndMove();
+    }
+
     public Building GetBoardBuilding(uint id)
     {
         for (int k = 0; k < BoardBuildings.Count; k++)
