@@ -43,7 +43,7 @@ public class CharacterVisual_Simanis : MonoBehaviour
 
     private void Start()
     {
-        //zzzAnimation.SetActive(false);
+        zzzAnimation.SetActive(false);
     }
 
 
