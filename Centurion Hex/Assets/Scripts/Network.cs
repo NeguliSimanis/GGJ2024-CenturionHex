@@ -47,6 +47,7 @@ public class Network : MonoBehaviour
         op_unit_got_additional_steps,
         op_do_madman,
         op_swap_sides,
+        op_debug_restart,
     }
 
     public enum NetworkStateEnum
@@ -654,6 +655,13 @@ public class Network : MonoBehaviour
         outgoingData.writeByte((byte)Messages.op_debug_end_move);
         Send("debug_end_move");
     }
+
+    public void DebugRestart()
+    {
+        outgoingData.writeByte((byte)Messages.op_debug_restart);
+        Send("debug_restart");
+    }
+
     public void DebugSetGoldParams( int GoldPerRound, int GoldInitial )
     {
         outgoingData.writeByte((byte)Messages.op_debug_set_money_per_senate);
