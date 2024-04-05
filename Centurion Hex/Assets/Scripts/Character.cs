@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Character
@@ -38,6 +39,7 @@ public class Character
     public int InitialHealth;
     public int Price;
     public int StepsPerTurn;
+    public int AdditionalSteps;
     public int AttackDamage;
     public int AttackRange;//only for snipers
     public string Name;
@@ -93,5 +95,6 @@ public class Character
         Name = data.readUTF();
         Description = data.readUTF();
         CanBePlayedOffTurn = data.readBoolean();
+        AdditionalSteps = data.readByte();
     }
 }

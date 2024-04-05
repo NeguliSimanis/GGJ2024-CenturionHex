@@ -20,7 +20,7 @@ public class CenturionGame : MonoBehaviour
     };
 
     [HideInInspector] public RoundState mRoundState;
-
+    [HideInInspector] public int placementPriceMultiplier = 1;
     public static CenturionGame Instance { get; private set; }
     [HideInInspector] public Team.TeamType WinnerTeam;
 
@@ -50,6 +50,9 @@ public class CenturionGame : MonoBehaviour
     public UnityEvent onOnlineOffline;
     public UnityEvent onStackUpdateBuilding;
     public UnityEvent onStackUpdateCharacter;
+    public UnityEvent onUnitGotAdditionalSteps;
+    public UnityEvent onDoMadman;
+    public UnityEvent onSwapSides;
 
     [HideInInspector] public Board Board = new Board();
 
@@ -62,8 +65,9 @@ public class CenturionGame : MonoBehaviour
     [HideInInspector] public List<Character> CivilCharacters = new List<Character>();
     [HideInInspector] public Character lastAddedCivilCharacter;
     [HideInInspector] public List<Character> BoardCharacters = new List<Character>();
+    [HideInInspector] public Character lastSwappedChar;
 
-    //all biuldings in deck
+    //all buildings in deck
     [HideInInspector] public List<Building> Buildings = new List<Building>();
 
     //shortcuts
@@ -72,6 +76,7 @@ public class CenturionGame : MonoBehaviour
     [HideInInspector] public Building lastAddedCivilBuilding;
     [HideInInspector] public List<Building> BoardBuildings = new List<Building>();
     [HideInInspector] public Building lastAddedWarBuilding;
+    [HideInInspector] public uint lastAdditionalSteps = 0;
 
     public Building GetBoardBuilding(uint id)
     {
@@ -453,18 +458,20 @@ public class CenturionGame : MonoBehaviour
         }
     }
 
-    public void OnRoundUpdate(bool _RedMove, bool _GeneralMove, RoundState _roundState)
+    public void OnRoundUpdate(bool _RedMove, bool _GeneralMove, RoundState _roundState, int _placementPriceMultiplier)
     {
         Debug.Log("round state updated");
         RedMove = _RedMove;
         GeneralMove = _GeneralMove;
         mRoundState = _roundState;
-        if(mRoundState == RoundState.rsMovingCharacters)
+        placementPriceMultiplier = _placementPriceMultiplier;
+        if (mRoundState == RoundState.rsMovingCharacters)
         {
             //reset moving character move values
             for(int k =0; k < BoardCharacters.Count; k++)
             {
                 BoardCharacters[k].StepsUsed = 0;
+                BoardCharacters[k].AdditionalSteps = 0;
             }
         }
         onRoundStateChange.Invoke();
@@ -484,6 +491,13 @@ public class CenturionGame : MonoBehaviour
         lastSourceCharacter = GetBoardCharacter(sourceBuilding);
         lastWealthAmount = wealth;
         onWealthFromCharacter.Invoke();
+    }
+
+    public void OnUnitGotAdditionalSteps(uint sourceChar, int numAdditionalSteps)
+    {
+        lastSourceCharacter = GetBoardCharacter(sourceChar);
+        lastSourceCharacter.AdditionalSteps = numAdditionalSteps;
+        onUnitGotAdditionalSteps.Invoke();
     }
 
     public void OnCharacterMoved(uint characterId, int x, int y, int stepsUsed)
@@ -711,5 +725,55 @@ public class CenturionGame : MonoBehaviour
         ch.LoadFromNetwork(incomingData);
         addBuilding(ch, (Team.TeamType)incomingData.readByte());
         onStackUpdateBuilding.Invoke();
+    }
+
+    public void OnDoMadman()
+    {
+        var tempHand = Teams[0].Governor.StandByCharacters;
+        Teams[0].Governor.StandByCharacters = Teams[1].Governor.StandByCharacters;
+        Teams[1].Governor.StandByCharacters = tempHand;
+
+        tempHand = Teams[0].General.StandByCharacters;
+        Teams[0].General.StandByCharacters = Teams[1].General.StandByCharacters;
+        Teams[1].General.StandByCharacters = tempHand;
+
+        for (int k = 0; k < Teams[0].Governor.StandByCharacters.Count; k++)
+        {
+            Teams[0].Governor.StandByCharacters[k].Team = Teams[0];
+        }
+        for (int k = 0; k < Teams[1].Governor.StandByCharacters.Count; k++)
+        {
+            Teams[1].Governor.StandByCharacters[k].Team = Teams[1];
+        }
+        for (int k = 0; k < Teams[0].General.StandByCharacters.Count; k++)
+        {
+            Teams[0].General.StandByCharacters[k].Team = Teams[0];
+        }
+        for (int k = 0; k < Teams[1].General.StandByCharacters.Count; k++)
+        {
+            Teams[1].General.StandByCharacters[k].Team = Teams[1];
+        }
+        onDoMadman.Invoke();
+    }
+
+    public void OnSwapSides(uint v)
+    {
+        Character character = GetBoardCharacter(v);
+        Team oldTeam = character.Team;
+        Team newTeam = oldTeam.Type == Team.TeamType.ttRed ? Teams[1] : Teams[0];
+
+        if(character.isWarUnit)
+        {
+            oldTeam.General.Characters.Remove(character);
+            newTeam.General.Characters.Add(character);
+        }
+        else
+        {
+            oldTeam.Governor.Characters.Remove(character);
+            newTeam.Governor.Characters.Add(character);
+        }
+        character.Team = newTeam;
+        lastSwappedChar = character;
+        onSwapSides.Invoke();
     }
 }

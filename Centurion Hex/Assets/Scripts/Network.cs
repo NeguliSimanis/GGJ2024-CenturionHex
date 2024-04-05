@@ -44,6 +44,9 @@ public class Network : MonoBehaviour
         op_wealth_from_character,
         op_debug_end_move,
         op_debug_set_money_per_senate,
+        op_unit_got_additional_steps,
+        op_do_madman,
+        op_swap_sides,
     }
 
     public enum NetworkStateEnum
@@ -411,7 +414,7 @@ public class Network : MonoBehaviour
                 }
                 break;
             case Messages.op_game_round_update:
-                Game.OnRoundUpdate(incomingData.readBoolean(), incomingData.readBoolean(), (CenturionGame.RoundState)incomingData.readByte());
+                Game.OnRoundUpdate(incomingData.readBoolean(), incomingData.readBoolean(), (CenturionGame.RoundState)incomingData.readByte(), incomingData.readByte());
                 break;
             case Messages.op_wealth_from_building:
                 Game.OnWealthFromBuilding((Team.TeamType)incomingData.readByte(), incomingData.readByte(), incomingData.readUnsignedInt());
@@ -472,6 +475,15 @@ public class Network : MonoBehaviour
                 break;
             case Messages.op_stack_update_building:
                 Game.OnStackUpdateBuilding(incomingData);
+                break;
+            case Messages.op_unit_got_additional_steps:
+                Game.OnUnitGotAdditionalSteps(incomingData.readUnsignedInt(), incomingData.readByte());
+                break;
+            case Messages.op_do_madman:
+                Game.OnDoMadman();
+                break;
+            case Messages.op_swap_sides:
+                Game.OnSwapSides(incomingData.readUnsignedInt());
                 break;
             default:
                 UnityEngine.Debug.LogError("Message not handled: " + command);
