@@ -21,6 +21,7 @@ public class CenturionGame : MonoBehaviour
 
     [HideInInspector] public RoundState mRoundState;
     [HideInInspector] public int placementPriceMultiplier = 1;
+    [HideInInspector] public int free_unit_cards = 0;
     public static CenturionGame Instance { get; private set; }
     [HideInInspector] public Team.TeamType WinnerTeam;
 
@@ -485,13 +486,14 @@ public class CenturionGame : MonoBehaviour
         }
     }
 
-    public void OnRoundUpdate(bool _RedMove, bool _GeneralMove, RoundState _roundState, int _placementPriceMultiplier)
+    public void OnRoundUpdate(bool _RedMove, bool _GeneralMove, RoundState _roundState, int _placementPriceMultiplier, int _free_unit_cards)
     {
         Debug.Log("round state updated");
         RedMove = _RedMove;
         GeneralMove = _GeneralMove;
         mRoundState = _roundState;
         placementPriceMultiplier = _placementPriceMultiplier;
+        free_unit_cards = _free_unit_cards;
         if (mRoundState == RoundState.rsMovingCharacters)
         {
             //reset moving character move values

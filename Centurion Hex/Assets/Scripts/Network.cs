@@ -414,7 +414,7 @@ public class Network : MonoBehaviour
                 }
                 break;
             case Messages.op_game_round_update:
-                Game.OnRoundUpdate(incomingData.readBoolean(), incomingData.readBoolean(), (CenturionGame.RoundState)incomingData.readByte(), incomingData.readByte());
+                Game.OnRoundUpdate(incomingData.readBoolean(), incomingData.readBoolean(), (CenturionGame.RoundState)incomingData.readByte(), incomingData.readByte(), incomingData.readByte());
                 break;
             case Messages.op_wealth_from_building:
                 Game.OnWealthFromBuilding((Team.TeamType)incomingData.readByte(), incomingData.readByte(), incomingData.readUnsignedInt());
