@@ -2195,6 +2195,10 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: b9ce07bc7a648b94089cab0f01aa29b2, type: 3}
     charType: 1
     buildingType: 5
+  - isCharacter: 1
+    sprite: {fileID: 2010602105, guid: 64a4cf0f8200748439304b5cd18c9cbf, type: 3}
+    charType: 5
+    buildingType: 5
   cardMainImage: {fileID: 2038187923635792661}
   cardTitle: {fileID: 3289802526420737925}
   cardAbility: {fileID: 3289802526626244827}

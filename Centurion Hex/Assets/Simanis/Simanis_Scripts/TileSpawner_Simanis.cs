@@ -180,6 +180,17 @@ public class TileSpawner_Simanis : MonoBehaviour
         RotateBoard();
     }
 
+    /// <summary>
+    /// used on new round phase
+    /// </summary>
+    public void UpdateAllCharacterSpeedUI()
+    {
+        foreach (CharacterVisual_Simanis charVisual in allCharacters)
+        {
+            charVisual.SetSpeedUI(isNewRoundPhase: true);
+        }
+    }
+
     public void SpawnCharacterOnTile(Tile tile, Transform parent,
         TileVisual_Simanis tileVisual, int x, int y)
     {
@@ -201,6 +212,21 @@ public class TileSpawner_Simanis : MonoBehaviour
         allCharacters.Add(characterVisual);
 
         Debug.Log("spawnin " + tile.currentCharacter.type);
+    }
+
+    public void ProcessAditionalStepsAdded()
+    {
+        Debug.Log("LAST STEPS " + centurionGame.lastAdditionalSteps);
+        foreach (CharacterVisual_Simanis characterVisual in allCharacters)
+        {
+            if (characterVisual.character.id == centurionGame.lastAdditionalSteps)
+            {
+                Debug.Log("Found character with additional steps: " + characterVisual.character.Name + ". My team: "
+                    + characterVisual.IsMyUnit());
+                characterVisual.SetSpeedUI();
+            }
+        }
+        
     }
 
     public void PlayVictoryPointAnimation()
@@ -227,7 +253,7 @@ public class TileSpawner_Simanis : MonoBehaviour
 
     public void FindAndColorTraitorUnit()
     {
-        Debug.Log("lOOKING FOR TRAITOR");
+       // Debug.Log("lOOKING FOR TRAITOR");
         foreach (CharacterVisual_Simanis character in allCharacters)
         {
             // traitors among my units
@@ -237,13 +263,13 @@ public class TileSpawner_Simanis : MonoBehaviour
                 if (character.character.Team.Type == Team.TeamType.ttRed && !centurionGame.PlayingAsRed)
                 {
                     character.ColorUnit();
-                    Debug.Log("TRAITOR FOUND");
+                    //Debug.Log("TRAITOR FOUND");
                 }
                 // unit is blue but im playing red
                 if (character.character.Team.Type == Team.TeamType.ttBlue && centurionGame.PlayingAsRed)
                 {
                     character.ColorUnit();
-                    Debug.Log("TRAITOR FOUND");
+                    //Debug.Log("TRAITOR FOUND");
                 }
             }
             // traitors among enemy units
@@ -255,7 +281,7 @@ public class TileSpawner_Simanis : MonoBehaviour
                     centurionGame.PlayingAsRed)
                 {
                     character.ColorUnit();
-                    Debug.Log("TRAITOR FOUND");
+                   // Debug.Log("TRAITOR FOUND");
                 }
                 // enemy unit is blue team and im playing blue
                 if (!character.isMyUnit && 
@@ -263,7 +289,7 @@ public class TileSpawner_Simanis : MonoBehaviour
                     !centurionGame.PlayingAsRed)
                 {
                     character.ColorUnit();
-                    Debug.Log("TRAITOR FOUND");
+                    //Debug.Log("TRAITOR FOUND");
                 }
             }
         }

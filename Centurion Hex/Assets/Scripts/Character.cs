@@ -57,7 +57,7 @@ public class Character
 
     public int RemainingStepsThisTurn()
     {
-        int remainingSteps = GetStepsPerTurn() - StepsUsed;
+        int remainingSteps = GetStepsPerTurn()  + AdditionalSteps - StepsUsed;
         if (remainingSteps < 0)
             remainingSteps = 0;
         return remainingSteps;

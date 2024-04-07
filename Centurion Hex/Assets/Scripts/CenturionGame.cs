@@ -87,6 +87,12 @@ public class CenturionGame : MonoBehaviour
         {
             DebugEndTurn();
         }
+        
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            Network.instance.DebugRestart();
+        }
         return;
 #endif
         if (Input.GetKeyDown(KeyCode.Space))

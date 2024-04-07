@@ -33,6 +33,7 @@ public class CharacterVisual_Simanis : MonoBehaviour
     public GameObject lifeIcon;
 
     [Header("ANIMATIONS")]
+    public ParticleSystem bloodAnimation;
     public GameObject zzzAnimation;
     public float scaleSpeed = 1.0f; // Adjust the speed as needed
     public float maxScaleY = 1.08f;
@@ -46,6 +47,14 @@ public class CharacterVisual_Simanis : MonoBehaviour
         zzzAnimation.SetActive(false);
     }
 
+    private void FixedUpdate()
+    {
+        return;
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            PlayBloodAnimation();
+        }
+    }
 
     public void SetCharacterVisuals(Character.CharacterType type, TileSpawner_Simanis newTileSpawner)
     {
@@ -81,15 +90,13 @@ public class CharacterVisual_Simanis : MonoBehaviour
         if (markAsInactive)
         {
             zzzAnimation.SetActive(true);
+           // speedParent.gameObject.SetActive(false);
         }
         else
         {
             zzzAnimation.SetActive(false);
+            //speedParent.gameObject.SetActive(true);
         }
-        //int teamID = GetTeamColorID();
-        //CharacterColorChanger_Simanis colorChanger;
-        //colorChanger = activePrefab.GetComponent<CharacterColorChanger_Simanis>();
-        //colorChanger.ColorGrey(teamID, markAsInactive);
     }
 
     /// <summary>
@@ -180,12 +187,15 @@ public class CharacterVisual_Simanis : MonoBehaviour
         }
     }
 
-    public void SetSpeedUI()
+    public void SetSpeedUI(bool isNewRoundPhase = false)
     {
         //character.StepsPerTurn
         //character.StepsUsed
 
-        int remainingSpeed = character.StepsPerTurn + character.AdditionalSteps - character.StepsUsed;
+        
+        int remainingSpeed = character.RemainingStepsThisTurn();
+        if (isNewRoundPhase)
+            remainingSpeed += character.StepsUsed;
         //Debug.Log(character.type + " speed remaining " + remainingSpeed
         //    + ". Steps per turn: " + character.StepsPerTurn);
 
@@ -218,6 +228,12 @@ public class CharacterVisual_Simanis : MonoBehaviour
         }
     }
 
+    private void PlayBloodAnimation()
+    {
+        bloodAnimation.gameObject.SetActive(true);
+        bloodAnimation.Play();
+    }
+
     public void WoundCharacter()
     {
         if (isDead)
@@ -231,11 +247,22 @@ public class CharacterVisual_Simanis : MonoBehaviour
             explosionTile.SpawnExplosion();
             
         }
+        else if (character.Health > 0)
+        {
+            
+        }
+        
 
         SetLifeUI();
         if (character.Health <= 0)
         {
             Die();
+        }
+        else if (centurionGame.lastHurterB != null
+            || centurionGame.lastHurterC != null)
+        {
+            Debug.Log("got hurt!");
+            PlayBloodAnimation();
         }
     }
 

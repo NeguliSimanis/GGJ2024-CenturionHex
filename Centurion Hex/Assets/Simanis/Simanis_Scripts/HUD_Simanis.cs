@@ -640,6 +640,13 @@ public class HUD_Simanis : MonoBehaviour
         UpdateTurnText();
         RemoveCustomCursor();
         ColorGreyInactiveUnits();
+        ResetUnitSpeedDisplay();
+    }
+
+    private void ResetUnitSpeedDisplay()
+    {
+        Debug.Log("unit speed reset");
+        TileSpawner_Simanis.instance.UpdateAllCharacterSpeedUI();
     }
 
     /// <summary>
