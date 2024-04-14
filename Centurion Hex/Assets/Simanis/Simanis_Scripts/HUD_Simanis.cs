@@ -478,7 +478,10 @@ public class HUD_Simanis : MonoBehaviour
             yPos = interactionTarget.buildingVisualControl.yCoord;
         }
 
-        Network.instance.HurtTile(id, xPos, yPos);
+        if (CenturionGame.Instance.UseNetwork)
+            Network.instance.HurtTile(id, xPos, yPos);
+        else
+            FakeNetwork_Simanis.Instance.SP_HurtTile(id, xPos, yPos);
     }
 
     private void TryToMoveToTile()

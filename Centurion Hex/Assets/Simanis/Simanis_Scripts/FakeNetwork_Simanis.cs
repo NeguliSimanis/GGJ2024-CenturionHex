@@ -97,9 +97,6 @@ public class FakeNetwork_Simanis : MonoBehaviour
     {
         Debug.Log("TODO: check if can move so far");
 
-        
-
-
         // MOVE CHARACTER 
         CenturionGame.Instance.OnCharacterMoved(
             characterId: characterId,
@@ -118,12 +115,35 @@ public class FakeNetwork_Simanis : MonoBehaviour
                 targetTile.tileCover.Type,
                 targetTile.tileCover.Bonus);
         };
+    }
 
-        //outgoingData.writeByte((byte)Messages.op_move_character);
+    public void SP_HurtTile(uint characterId, int x, int y)
+    {
+        // get attacking char info
+        Character attackingCharacter = CenturionGame.Instance.GetBoardCharacter(characterId);
+        int attackRange = attackingCharacter.AttackRange;
+        Debug.Log(attackingCharacter.type + " is attacking!");
+
+        // get if target tile has any valid targets
+        Tile targetTile = CenturionGame.Instance.Board.GetTile(x, y);
+        if (targetTile.IsEmpty())
+        {
+            Debug.Log("cannot attack, target tile is empty");
+            return;
+        }
+
+        // origin tile info
+        Tile originTile = CenturionGame.Instance.Board.GetTile(attackingCharacter.x, attackingCharacter.y);
+        Debug.Log("attack is " + CenturionGame.Instance.Board.ShortestDistance(originTile, targetTile)+ " tiles far");
+
+        // 
+        //TileSpawner_Simanis.instance.
+
+        //outgoingData.writeByte((byte)Messages.op_hurt_tile);
         //outgoingData.writeUnsignedInt(characterId);
         //outgoingData.writeByte((byte)x);
         //outgoingData.writeByte((byte)y);
-        //Send("move_character");
+        //Send("hurt_tile");
     }
 
 }
