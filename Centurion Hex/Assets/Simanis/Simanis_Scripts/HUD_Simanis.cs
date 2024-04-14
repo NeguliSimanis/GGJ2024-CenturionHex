@@ -121,7 +121,10 @@ public class HUD_Simanis : MonoBehaviour
 
     public void RemoveCustomCursor()
     {
-            customCursor.SetCursor(false, cursorAction: CursorAction.undefined);
+        if (customCursor == null)
+            customCursor = gameObject.GetComponent<CustomCursor_Simanis>();
+
+        customCursor.SetCursor(false, cursorAction: CursorAction.undefined);
     }
 
     public void ShowAllowedBuildPlacementTiles(GameObject card, Building buildBeingPlaced)
@@ -493,8 +496,20 @@ public class HUD_Simanis : MonoBehaviour
         int xPos = interactionTarget.tileVisualControl.xCoord;
         int yPos = interactionTarget.tileVisualControl.yCoord;
 
-        Network.instance.MoveCharacter(characterId: id,
-            x: xPos, y: yPos);
+        if (CenturionGame.Instance.UseNetwork)
+        {
+            Network.instance.MoveCharacter(
+                characterId: id,
+                x: xPos, 
+                y: yPos);
+        }
+        else
+        {
+            FakeNetwork_Simanis.Instance.SP_MoveCharacter(
+                characterId: id,
+                x: xPos,
+                y: yPos);
+        }
     }
 
     public void TryToPlaceUnitOnTile()
@@ -659,7 +674,7 @@ public class HUD_Simanis : MonoBehaviour
 
     public void UpdateTurnText()
     {
-        Debug.Log("Updating Turn phase text");
+        //Debug.Log("Updating Turn phase text");
         UpdateTurnIDs();
 
         /*

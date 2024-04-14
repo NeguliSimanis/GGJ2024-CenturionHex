@@ -384,10 +384,10 @@ public class TileSpawner_Simanis : MonoBehaviour
     {
         if (tile.currentBuilding == null)
         {
-            Debug.Log("There's no buildign here");
+           // Debug.Log("There's no buildign here");
             return;
         }
-        Debug.Log("trying to build here");
+       // Debug.Log("trying to build here");
         tileVisual.DiscoverTile();
         GameObject newBuild = Instantiate(buildingPrefab, parent);
         buildingPrefab.SetActive(true);

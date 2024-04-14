@@ -281,7 +281,7 @@ public class ShopUI : MonoBehaviour
 
     public void HideWithAnimationUI()
     {
-        Debug.Log("HIDING WITH ANIMATION " + Time.time);
+     //   Debug.Log("HIDING WITH ANIMATION " + Time.time);
         // disable bg blur
         shopBlurBG.raycastTarget = false;
 
@@ -298,7 +298,7 @@ public class ShopUI : MonoBehaviour
 
     public void HideUI()
     {
-        Debug.Log("HIDING UI " + Time.time);
+       // Debug.Log("HIDING UI " + Time.time);
         Shop.SetActive(false);
         shopBlurBG.gameObject.SetActive(false);
         isShopOpen = false;

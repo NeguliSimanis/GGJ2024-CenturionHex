@@ -2844,6 +2844,8 @@ MonoBehaviour:
   maxScaleY: 1.08
   minScaleY: 1
   scaleAnimationTarget: {fileID: 2416449462290196619}
+  deathAnimationDuration: 0.8
+  deathAnimationHeight: 1.2
 --- !u!1 &7407187793176888748
 GameObject:
   m_ObjectHideFlags: 0

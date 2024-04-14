@@ -265,6 +265,12 @@ public class CardVisual_Simanis : MonoBehaviour, IPointerClickHandler, IPointerE
 
     public void DisplayBuildCardVisuals(Building building)
     {
+        if (!CenturionGame.Instance.UseNetwork)
+        {
+            Debug.Log("TODO - implement single player logic:");
+            return;
+        }
+
         cardTypeIcon.sprite = building.Class == BuildingClass.bcWar ? warBuildIcon : civilBuildIcon;
 
         isCharacter = false;

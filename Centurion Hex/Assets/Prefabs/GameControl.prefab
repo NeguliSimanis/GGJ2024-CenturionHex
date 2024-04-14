@@ -1,0 +1,668 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1211224287144603754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1211224287144603756}
+  - component: {fileID: 1211224287144603755}
+  - component: {fileID: 1211224287144603757}
+  - component: {fileID: 1211224287144603758}
+  - component: {fileID: 1211224287144603759}
+  - component: {fileID: 1211224287144603728}
+  - component: {fileID: 1211224287144603729}
+  - component: {fileID: 1211224287144603730}
+  m_Layer: 0
+  m_Name: GameControl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1211224287144603756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211224287144603754}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1211224287144603755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211224287144603754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5a28b4be23fb3443bb97b0bb36151d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mRoundState: 0
+  placementPriceMultiplier: 1
+  free_unit_cards: 0
+  WinnerTeam: 0
+  team0Color: {r: 1, g: 0, b: 0, a: 1}
+  team1Color: {r: 0, g: 0, b: 1, a: 1}
+  onGameReload:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603757}
+        m_TargetAssemblyTypeName: TileSpawner_Simanis, Assembly-CSharp
+        m_MethodName: SpawnTiles
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1211224287144603759}
+        m_TargetAssemblyTypeName: HUD_Simanis, Assembly-CSharp
+        m_MethodName: UpdateTeamWealth
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1211224287144603759}
+        m_TargetAssemblyTypeName: HUD_Simanis, Assembly-CSharp
+        m_MethodName: UpdateTurnText
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1211224287144603759}
+        m_TargetAssemblyTypeName: HUD_Simanis, Assembly-CSharp
+        m_MethodName: UpdateTeamVictoryPoints
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1211224287144603759}
+        m_TargetAssemblyTypeName: HUD_Simanis, Assembly-CSharp
+        m_MethodName: HideGameFinished
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1211224287144603759}
+        m_TargetAssemblyTypeName: HUD_Simanis, Assembly-CSharp
+        m_MethodName: RemoveCustomCursor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ShopUI, Assembly-CSharp
+        m_MethodName: MaybeOpen
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onRoundStateChange:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603759}
+        m_TargetAssemblyTypeName: HUD_Simanis, Assembly-CSharp
+        m_MethodName: HandleRoundStateChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ShopUI, Assembly-CSharp
+        m_MethodName: MaybeOpen
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onWealthFromBuilding:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603759}
+        m_TargetAssemblyTypeName: HUD_Simanis, Assembly-CSharp
+        m_MethodName: UpdateTeamWealth
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onWealthFromCharacter:
+    m_PersistentCalls:
+      m_Calls: []
+  onCharacterMoved:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603729}
+        m_TargetAssemblyTypeName: MovementManager_Simanis, Assembly-CSharp
+        m_MethodName: MoveCharacter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onTileCovered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603757}
+        m_TargetAssemblyTypeName: TileSpawner_Simanis, Assembly-CSharp
+        m_MethodName: UncoverTile
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onWealthFromTile:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603759}
+        m_TargetAssemblyTypeName: HUD_Simanis, Assembly-CSharp
+        m_MethodName: UpdateTeamWealth
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1211224287144603757}
+        m_TargetAssemblyTypeName: TileSpawner_Simanis, Assembly-CSharp
+        m_MethodName: PlayGoldTileAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPointsFromTile:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603759}
+        m_TargetAssemblyTypeName: HUD_Simanis, Assembly-CSharp
+        m_MethodName: UpdateTeamVictoryPoints
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1211224287144603757}
+        m_TargetAssemblyTypeName: TileSpawner_Simanis, Assembly-CSharp
+        m_MethodName: PlayVictoryPointAnimation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPointsFromBuilding:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603759}
+        m_TargetAssemblyTypeName: HUD_Simanis, Assembly-CSharp
+        m_MethodName: UpdateTeamVictoryPoints
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onCharacterHurt:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603729}
+        m_TargetAssemblyTypeName: MovementManager_Simanis, Assembly-CSharp
+        m_MethodName: HurtCharacter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onBuildingHurt:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603729}
+        m_TargetAssemblyTypeName: MovementManager_Simanis, Assembly-CSharp
+        m_MethodName: HurtBuilding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onCharacterBought:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ShopUI, Assembly-CSharp
+        m_MethodName: MaybeOpen
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onBuildingBought:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ShopUI, Assembly-CSharp
+        m_MethodName: MaybeOpen
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onUpdateGold:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603759}
+        m_TargetAssemblyTypeName: HUD_Simanis, Assembly-CSharp
+        m_MethodName: UpdateTeamWealth
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onUpdatePoints:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603759}
+        m_TargetAssemblyTypeName: HUD_Simanis, Assembly-CSharp
+        m_MethodName: UpdateTeamVictoryPoints
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPlaceCharacter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603757}
+        m_TargetAssemblyTypeName: TileSpawner_Simanis, Assembly-CSharp
+        m_MethodName: PlaceCharacter
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onPlaceBuilding:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603757}
+        m_TargetAssemblyTypeName: TileSpawner_Simanis, Assembly-CSharp
+        m_MethodName: PlaceBuilding
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onGameFinished:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603759}
+        m_TargetAssemblyTypeName: HUD_Simanis, Assembly-CSharp
+        m_MethodName: ShowGameFinished
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onOnlineOffline:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603759}
+        m_TargetAssemblyTypeName: HUD_Simanis, Assembly-CSharp
+        m_MethodName: UpdateOnlineOffline
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onStackUpdateBuilding:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ShopUI, Assembly-CSharp
+        m_MethodName: MaybeOpen
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onStackUpdateCharacter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ShopUI, Assembly-CSharp
+        m_MethodName: MaybeOpen
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onUnitGotAdditionalSteps:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603757}
+        m_TargetAssemblyTypeName: TileSpawner_Simanis, Assembly-CSharp
+        m_MethodName: ProcessAditionalStepsAdded
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDoMadman:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ShopUI, Assembly-CSharp
+        m_MethodName: ClearPlayerHand
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ShopUI, Assembly-CSharp
+        m_MethodName: FillPlayerHand
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onSwapSides:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1211224287144603757}
+        m_TargetAssemblyTypeName: TileSpawner_Simanis, Assembly-CSharp
+        m_MethodName: FindAndColorTraitorUnit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  lastAdditionalSteps: 0
+  StartWithRed: 0
+  RedMove: 0
+  GeneralMove: 0
+  PlayingAsRed: 1
+  PlayingAsGeneral: 1
+  PlayingAsGovernor: 1
+  UseNetwork: 1
+  lastWealthAmount: 0
+  lastPointAmount: 0
+--- !u!114 &1211224287144603757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211224287144603754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d48352b022e7714f8d6fde4f890e353, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  centurionGame: {fileID: 1211224287144603755}
+  tileCenter: {fileID: 0}
+  tilePrefab: {fileID: 1363735852366493789, guid: bf35d8a4c3758c44084c1cddb574e095,
+    type: 3}
+  tileParent: {fileID: 0}
+  empty: {fileID: 0}
+  tileWidth: 1.15
+  tileHeight: 1
+  rowOffsetX: 0.5
+  rowOffsetZ: -0.27
+  allTiles: []
+  characterPrefab: {fileID: 7285571505188909700, guid: 5dd4194de2e51464fa603b6e56dc8e2a,
+    type: 3}
+  allCharacters: []
+  buildingPrefab: {fileID: 7950914013029271463, guid: 7fed4c6225737724d8d3cea886937e39,
+    type: 3}
+  allBuildings: []
+--- !u!114 &1211224287144603758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211224287144603754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c7f4f2d94dbf6b4f8550664f1ff4414, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Game: {fileID: 1211224287144603755}
+  ip: local.fufla.eu
+  port: 7162
+  loggedIn: 0
+--- !u!114 &1211224287144603759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211224287144603754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f4e037dcf5cb9b4a8249e7a32f4845c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  centurionGame: {fileID: 1211224287144603755}
+  announcement_UI: {fileID: 0}
+  allyTeamIdentifier: {fileID: 0}
+  enemyTeamIdentifier: {fileID: 0}
+  generalOrGovernorText: {fileID: 0}
+  generalTurnColor: {r: 0.8, g: 0.20784314, b: 0.23921569, a: 1}
+  govTurnColor: {r: 0.45098042, g: 0.6431373, b: 0.75294125, a: 1}
+  teamTurnText: {fileID: 0}
+  goldAllyTeam: {fileID: 0}
+  goldEnemyTeam: {fileID: 0}
+  vicPointsAlly: {fileID: 0}
+  vicPointsEnemy: {fileID: 0}
+  WinnerText: {fileID: 0}
+  WinnerUI: {fileID: 0}
+  processRaycast: 1
+  oldHighlight: {fileID: 0}
+  currSelection: 3
+  targetHighlight: {fileID: 0}
+  lookingForExtraInteractionTarget: 0
+  interactionTarget: {fileID: 0}
+  endTurnButton: {fileID: 0}
+  listenForMoveSuccessDuration: 0.1
+  isListeningToMoveSuccess: 0
+  cardPlacementInputAllowed: 0
+  cardPrefabBeingPlayed: {fileID: 0}
+  tryingToPlaceBuilding: 0
+  cardPlacementTarget: {fileID: 0}
+  canPlaceCardThere: 0
+  allowedCardPlacementTiles: []
+  highlightedCardVisual: {fileID: 0}
+--- !u!114 &1211224287144603728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211224287144603754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa23a90a394eff448947d9758fab2602, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hudManager: {fileID: 1211224287144603759}
+--- !u!114 &1211224287144603729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211224287144603754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7320d996fa205864db847d97cf5b517c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0.5
+  centurionGame: {fileID: 0}
+  spawner: {fileID: 0}
+--- !u!114 &1211224287144603730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211224287144603754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de18e285f3cace544a00f493ff6b7cd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionCursors:
+  - action: 0
+    sprite: {fileID: 2800000, guid: 7e24b664c662cab4f8726eb2b9dd1dc6, type: 3}
+  - action: 1
+    sprite: {fileID: 2800000, guid: 237080f858a553c44832e25f274e8f01, type: 3}

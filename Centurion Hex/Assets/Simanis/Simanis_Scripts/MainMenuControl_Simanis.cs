@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuControl_Simanis : MonoBehaviour
 {
+    public GameObject mainButtonPanel;
+    public GameObject missionSelectPanel;
+
     public Button closeButt;
     public Button multiplayerButt;
     public Button singleplayerButt;
@@ -13,7 +16,9 @@ public class MainMenuControl_Simanis : MonoBehaviour
     
     void Start()
     {
-        AddButtonListeners();
+        mainButtonPanel.SetActive(true);
+        missionSelectPanel.SetActive(false);
+        //AddButtonListeners();
     }
 
     private void AddButtonListeners()

@@ -42,6 +42,13 @@ public class CharacterVisual_Simanis : MonoBehaviour
 
     private bool scalingUp = true;
 
+    /*
+     * character fades to transparent and sprite goes up
+     */
+    [Header("death animation")]
+    public float deathAnimationDuration = 0.9f;
+    public float deathAnimationHeight = 2f; 
+
     private void Start()
     {
         zzzAnimation.SetActive(false);
@@ -278,7 +285,25 @@ public class CharacterVisual_Simanis : MonoBehaviour
                 hudManager.ClearHighlights();
             }
         }
-        Destroy(gameObject);
+        PlayDeathAnimation();
+    }
+
+    private void PlayDeathAnimation()
+    {
+        // fade to transparent
+        CharacterColorChanger_Simanis colorChanger;
+        colorChanger = activePrefab.GetComponent<CharacterColorChanger_Simanis>();
+        colorChanger.FadeToTransparent(deathAnimationDuration);
+
+        // Move sprite up
+        Vector3 targetPosition = new Vector3(activePrefab.transform.position.x,
+          activePrefab.transform.position.y + deathAnimationHeight,
+          activePrefab.transform.position.z);
+        activePrefab.transform.DOMove(targetPosition, deathAnimationDuration * 1.01f).OnComplete(() =>
+        {
+            Destroy(gameObject);
+        });
+        
     }
 
     public TileVisual_Simanis FindTileCharIsOn()
@@ -307,10 +332,10 @@ public class CharacterVisual_Simanis : MonoBehaviour
                 transform.parent = tileVisual.unitTransformPos;
                 xCoord = tileVisual.xCoord;
                 yCoord = tileVisual.yCoord;
-                Debug.Log("COD FIND " + tileVisual.xCoord + "." + tileVisual.yCoord);
+                //Debug.Log("COD FIND " + tileVisual.xCoord + "." + tileVisual.yCoord);
             }
         }
-        Debug.Log("MOVE CALLED");
+        //Debug.Log("MOVE CALLED");
         SetSpeedUI();
         transform.DOLocalMove(moveTarget, speed)
            .SetEase(Ease.InOutQuad).OnComplete(() => hudManager.ListenToRaycast());

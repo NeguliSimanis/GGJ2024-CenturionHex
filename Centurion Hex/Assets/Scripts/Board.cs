@@ -90,18 +90,6 @@ public class Board
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void LoadFromNetwork(ByteArray data)
     {
         for (int y = 0; y < 7; y++)

@@ -571,7 +571,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 292050331}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 127035461}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 78129867}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &292050331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -815,7 +839,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 470159555}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1836403658}
+        m_TargetAssemblyTypeName: MainMenuControl_Simanis, Assembly-CSharp
+        m_MethodName: LoadSingleplayerScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &470159555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -937,7 +973,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 538999047}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1836403658}
+        m_TargetAssemblyTypeName: MainMenuControl_Simanis, Assembly-CSharp
+        m_MethodName: LoadMultiplayerScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &538999047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1603,7 +1651,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 952755342}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1836403658}
+        m_TargetAssemblyTypeName: MainMenuControl_Simanis, Assembly-CSharp
+        m_MethodName: LoadSingleplayerScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &952755342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2224,6 +2284,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 78129867}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1647365812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2291,6 +2363,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c9b4df772c87649bc943f6320aa35a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainButtonPanel: {fileID: 78129867}
+  missionSelectPanel: {fileID: 127035461}
   closeButt: {fileID: 413791153}
   multiplayerButt: {fileID: 538999046}
   singleplayerButt: {fileID: 292050330}
@@ -2528,7 +2602,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1904443659}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1836403658}
+        m_TargetAssemblyTypeName: MainMenuControl_Simanis, Assembly-CSharp
+        m_MethodName: LoadSingleplayerScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1904443659
 MonoBehaviour:
   m_ObjectHideFlags: 0

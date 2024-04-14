@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class CharacterColorChanger_Simanis : MonoBehaviour
 {
@@ -41,4 +42,24 @@ public class CharacterColorChanger_Simanis : MonoBehaviour
             ChangeColor(teamID); spriteRenderer.color = Color.white;
         }
     }
+
+    public void FadeToTransparent(float fadeDuration)
+    {
+        Color transparent = new Color(1, 1, 1, 0);
+        Color currColor = spriteRenderer.color;
+        float startAlpha = currColor.a;
+        DOTween.To(() => startAlpha, x => startAlpha = x, 0, fadeDuration)
+            .OnUpdate(()=>
+            {
+                Debug.Log("fading to transparent  " + startAlpha);
+                currColor.a = startAlpha;
+                spriteRenderer.color = currColor;
+            }).
+            OnComplete(()=>
+            {
+                currColor.a = 0f;
+                spriteRenderer.color = currColor;
+            });
+    }
+
 }

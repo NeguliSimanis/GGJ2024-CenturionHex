@@ -103,13 +103,18 @@ public class CenturionGame : MonoBehaviour
 
     public void DebugEndTurn()
     {
-        Network.instance.DebugEndMove();
+        if (UseNetwork)
+            Network.instance.DebugEndMove();
+        else
+            Debug.Log("TODO: SINGLE PLAYER END TURN");
     }
 
     public void EndTurn()
     {
-        //Debug.Log("yay");
-        Network.instance.EndMove();
+        if (UseNetwork)
+            Network.instance.EndMove();
+        else
+            Debug.Log("TODO SINGLE PLAYER END TURN");
     }
 
     public Building GetBoardBuilding(uint id)

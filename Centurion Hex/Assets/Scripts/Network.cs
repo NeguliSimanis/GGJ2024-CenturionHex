@@ -92,6 +92,8 @@ public class Network : MonoBehaviour
 
     private void Start()
     {
+        if (!CenturionGame.Instance.UseNetwork)
+            return;
         instance = this;
         Connect();
     }
@@ -99,6 +101,8 @@ public class Network : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (!CenturionGame.Instance.UseNetwork)
+            return;
         switch (NetworkState)
         {
             case NetworkStateEnum.nsConnecting:

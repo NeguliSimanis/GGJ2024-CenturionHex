@@ -11,10 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Simanis.unity
     guid: 5291e7cd7ef82684cafb4f835116e9da
-  - enabled: 0
-    path: 
-    guid: c4eae4228072361459cfeb81e90eea3e
   - enabled: 1
     path: Assets/Scenes/SimanisSingle.unity
-    guid: fa0becc609f2779488aee50944cd6565
+    guid: 62d9e0fbed989164fa77e6e09ba4fb91
   m_configObjects: {}

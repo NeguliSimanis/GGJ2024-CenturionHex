@@ -29,6 +29,7 @@ public class TileVisual_Simanis : MonoBehaviour
 {
     public TileSpawner_Simanis tileSpawner;
 
+    [HideInInspector] public bool isDiscovered = false;
     public bool allowFlip = false;
     public GameObject tileCenter;
 
@@ -57,6 +58,15 @@ public class TileVisual_Simanis : MonoBehaviour
 
     [Header("TILE HIGHLIHGTS")]
     public GameObject tileHighlight;
+
+
+    private void Start()
+    {
+        if (!CenturionGame.Instance.UseNetwork)
+        {
+            SP_SetTileCover();
+        }
+    }
 
     public void SetTileVisuals(TileSpawner_Simanis spawner)
     {
@@ -118,7 +128,7 @@ public class TileVisual_Simanis : MonoBehaviour
             victoryAnimObject.transform.localScale = new Vector3(1, 1, 1);
         }
         animationImage.sprite = coinSprite;
-        
+
         victoryAnimator.SetTrigger("Find");
 
     }
@@ -162,7 +172,9 @@ public class TileVisual_Simanis : MonoBehaviour
 
     public void DiscoverTile()
     {
-        // SET Environment visuals form Tile CoverType
+        isDiscovered = true;
+
+        // SET Environment visuals from Tile CoverType
         TileCover.CoverType coverType = tile.tileCover.Type;
         foreach (TilePrefab_Simanis prefab in tilePrefabs)
         {
@@ -174,6 +186,23 @@ public class TileVisual_Simanis : MonoBehaviour
 
         // SHOW DECORATIONS
         ShowTileDecorations(isDiscovered: true);
+    }
+
+    /// <summary>
+    /// single player only
+    /// </summary>
+    private void SP_SetTileCover()
+    {
+        if (tile.IsEmpty())
+        {
+            tile.tileCover.SP_SetRandomCoverType();
+            tile.tileCover.SP_SetRandomBonusType();
+        }
+        else
+        {
+            tile.tileCover.Type = TileCover.CoverType.ctTransparent;
+            DiscoverTile();
+        }
     }
 
     public void FlipTile()

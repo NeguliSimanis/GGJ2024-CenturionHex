@@ -26,17 +26,31 @@ public class Tile
         return tileType != TileType.ttVoid;
     }
     
-    // Start is called before the first frame update
-    void Start()
+    public bool IsEmpty()
     {
-        
+        bool isEmpty = true;
+        if (currentBuilding != null)
+        {
+            isEmpty = false;
+        }
+        if (currentCharacter != null)
+        {
+            //Debug.Log("CONTAINS CHARACTER");
+            isEmpty = false;
+        }
+        return isEmpty;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+    //// doesnt work correctly
+    //public bool IsDiscovered()
+    //{
+    //    bool isDiscovered = true;
+    //    if (tileCover.Type == TileCover.CoverType.ctUndefined)
+    //        isDiscovered = false;
+
+    //    return isDiscovered;
+    //}
 
     public void LoadFromNetwork(ByteArray data)
     {
