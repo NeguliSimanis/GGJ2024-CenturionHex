@@ -412,7 +412,7 @@ public class TileSpawner_Simanis : MonoBehaviour
         {
             tileVisual.FlipTile();
         }
-        tileVisual.SetTileCoords(xC: row, yC: collumn, debug: false);
+        tileVisual.SetTileCoords(xC: row, yC: collumn, debug: true);
         tileVisual.SetTileVisuals(this);
         allTiles.Add(tileVisual);
 

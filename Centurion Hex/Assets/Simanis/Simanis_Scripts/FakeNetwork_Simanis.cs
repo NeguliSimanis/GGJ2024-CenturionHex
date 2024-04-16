@@ -134,7 +134,6 @@ public class FakeNetwork_Simanis : MonoBehaviour
 
         // origin tile info
         Tile originTile = CenturionGame.Instance.Board.GetTile(attackingCharacter.x, attackingCharacter.y);
-        Debug.Log("attack is " + CenturionGame.Instance.Board.ShortestDistance(originTile, targetTile)+ " tiles far");
 
         // 
         //TileSpawner_Simanis.instance.
