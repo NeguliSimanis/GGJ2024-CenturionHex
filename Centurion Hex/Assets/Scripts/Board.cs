@@ -39,7 +39,13 @@ public class Board
         /// <summary>
         /// Closed list - contains all tiles that have already been considered.
         /// </summary>
-        public bool isInClosedList = false;
+        //public bool isInClosedList = false;
+        /// <summary>
+        /// Open list - contains all tiles that can be considered as path points.
+        /// </summary>
+        public bool isInOpenList = false;
+        // is this tiles distance checked
+        public bool distanceChecked = false;
 
         public TileCoordinates(int newX, int newY)
         {
@@ -102,6 +108,9 @@ public class Board
         /// will contain all tiles that have already been considered.
         List<TileCoordinates> closedList = new List<TileCoordinates>();
 
+        // path to destination
+        List<TileCoordinates> path = new List<TileCoordinates>();
+
         // STEP 1 - check the origin tile
         if (x_tileA == x_tileB && y_tileA == y_tileB)
             // destination is same as origin
@@ -110,7 +119,7 @@ public class Board
         TileCoordinates originTile = new TileCoordinates(x_tileA, x_tileB);
         openList.Add(originTile);
         closedList.Add(originTile);
-        originTile.isInClosedList = true;
+        path.Add(originTile);
 
 
         /// 2) Add this tile to the closed list.
@@ -122,17 +131,44 @@ public class Board
         /// 
 
         // STEP 2 - GET ALL NEIGHBORS
-        Tile[] adjacentTiles = GetAdjacentTiles(originTile.x, originTile.y);
+        List<TileCoordinates> adjacentCoordinates = GetAdjacentTileCoordinates(originTile.x, originTile.y);
 
-        foreach (Tile adjacentTile in adjacentTiles)
+        foreach (TileCoordinates adjacentCoordinate in adjacentCoordinates)
         {
-            // neighbor in closed list - ignore
-            foreach(TileCoordinates tileCoordinate in closedList)
-            {
-                
-            }    
 
+            bool isInClosedList = false;
+            bool isInOpenList = false;
+
+            // neighbor in closed list - ignore
+            foreach (TileCoordinates closedCoordinate in closedList)
+            {
+                if (closedCoordinate.x == adjacentCoordinate.x 
+                    && closedCoordinate.y == adjacentCoordinate.y)
+                {
+                    isInClosedList = true;
+                    break;
+                }
+            }
+            if (isInClosedList)
+                break;
+
+            // check if neighbor is in open list
+            foreach (TileCoordinates openCoordinate in openList)
+            {
+                if (openCoordinate.x == adjacentCoordinate.x
+                    && openCoordinate.x == adjacentCoordinate.y)
+                {
+                    isInOpenList = true;
+                    break;
+                }
+            }
             // neighbor not in open list - add to open list
+            if (!isInOpenList)
+            {
+                openList.Add(adjacentCoordinate);
+                break;
+            }
+
             // neighbor in open list - check F. If it is better than current path, update adjacent tile parameteres
         }
 
@@ -149,45 +185,7 @@ public class Board
 
         // 
 
-        #region old stuff
-        //List<TileCoordinates> checkedCoordinates = new List<TileCoordinates>();
-
-        //// is it the same tile?
-        //if (x_tileA == x_tileB && y_tileA == y_tileB)
-        //    return 0;
-        //else
-        //    checkedCoordinates.Add(new TileCoordinates(x_tileA, x_tileB));
-
-        //// not same tile, at least 1 distance
-        //distance = 1;
-
-        //// while b x bigger - check SOUTH
-        //int xSouthCheck = x_tileA;
-        //while (xSouthCheck <= x_tileB)
-        //{
-        //    // SOUTH
-        //    TileCoordinates temp1 = new TileCoordinates(xSouthCheck + 1, y_tileA);
-        //    checkedCoordinates.Add(temp1);
-        //    temp1.distance = Mathf.Abs(xSouthCheck - x_tileA + 1);
-        //    // FOUND TILE
-        //    if (temp1.IsMyCoordinates(x_tileB, y_tileB))
-        //    {
-        //        targetTileFound = true;
-        //        distance = temp1.distance;
-        //        break;
-        //    }
-        //    xSouthCheck++;
-        //}
-        //// while b x bigger - check SOUTHEAST
-        //int ySouthEastCheck = y_tileA;
-        //while (!targetTileFound &&
-        //    x_tileA < x_tileB &&
-        //    ySouthEastCheck <= y_tileB)
-        //{
-
-        //    ySouthEastCheck++;
-        //}
-        #endregion
+        
 
         return distance;
     }
@@ -231,36 +229,36 @@ public class Board
         {
             TileCoordinates adjacent1 = new TileCoordinates(x + 1, y);
             adjacentTiles.Add(adjacent1);
-            //if (y > 0)
-            //{
-            //    adjacentTiles[1] = GetTile(x + 1, y - 1);
-            //    Debug.Log("found tile on " + (x + 1) + "." + (y - 1));
-            //}
+            if (y > 0)
+            {
+                TileCoordinates adjacent2 = new TileCoordinates(x + 1, y - 1);
+                adjacentTiles.Add(adjacent2);
+            }
         }
 
-        //// tiles in same row
-        //if (y < 6)
-        //{
-        //    adjacentTiles[2] = GetTile(x, y + 1);
-        //    Debug.Log("found tile on " + (x) + "." + (y + 1));
-        //}
-        //if (y > 0)
-        //{
-        //    adjacentTiles[3] = GetTile(x, y - 1);
-        //    Debug.Log("found tile on " + (x) + "." + (y - 1));
-        //}
+        // tiles in same row
+        if (y < 6)
+        {
+            TileCoordinates adjacent3 = new TileCoordinates(x, y + 1);
+            adjacentTiles.Add(adjacent3);
+        }
+        if (y > 0)
+        {
+            TileCoordinates adjacent4 = new TileCoordinates(x, y - 1);
+            adjacentTiles.Add(adjacent4);
+        }
 
-        //// tiles in lower row
-        //if (x > 0)
-        //{
-        //    adjacentTiles[4] = GetTile(x - 1, y);
-        //    Debug.Log("found tile on " + (x - 1) + "." + y);
-        //    if (y < 6)
-        //    {
-        //        adjacentTiles[5] = GetTile(x - 1, y + 1);
-        //        Debug.Log("found tile on " + (x - 1) + "." + y + 1);
-        //    }
-        //}
+        // tiles in lower row
+        if (x > 0)
+        {
+            TileCoordinates adjacent5 = new TileCoordinates(x - 1, y);
+            adjacentTiles.Add(adjacent5);
+            if (y < 6)
+            {
+                TileCoordinates adjacent6 = new TileCoordinates(x - 1, y + 1);
+                adjacentTiles.Add(adjacent6);
+            }
+        }
         return adjacentTiles;
     }
 
