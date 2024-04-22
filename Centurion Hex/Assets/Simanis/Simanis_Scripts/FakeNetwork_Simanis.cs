@@ -95,14 +95,23 @@ public class FakeNetwork_Simanis : MonoBehaviour
 
     public void SP_MoveCharacter(uint characterId, int x, int y)
     {
-        Debug.Log("TODO: check if can move so far");
+        Character character = CenturionGame.Instance.GetBoardCharacter(characterId);
+
+        int distanceBetweenTiles = CenturionGame.Instance.Board.DistanceBetweenTiles(
+           character.x, character.y,
+           x, y);
+        if (distanceBetweenTiles > character.RemainingStepsThisTurn())
+            return;
+
+        // calculate remaining speed
+        int speedUsed = character.StepsUsed + CalculateStepsUsed(x, y);
 
         // MOVE CHARACTER 
         CenturionGame.Instance.OnCharacterMoved(
             characterId: characterId,
             x,
             y,
-            stepsUsed: CalculateStepsUsed(x,y));
+            stepsUsed: speedUsed);
 
         // DISCOVER TILE
         Tile targetTile = CenturionGame.Instance.Board.GetTile(x, y);
@@ -134,6 +143,46 @@ public class FakeNetwork_Simanis : MonoBehaviour
 
         // origin tile info
         Tile originTile = CenturionGame.Instance.Board.GetTile(attackingCharacter.x, attackingCharacter.y);
+
+        // 
+        int distanceBetweenTiles = CenturionGame.Instance.Board.DistanceBetweenTiles(
+            attackingCharacter.x, attackingCharacter.y,
+            x, y);
+
+        Debug.Log("my range is " + attackRange + " My damage is " + attackingCharacter.AttackDamage);
+        if (distanceBetweenTiles > attackRange + 1)
+        {
+            Debug.Log("cannot attack, too far");
+        }
+
+        else
+        {
+            // hurt character
+            if (targetTile.currentCharacter != null)
+            {
+                Character targetChar = targetTile.currentCharacter;
+                int targetHealth = targetChar.Health - attackingCharacter.AttackDamage;
+
+
+                Debug.Log("attempting to hurt " + targetChar.type + " Target remaining hp: " + targetHealth);
+                CenturionGame.Instance.OnCharacterHurt(charid: targetChar.id,
+                    health: targetHealth,
+                    reason: attackingCharacter.id);
+            }
+            // hurt building
+            else
+            {
+                Building targetBuilding = targetTile.currentBuilding;
+                int targetHealth = targetBuilding.Health - attackingCharacter.AttackDamage;
+
+                CenturionGame.Instance.OnBuildingHurt(targetBuilding.id,
+                    health: targetHealth,
+                    reason: attackingCharacter.id);
+            }
+
+
+        }
+
 
         // 
         //TileSpawner_Simanis.instance.

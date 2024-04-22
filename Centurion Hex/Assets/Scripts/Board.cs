@@ -68,126 +68,158 @@ public class Board
         return Tiles[ x, y ];
     }
 
-    /// <summary>
-    /// 
-    /// Will include A* pathfinding based on this
-    /// https://blog.theknightsofunity.com/pathfinding-on-a-hexagonal-grid-a-algorithm/
-    /// 
-    /// ---- TILE PROPERTIES ---- 
-    /// G - current movement cost from starting tile to current considered tile
-    /// 
-    /// H - estimated movement cost from current cosidered tile to target tile
-    /// on rectangular grid H = |x1 – x2| + |y1 – y2| 
-    /// 
-    /// F = G + H
-    /// 
-    /// --- TILE LISTS ---
-    /// - Open list - will contain all tiles that can be considered as path points.
-    /// - Closed list - will contain all tiles that have already been considered.
-    /// 
-    /// ---- ALGORITHM ---- 
-    /// 1) Take a tile from the open list.
-    /// 2) Add this tile to the closed list.
-    /// 3) For every walkable adjacent tile of this tile:
-    ///     - If an adjacent tile is in the closed list – ignore it.
-    ///     - If an adjacent tile is not in the open list – add it to the open list.
-    ///     - If an adjacent tile is already in the open list – check if its F parameter 
-    ///       will be lower when we use the current path, if it is – update the adjacent tile parameters.
-    /// 
-    /// </summary>
+    
     public int DistanceBetweenTiles(int x_tileA, int y_tileA,
         int x_tileB, int y_tileB)
     {
         int distance = 0;
-        bool targetTileFound = false;
-
-
-        /// will contain all tiles that can be considered as path points.
-        List<TileCoordinates> openList = new List<TileCoordinates>();
-
-        /// will contain all tiles that have already been considered.
-        List<TileCoordinates> closedList = new List<TileCoordinates>();
-
-        // path to destination
-        List<TileCoordinates> path = new List<TileCoordinates>();
-
-        // STEP 1 - check the origin tile
-        if (x_tileA == x_tileB && y_tileA == y_tileB)
-            // destination is same as origin
-            return 0;
-
-        TileCoordinates originTile = new TileCoordinates(x_tileA, x_tileB);
-        openList.Add(originTile);
-        closedList.Add(originTile);
-        path.Add(originTile);
-
-
-        /// 2) Add this tile to the closed list.
-        /// 3) For every walkable adjacent tile of this tile:
-        ///     - If an adjacent tile is in the closed list – ignore it.
-        ///     - If an adjacent tile is not in the open list – add it to the open list.
-        ///     - If an adjacent tile is already in the open list – check if its F parameter 
-        ///       will be lower when we use the current path, if it is – update the adjacent tile parameters.
-        /// 
-
-        // STEP 2 - GET ALL NEIGHBORS
-        List<TileCoordinates> adjacentCoordinates = GetAdjacentTileCoordinates(originTile.x, originTile.y);
-
-        foreach (TileCoordinates adjacentCoordinate in adjacentCoordinates)
-        {
-
-            bool isInClosedList = false;
-            bool isInOpenList = false;
-
-            // neighbor in closed list - ignore
-            foreach (TileCoordinates closedCoordinate in closedList)
-            {
-                if (closedCoordinate.x == adjacentCoordinate.x 
-                    && closedCoordinate.y == adjacentCoordinate.y)
-                {
-                    isInClosedList = true;
-                    break;
-                }
-            }
-            if (isInClosedList)
-                break;
-
-            // check if neighbor is in open list
-            foreach (TileCoordinates openCoordinate in openList)
-            {
-                if (openCoordinate.x == adjacentCoordinate.x
-                    && openCoordinate.x == adjacentCoordinate.y)
-                {
-                    isInOpenList = true;
-                    break;
-                }
-            }
-            // neighbor not in open list - add to open list
-            if (!isInOpenList)
-            {
-                openList.Add(adjacentCoordinate);
-                break;
-            }
-
-            // neighbor in open list - check F. If it is better than current path, update adjacent tile parameteres
-        }
-
-
-
-
+        
         /*
-         *  b X is bigger - tile is located to south/ southeast
-         *  b X is smaller - tile is located to north/ northwest
-         *  
-         *  b Y is bigger - tile is located north/ northeast
-         *  b Y is smaller - tile is located south/ southwest
+         * distance 
+         * - x constant = yDiff
+         * - y constant = xDiff
+         * 
+         * - both x & y change in same directioj = 
+         * 
+         * = both increase/decrease (identical increase * 2) + max(remainingXdiff, remainingYDiff) <- THIS WORKS???
          */
 
-        // 
+        int xDiff = x_tileA - x_tileB;
+        int yDiff = y_tileA - y_tileB;
 
-        
+        int xAbs = Mathf.Abs(xDiff);
+        int yAbs = Mathf.Abs(yDiff);
 
-        return distance;
+        int horizontalDistance = 0; // 1 horizontal distance = 2 tiles 
+        int verticalDistance = 0;   // 1 vertical distance   = 1 tile
+
+        // check for horizontal distance
+        if (xDiff < 0 && yDiff < 0 ||
+            xDiff > 0 && yDiff > 0)
+        {
+            Debug.Log("there's horizontal movement component");
+            horizontalDistance = Mathf.Min(xAbs, yAbs);
+        }
+
+        // calculate vertical distance
+        verticalDistance = Mathf.Max(xAbs, yAbs) - horizontalDistance;
+
+        // total distance
+        distance = verticalDistance + horizontalDistance * 2;
+        Debug.Log("Vertical dist " + verticalDistance + ". Horizontal distance " + horizontalDistance + ". Total distance: " + distance + " tiles");
+
+
+            #region old stuff
+            /*
+            /// <summary>
+            /// 
+            /// Will include A* pathfinding based on this
+            /// https://blog.theknightsofunity.com/pathfinding-on-a-hexagonal-grid-a-algorithm/
+            /// 
+            /// ---- TILE PROPERTIES ---- 
+            /// G - current movement cost from starting tile to current considered tile
+            /// 
+            /// H - estimated movement cost from current cosidered tile to target tile
+            /// on rectangular grid H = |x1 – x2| + |y1 – y2| 
+            /// 
+            /// F = G + H
+            /// 
+            /// --- TILE LISTS ---
+            /// - Open list - will contain all tiles that can be considered as path points.
+            /// - Closed list - will contain all tiles that have already been considered.
+            /// 
+            /// ---- ALGORITHM ---- 
+            /// 1) Take a tile from the open list.
+            /// 2) Add this tile to the closed list.
+            /// 3) For every walkable adjacent tile of this tile:
+            ///     - If an adjacent tile is in the closed list – ignore it.
+            ///     - If an adjacent tile is not in the open list – add it to the open list.
+            ///     - If an adjacent tile is already in the open list – check if its F parameter 
+            ///       will be lower when we use the current path, if it is – update the adjacent tile parameters.
+            /// 
+            /// </summary>
+            bool targetTileFound = false;
+            /// will contain all tiles that can be considered as path points.
+            List<TileCoordinates> openList = new List<TileCoordinates>();
+
+            /// will contain all tiles that have already been considered.
+            List<TileCoordinates> closedList = new List<TileCoordinates>();
+
+            // path to destination
+            List<TileCoordinates> path = new List<TileCoordinates>();
+
+            // STEP 1 - check the origin tile
+            if (x_tileA == x_tileB && y_tileA == y_tileB)
+                // destination is same as origin
+                return 0;
+
+            TileCoordinates originTile = new TileCoordinates(x_tileA, x_tileB);
+            openList.Add(originTile);
+            closedList.Add(originTile);
+            path.Add(originTile);
+
+
+            /// 2) Add this tile to the closed list.
+            /// 3) For every walkable adjacent tile of this tile:
+            ///     - If an adjacent tile is in the closed list – ignore it.
+            ///     - If an adjacent tile is not in the open list – add it to the open list.
+            ///     - If an adjacent tile is already in the open list – check if its F parameter 
+            ///       will be lower when we use the current path, if it is – update the adjacent tile parameters.
+            /// 
+
+            // STEP 2 - GET ALL NEIGHBORS
+            List<TileCoordinates> adjacentCoordinates = GetAdjacentTileCoordinates(originTile.x, originTile.y);
+
+            foreach (TileCoordinates adjacentCoordinate in adjacentCoordinates)
+            {
+
+                bool isInClosedList = false;
+                bool isInOpenList = false;
+
+                // neighbor in closed list - ignore
+                foreach (TileCoordinates closedCoordinate in closedList)
+                {
+                    if (closedCoordinate.x == adjacentCoordinate.x 
+                        && closedCoordinate.y == adjacentCoordinate.y)
+                    {
+                        isInClosedList = true;
+                        break;
+                    }
+                }
+                if (isInClosedList)
+                    break;
+
+                // check if neighbor is in open list
+                foreach (TileCoordinates openCoordinate in openList)
+                {
+                    if (openCoordinate.x == adjacentCoordinate.x
+                        && openCoordinate.x == adjacentCoordinate.y)
+                    {
+                        isInOpenList = true;
+                        break;
+                    }
+                }
+                // neighbor not in open list - add to open list
+                if (!isInOpenList)
+                {
+                    openList.Add(adjacentCoordinate);
+                    break;
+                }
+
+                // neighbor in open list - check F. If it is better than current path, update adjacent tile parameteres
+            }
+
+            /*
+             *  b X is bigger - tile is located to south/ southeast
+             *  b X is smaller - tile is located to north/ northwest
+             *  
+             *  b Y is bigger - tile is located north/ northeast
+             *  b Y is smaller - tile is located south/ southwest
+             */
+            #endregion
+
+
+            return distance;
     }
 
     /// <summary>

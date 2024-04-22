@@ -8,7 +8,7 @@ public class EndTurnButton_Simanis : MonoBehaviour
     public GameObject endButtonTeam0;
     public GameObject endButtonTeam1;
 
-    private void Awake()
+    private void Start()
     {
         endButtonTeam0.SetActive(true);
         endButtonTeam1.SetActive(true);
@@ -30,7 +30,10 @@ public class EndTurnButton_Simanis : MonoBehaviour
     public void EndTurn()
     {
         //Debug.Log("yay");
-        Network.instance.EndMove();
+        if (CenturionGame.Instance.UseNetwork)
+            Network.instance.EndMove();
+        else
+            CenturionGame.Instance.EndTurn();
     }
 }
 

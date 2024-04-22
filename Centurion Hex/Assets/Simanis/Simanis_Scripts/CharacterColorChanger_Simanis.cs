@@ -51,7 +51,7 @@ public class CharacterColorChanger_Simanis : MonoBehaviour
         DOTween.To(() => startAlpha, x => startAlpha = x, 0, fadeDuration)
             .OnUpdate(()=>
             {
-                Debug.Log("fading to transparent  " + startAlpha);
+               // Debug.Log("fading to transparent  " + startAlpha);
                 currColor.a = startAlpha;
                 spriteRenderer.color = currColor;
             }).

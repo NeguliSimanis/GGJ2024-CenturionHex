@@ -1218,7 +1218,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Centurion Hex
+  m_text: Glorious Hex
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cc181c6afc37ea84ead1a347690a8f9f, type: 2}
   m_sharedMaterial: {fileID: 7537458324049412484, guid: cc181c6afc37ea84ead1a347690a8f9f,

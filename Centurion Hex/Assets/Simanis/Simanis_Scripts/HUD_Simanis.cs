@@ -375,7 +375,7 @@ public class HUD_Simanis : MonoBehaviour
                 // check if is enemy
                 if (!raycastInteract.buildingVisualControl.IsMyBuilding())
                 {
-                    Debug.Log("todo attack building");
+                    //Debug.Log("todo attack building");
                     interactionTarget = raycastInteract;
                     raycastInteract.SetHighlight(true);
                     customCursor.SetCursor(true, CursorAction.attack);

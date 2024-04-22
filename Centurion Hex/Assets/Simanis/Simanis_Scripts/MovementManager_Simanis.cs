@@ -17,7 +17,7 @@ public class MovementManager_Simanis : MonoBehaviour
 
     public void HurtCharacter()
     {
-        Debug.Log("Attempting to wound character");
+        Debug.Log("Attempting to wound character " + centurionGame.lastHurtCharacter.type);
         Character charToWound = centurionGame.lastHurtCharacter;
         //for (int i = 0; i < spawner.allCharacters.Count; i++)
         //{
