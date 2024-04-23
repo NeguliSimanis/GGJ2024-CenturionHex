@@ -133,7 +133,6 @@ public class TileSpawner_Simanis : MonoBehaviour
     public void SpawnTiles()
     {   
         centurionBoard = centurionGame.Board;
-
         CleanOldBoard();
 
         // Get the dimensions of the array
@@ -160,7 +159,6 @@ public class TileSpawner_Simanis : MonoBehaviour
                     SpawnTileVisual(new Vector3(i * tileHeight, 0, j* tileWidth), 
                         currTile, row: i, collumn: j,
                         parent: rowParents[j].transform);
-                // Do something with the element (e.g., print it)
                // Debug.Log("Element at position (" + i + ", " + j + "): " + currTile);
             }
         }

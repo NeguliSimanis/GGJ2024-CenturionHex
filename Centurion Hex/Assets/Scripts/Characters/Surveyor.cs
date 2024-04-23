@@ -17,6 +17,7 @@ namespace Assets.Scripts.Characters
             InitialHealth = 1;
             Health = InitialHealth;
             isWarUnit = false;
+            type = CharacterType.ctSurveyor;
         }
     }
 }

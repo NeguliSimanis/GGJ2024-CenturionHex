@@ -45,22 +45,30 @@ public class FakeNetwork_Simanis : MonoBehaviour
     {
         switch(roundState)
         {
+            // WAS GENERATING WEALTH
             case CenturionGame.RoundState.rsGeneratingWealth:
                 SP_StartTurnPhase();
                 return;
                 break;
+           // WAS MOVING CHARACTERS
             case CenturionGame.RoundState.rsMovingCharacters:
-                Debug.Log("was movement phase now managmenet");
+                //Debug.Log("was movement phase now managmenet");
                 roundState = CenturionGame.RoundState.rsManagement;
                 SP_StartTurnPhase();
                 return;
                 break;
+            // WAS MANAGEMENT
             case CenturionGame.RoundState.rsManagement:
                 Debug.Log("was movement phase now moving");
+
+                if (isWarTurn && isEnemyTurn || isCivilTurn && isEnemyTurn)
+                {
+                    isWarTurn = !isWarTurn;
+                    isCivilTurn = !isCivilTurn;
+                }
                 isAllyTurn = !isAllyTurn;
                 isEnemyTurn = !isEnemyTurn;
-                isWarTurn = !isWarTurn;
-                isCivilTurn = !isCivilTurn;
+
                 roundState = CenturionGame.RoundState.rsMovingCharacters;
                 SP_StartTurnPhase();
                 return;

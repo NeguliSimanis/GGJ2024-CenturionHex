@@ -394,6 +394,7 @@ public class HUD_Simanis : MonoBehaviour
         oldHighlight = raycastInteract;
         raycastInteract.SetHighlight(true, highlightType: RaycastInteract.HighlightType.MoveUnit);
         currSelection = raycastInteract.type;
+        Debug.Log("selected unit " + raycastInteract.characterVisualControl.character.Name);
     }
 
     public void UpdateTeamWealth()

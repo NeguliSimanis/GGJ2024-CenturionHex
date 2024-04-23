@@ -106,7 +106,10 @@ public class CenturionGame : MonoBehaviour
         if (UseNetwork)
             Network.instance.DebugEndMove();
         else
+        {
+            FakeNetwork_Simanis.Instance.SP_EndTurnPhase();
             Debug.Log("TODO: SINGLE PLAYER END TURN");
+        }
     }
 
     public void EndTurn()
@@ -114,7 +117,10 @@ public class CenturionGame : MonoBehaviour
         if (UseNetwork)
             Network.instance.EndMove();
         else
+        {
+            FakeNetwork_Simanis.Instance.SP_EndTurnPhase();
             Debug.Log("TODO SINGLE PLAYER END TURN");
+        }
     }
 
     public Building GetBoardBuilding(uint id)
@@ -255,11 +261,18 @@ public class CenturionGame : MonoBehaviour
         RedMove = StartWithRed = true;
     }
 
-    public void Start()
+    public void Awake()
     {
         if (!UseNetwork)//add some stuff on board if not using network
         {
             addInitialCharacters();
+        }
+    }
+
+    private void Start()
+    {
+        if (!UseNetwork)//add some stuff on board if not using network
+        {
             onGameReload.Invoke();
         }
 #if UNITY_EDITOR
