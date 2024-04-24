@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 public class HUD_Simanis : MonoBehaviour
 {
 
-    public CenturionGame centurionGame;
     public static HUD_Simanis instance;
     [HideInInspector]
     public AnnouncementUi_Simanis announcement_UI;
@@ -100,11 +99,11 @@ public class HUD_Simanis : MonoBehaviour
     public bool IsMyTurn()
     {
         bool isMy = false;
-        if (centurionGame.RedMove && centurionGame.PlayingAsRed)
+        if (CenturionGame.Instance.RedMove && CenturionGame.Instance.PlayingAsRed)
         {
             isMy = true;
         }
-        if (!centurionGame.RedMove && !centurionGame.PlayingAsRed)
+        if (!CenturionGame.Instance.RedMove && !CenturionGame.Instance.PlayingAsRed)
         {
             isMy = true;
         }
@@ -114,7 +113,7 @@ public class HUD_Simanis : MonoBehaviour
     public bool IsManagementPhase()
     {
         bool isManagePhase = false;
-        if (centurionGame.mRoundState == CenturionGame.RoundState.rsManagement)
+        if (CenturionGame.Instance.mRoundState == CenturionGame.RoundState.rsManagement)
             isManagePhase = true;
         return isManagePhase;
    }
@@ -144,9 +143,9 @@ public class HUD_Simanis : MonoBehaviour
             {
                 Building curBuilding = buildingVisual.building;
 
-                if (centurionGame.PlayingAsRed && curBuilding.Team == centurionGame.Teams[0])
+                if (CenturionGame.Instance.PlayingAsRed && curBuilding.Team == CenturionGame.Instance.Teams[0])
                     myBuildingVisuals.Add(buildingVisual);
-                if (!centurionGame.PlayingAsRed && curBuilding.Team == centurionGame.Teams[1])
+                if (!CenturionGame.Instance.PlayingAsRed && curBuilding.Team == CenturionGame.Instance.Teams[1])
                     myBuildingVisuals.Add(buildingVisual);
             }
 
@@ -262,9 +261,9 @@ public class HUD_Simanis : MonoBehaviour
             {
                 senate = buildingVisual.building;
 
-                if (centurionGame.PlayingAsRed && senate.Team == centurionGame.Teams[0])
+                if (CenturionGame.Instance.PlayingAsRed && senate.Team == CenturionGame.Instance.Teams[0])
                     mySenate = buildingVisual;
-                if (!centurionGame.PlayingAsRed && senate.Team == centurionGame.Teams[1])
+                if (!CenturionGame.Instance.PlayingAsRed && senate.Team == CenturionGame.Instance.Teams[1])
                     mySenate = buildingVisual;
             }
         }
@@ -394,33 +393,33 @@ public class HUD_Simanis : MonoBehaviour
         oldHighlight = raycastInteract;
         raycastInteract.SetHighlight(true, highlightType: RaycastInteract.HighlightType.MoveUnit);
         currSelection = raycastInteract.type;
-        Debug.Log("selected unit " + raycastInteract.characterVisualControl.character.Name);
+        Debug.Log("selected unit " + oldHighlight.characterVisualControl.character.Name);
     }
 
     public void UpdateTeamWealth()
     {
-        if (centurionGame.PlayingAsRed)
+        if (CenturionGame.Instance.PlayingAsRed)
         {
-            goldAllyTeam.text = centurionGame.Teams[0].Gold.ToString();
-            goldEnemyTeam.text = centurionGame.Teams[1].Gold.ToString();
+            goldAllyTeam.text = CenturionGame.Instance.Teams[0].Gold.ToString();
+            goldEnemyTeam.text = CenturionGame.Instance.Teams[1].Gold.ToString();
         }
         else
         {
-            goldAllyTeam.text = centurionGame.Teams[1].Gold.ToString();
-            goldEnemyTeam.text = centurionGame.Teams[0].Gold.ToString();
+            goldAllyTeam.text = CenturionGame.Instance.Teams[1].Gold.ToString();
+            goldEnemyTeam.text = CenturionGame.Instance.Teams[0].Gold.ToString();
         }
     }
     public void UpdateTeamVictoryPoints()
     {
-        if (centurionGame.PlayingAsRed)
+        if (CenturionGame.Instance.PlayingAsRed)
         {
-            vicPointsAlly.text = centurionGame.Teams[0].VictoryPoints.ToString();
-            vicPointsEnemy.text = centurionGame.Teams[1].VictoryPoints.ToString();
+            vicPointsAlly.text = CenturionGame.Instance.Teams[0].VictoryPoints.ToString();
+            vicPointsEnemy.text = CenturionGame.Instance.Teams[1].VictoryPoints.ToString();
         }
         else
         {
-            vicPointsAlly.text = centurionGame.Teams[1].VictoryPoints.ToString();
-            vicPointsEnemy.text = centurionGame.Teams[0].VictoryPoints.ToString();
+            vicPointsAlly.text = CenturionGame.Instance.Teams[1].VictoryPoints.ToString();
+            vicPointsEnemy.text = CenturionGame.Instance.Teams[0].VictoryPoints.ToString();
         }
     }
 
@@ -436,13 +435,13 @@ public class HUD_Simanis : MonoBehaviour
 
     public void ShowGameFinished()
     {
-        WinnerText.text = "Winning team is " + ( centurionGame.WinnerTeam == Team.TeamType.ttRed ? "Red" : "Blue" ) + " team";
+        WinnerText.text = "Winning team is " + (CenturionGame.Instance.WinnerTeam == Team.TeamType.ttRed ? "Red" : "Blue" ) + " team";
         WinnerUI.SetActive(true);
     }
 
     public void UpdateTurnIDs()
     {
-        if (centurionGame.PlayingAsRed)
+        if (CenturionGame.Instance.PlayingAsRed)
         {
             //redTeamIdentifier.text = redTeamIdentifierText;
             //blueTeamIdentifier.text = blueTeamIdentifierTextEnemy;
@@ -487,12 +486,15 @@ public class HUD_Simanis : MonoBehaviour
 
     private void TryToMoveToTile()
     {
-        Debug.Log("try to move to ");
+        
 
         // char id  oldHighlight.type == RaycastInteract.Type.Character
         uint id = 0;
         if (oldHighlight)
+        {
+            Debug.Log("Has old highlight " + oldHighlight.characterVisualControl.character.Name);
             id = oldHighlight.characterVisualControl.character.id;
+        }
         else
             ClearHighlights();
 
@@ -509,6 +511,8 @@ public class HUD_Simanis : MonoBehaviour
         }
         else
         {
+            Debug.Log("try to move  " + CenturionGame.Instance.GetCharacter(id).Name);
+
             FakeNetwork_Simanis.Instance.SP_MoveCharacter(
                 characterId: id,
                 x: xPos,
@@ -693,8 +697,9 @@ public class HUD_Simanis : MonoBehaviour
         string bigAnnounceString = "turn";
         string smallAnnounceString = " war/civil x phase";
 
+        //return;
         // general
-        if (centurionGame.GeneralMove)
+        if (CenturionGame.Instance.GeneralMove)
         {
             generalOrGovernorText.text = "General Turn";
             smallAnnounceString = "War ";
@@ -709,9 +714,9 @@ public class HUD_Simanis : MonoBehaviour
         }
 
         // TEAM 1
-        if (centurionGame.RedMove)
+        if (CenturionGame.Instance.RedMove)
         {
-            if (centurionGame.PlayingAsRed)
+            if (CenturionGame.Instance.PlayingAsRed)
             {
                 endTurnButton.gameObject.SetActive(true);
                 endTurnButton.endButtonTeam0.SetActive(true);
@@ -730,7 +735,7 @@ public class HUD_Simanis : MonoBehaviour
         else
         {
             // im playing as blue and is blue turn
-            if (!centurionGame.PlayingAsRed)
+            if (!CenturionGame.Instance.PlayingAsRed)
             {
                 endTurnButton.gameObject.SetActive(true);
                 endTurnButton.endButtonTeam1.SetActive(true);
@@ -746,15 +751,15 @@ public class HUD_Simanis : MonoBehaviour
                 bigAnnounceString = "Enemy Turn";
             }
         }
-        switch (centurionGame.mRoundState)
+        switch (CenturionGame.Instance.mRoundState)
         {
             case CenturionGame.RoundState.rsManagement:
-                teamTurnText.text += " - Management phase";
-                smallAnnounceString += "management phase";
+                teamTurnText.text += " - Management";
+                smallAnnounceString += "management";
                 break;
             default:
-                teamTurnText.text += " - Movement phase";
-                smallAnnounceString += "movement phase";
+                teamTurnText.text += " - Movement";
+                smallAnnounceString += "movement";
                 break;
         }
         if (announcement_UI != null)

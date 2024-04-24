@@ -9,12 +9,16 @@ public class CharacterFactory
 {
     public static Character CreateCharacter( Character.CharacterType characterType )
     {
-        switch( characterType )
+        switch (characterType)
         {
             case Character.CharacterType.ctScout:
-                return new Scout();
+                {
+                    return new Scout();
+                }
             case Character.CharacterType.ctSurveyor:
-                return new Surveyor();
+                {
+                    return new Surveyor();
+                }
         }
         return null;
     }

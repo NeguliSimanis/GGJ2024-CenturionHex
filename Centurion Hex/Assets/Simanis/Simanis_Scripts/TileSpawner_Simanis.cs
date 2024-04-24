@@ -209,7 +209,7 @@ public class TileSpawner_Simanis : MonoBehaviour
         characterVisual.SetLifeUI();
         allCharacters.Add(characterVisual);
 
-        Debug.Log("spawnin " + tile.currentCharacter.type);
+        Debug.Log("spawnin " + tile.currentCharacter.type + ". ID " + tile.currentCharacter.id);
     }
 
     public void ProcessAditionalStepsAdded()

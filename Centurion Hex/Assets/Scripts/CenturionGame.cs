@@ -108,7 +108,6 @@ public class CenturionGame : MonoBehaviour
         else
         {
             FakeNetwork_Simanis.Instance.SP_EndTurnPhase();
-            Debug.Log("TODO: SINGLE PLAYER END TURN");
         }
     }
 
@@ -119,7 +118,6 @@ public class CenturionGame : MonoBehaviour
         else
         {
             FakeNetwork_Simanis.Instance.SP_EndTurnPhase();
-            Debug.Log("TODO SINGLE PLAYER END TURN");
         }
     }
 
@@ -302,6 +300,9 @@ public class CenturionGame : MonoBehaviour
 
     public void LoadFromNetwork(ByteArray data)
     {
+        if (!UseNetwork)
+            return;
+
         ResetGame();
 
         StartWithRed = data.readBoolean();
@@ -403,12 +404,15 @@ public class CenturionGame : MonoBehaviour
     }
 
     //for internal use
+    uint lastCharID = 0;
     private void addCharacter(Character.CharacterType charType, byte x, byte y, Team.TeamType team, Character.CharacterState state)
     {
         Character unit = CharacterFactory.CreateCharacter(charType);
         unit.x = x;
         unit.y = y;
         unit.state = state;
+        unit.id = lastCharID;
+        lastCharID++;
 
         addCharacter(unit, team);
     }

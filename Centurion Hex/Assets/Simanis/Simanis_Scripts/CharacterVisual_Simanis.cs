@@ -88,7 +88,7 @@ public class CharacterVisual_Simanis : MonoBehaviour
         colorChanger = activePrefab.GetComponent<CharacterColorChanger_Simanis>();
 
         int teamID = GetTeamColorID();
-        Debug.Log("im playing as red " + CenturionGame.Instance.PlayingAsRed + "");
+        //Debug.Log("im playing as red " + CenturionGame.Instance.PlayingAsRed + "");
         colorChanger.ChangeColor(teamID);
     }
 

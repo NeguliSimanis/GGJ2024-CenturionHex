@@ -97,7 +97,7 @@ public class Board
         if (xDiff < 0 && yDiff < 0 ||
             xDiff > 0 && yDiff > 0)
         {
-            Debug.Log("there's horizontal movement component");
+            //Debug.Log("there's horizontal movement component");
             horizontalDistance = Mathf.Min(xAbs, yAbs);
         }
 

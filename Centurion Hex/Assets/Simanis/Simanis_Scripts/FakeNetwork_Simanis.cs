@@ -104,6 +104,21 @@ public class FakeNetwork_Simanis : MonoBehaviour
     public void SP_MoveCharacter(uint characterId, int x, int y)
     {
         Character character = CenturionGame.Instance.GetBoardCharacter(characterId);
+        Debug.Log("is war turn " + isWarTurn +". is war unit " + character.isWarUnit);
+        
+
+        // allow moving war chars only in war turn
+        if (character.isWarUnit && !isWarTurn)
+        {
+            Debug.Log("cannot move its not war turn");
+            return;
+        }
+
+        if (!character.isWarUnit && !isCivilTurn)
+        {
+            Debug.Log("cannot move its not civil turn");
+            return;
+        }
 
         int distanceBetweenTiles = CenturionGame.Instance.Board.DistanceBetweenTiles(
            character.x, character.y,

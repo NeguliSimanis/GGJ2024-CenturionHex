@@ -14,12 +14,10 @@ public class CharacterColorChanger_Simanis : MonoBehaviour
     {
         if (teamID == 0)
         {
-            Debug.Log("coloring me yellow");
             spriteRenderer.material = team0Material;
         }
         else
         {
-            Debug.Log("coloring me grey");
             spriteRenderer.material = team1Material;
         }
     }
