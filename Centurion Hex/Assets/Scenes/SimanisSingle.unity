@@ -257,18 +257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d48352b022e7714f8d6fde4f890e353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1207923870 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1211224287144603758, guid: ca4a4697be38af44f9648b75673e3bcd,
-    type: 3}
-  m_PrefabInstance: {fileID: 1211224286118479088}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1826713906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c7f4f2d94dbf6b4f8550664f1ff4414, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1207923871 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1211224287144603759, guid: ca4a4697be38af44f9648b75673e3bcd,
@@ -581,7 +569,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1207923870}
+      objectReference: {fileID: 0}
     - target: {fileID: 959313978853605798, guid: 96d747d45b4e63244b082a5fc9ef97fd,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -916,7 +904,8 @@ PrefabInstance:
       propertyPath: generalOrGovernorText
       value: 
       objectReference: {fileID: 1865560907}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1211224287144603758, guid: ca4a4697be38af44f9648b75673e3bcd, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ca4a4697be38af44f9648b75673e3bcd, type: 3}
 --- !u!114 &5175979424522488573 stripped
 MonoBehaviour:

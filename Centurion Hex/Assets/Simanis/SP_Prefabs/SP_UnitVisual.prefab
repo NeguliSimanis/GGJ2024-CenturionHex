@@ -2691,8 +2691,9 @@ GameObject:
   - component: {fileID: 7285571505188909723}
   - component: {fileID: 7285571505188909722}
   - component: {fileID: 86619283}
+  - component: {fileID: 8188029714926973310}
   m_Layer: 0
-  m_Name: UnitVisual
+  m_Name: SP_UnitVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2786,7 +2787,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7285571505188909700}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 674377f18e930ef468b964e052b153c8, type: 3}
   m_Name: 
@@ -2846,6 +2847,25 @@ MonoBehaviour:
   scaleAnimationTarget: {fileID: 2416449462290196619}
   deathAnimationDuration: 0.8
   deathAnimationHeight: 1.2
+--- !u!114 &8188029714926973310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7285571505188909700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b152c3c39a03604a920f32a1d1bda45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMyUnit: 1
+  x: 0
+  y: 0
+  parentTile: {fileID: 0}
+  selectAnimation: {fileID: 8544414987852873647}
+  moveDuration: 0.8
+  moveEase: 7
 --- !u!1 &7407187793176888748
 GameObject:
   m_ObjectHideFlags: 0

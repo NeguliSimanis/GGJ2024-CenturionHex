@@ -7,14 +7,15 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: HexagonsShared Transparent
+  m_Name: HexagonsShared Click highlgiht
   m_Shader: {fileID: 47, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords:
   - _ALPHAPREMULTIPLY_ON
+  - _EMISSION
   - _GLOSSYREFLECTIONS_OFF
   m_InvalidKeywords:
   - _SEGMENTED_ON
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
@@ -99,8 +100,8 @@ Material:
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 0, g: 1, b: 0.82566833, a: 0.5803922}
-    - _EmissionColor: {r: 0.17377181, g: 0.6223642, b: 0.6698113, a: 1}
+    - _Color: {r: 0.003826994, g: 0.64270544, b: 0.8113208, a: 0.5803922}
+    - _EmissionColor: {r: 0.45535958, g: 1.645504, b: 1.7696929, a: 1}
     - _OtlColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShnColor: {r: 1, g: 1, b: 0, a: 1}
   m_BuildTextureStacks: []

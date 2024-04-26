@@ -96,11 +96,13 @@ public class CharacterVisual_Simanis : MonoBehaviour
     {
         if (markAsInactive)
         {
+            Debug.Log("marking as SLEEPY " + character.Name + ". This is my character: " + IsMyUnit());
             zzzAnimation.SetActive(true);
            // speedParent.gameObject.SetActive(false);
         }
         else
         {
+            Debug.Log("marking as not sleepy, ACTIVE " + character.Name + ". This is my character: " + IsMyUnit());
             zzzAnimation.SetActive(false);
             //speedParent.gameObject.SetActive(true);
         }

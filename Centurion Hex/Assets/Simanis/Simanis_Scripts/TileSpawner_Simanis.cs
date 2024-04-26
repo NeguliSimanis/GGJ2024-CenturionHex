@@ -67,10 +67,11 @@ public class TileSpawner_Simanis : MonoBehaviour
     {
         foreach (CharacterVisual_Simanis charVisual in allCharacters)
         {
-            // not my turn - mark all my units as inactive
+            // not my turn - mark all my units as ZZZ
             if (charVisual.IsMyUnit()
                 && !HUD_Simanis.instance.IsMyTurn())
             {
+                Debug.Log(charVisual.character.Name + " my unit, not my turn - SLEEP");
                 charVisual.MarkUnitAsInactive(true);
                 continue;
             }
@@ -81,9 +82,11 @@ public class TileSpawner_Simanis : MonoBehaviour
             {
                 // NORMAL COLOR WAR UNITS
                 if (charVisual.IsWarUnit() && centurionGame.mRoundState == CenturionGame.RoundState.rsMovingCharacters)
+                {
+                    Debug.Log(charVisual.character.Name + " my unit, is war unit, is war turn - NOT SLEEP");
                     charVisual.MarkUnitAsInactive(false);
-
-                // COLOR GREY CIVIL UNITS
+                }
+                // ZZZZ CIVIL UNITS
                 else
                     charVisual.MarkUnitAsInactive(true);
             }
@@ -97,7 +100,7 @@ public class TileSpawner_Simanis : MonoBehaviour
                 if (!charVisual.IsWarUnit() && centurionGame.mRoundState == CenturionGame.RoundState.rsMovingCharacters)
                     charVisual.MarkUnitAsInactive(false);
 
-                //  COLOR GREY WAR UNITS
+                //  ZZZ WAR UNITS
                 else
                     charVisual.MarkUnitAsInactive(true);
 
@@ -163,9 +166,6 @@ public class TileSpawner_Simanis : MonoBehaviour
             }
         }
 
-        // COLOR UNITS GREY/NORMAL DEPENDING ON ROUND PHASE
-        MarkInactiveUnits();
-
         // align the rows
         int oldAddedX = 0;// -1 removed | 0 -undefined | +1 added
         for (int i = 0; i < rows; i++)
@@ -176,6 +176,9 @@ public class TileSpawner_Simanis : MonoBehaviour
                 oldPos.z + rowOffsetZ*i);
         }
         RotateBoard();
+
+        // COLOR UNITS GREY/NORMAL DEPENDING ON ROUND PHASE
+        MarkInactiveUnits();
     }
 
     /// <summary>
