@@ -6,6 +6,7 @@ using DG.Tweening;
 public class FakeNetwork_Simanis : MonoBehaviour
 {
     public static FakeNetwork_Simanis Instance { get; private set; }
+    public CenturionGame centurionGame;
 
     [Header("turn managment")]
     public float turnDuration = 30f;
@@ -19,21 +20,17 @@ public class FakeNetwork_Simanis : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-    }
-
-    private void Start()
-    {
-        if (CenturionGame.Instance.UseNetwork)
-            return;
         roundState = CenturionGame.RoundState.rsMovingCharacters;
         SP_StartTurnPhase();
     }
 
+    private void Start()
+    {
+        
+    }
+
     private void FixedUpdate()
     {
-        if (CenturionGame.Instance.UseNetwork)
-            return;
-
         if (Time.time > turnStartTime + turnDuration)
         {
             SP_EndTurnPhase();
@@ -82,7 +79,7 @@ public class FakeNetwork_Simanis : MonoBehaviour
 
     private void SP_StartTurnPhase()
     {
-        CenturionGame.Instance.OnRoundUpdate(
+        centurionGame.OnRoundUpdate(
             _RedMove: isAllyTurn,
             _GeneralMove: isWarTurn,
             _roundState: roundState,
@@ -95,7 +92,7 @@ public class FakeNetwork_Simanis : MonoBehaviour
     public int CalculateStepsUsed(int targetX, int targetY)
     {
         int stepsUsed = 1;
-        Tile targetTile = CenturionGame.Instance.Board.GetTile(targetX, targetY);
+        Tile targetTile = centurionGame.Board.GetTile(targetX, targetY);
         if (targetTile.tileType == Tile.TileType.ttSlow)
             stepsUsed = 2;
         return stepsUsed;
@@ -103,7 +100,7 @@ public class FakeNetwork_Simanis : MonoBehaviour
 
     public void SP_MoveCharacter(uint characterId, int x, int y)
     {
-        Character character = CenturionGame.Instance.GetBoardCharacter(characterId);
+        Character character = centurionGame.GetBoardCharacter(characterId);
         Debug.Log("is war turn " + isWarTurn +". is war unit " + character.isWarUnit);
         
 
@@ -130,18 +127,18 @@ public class FakeNetwork_Simanis : MonoBehaviour
         int speedUsed = character.StepsUsed + CalculateStepsUsed(x, y);
 
         // MOVE CHARACTER 
-        CenturionGame.Instance.OnCharacterMoved(
+        centurionGame.OnCharacterMoved(
             characterId: characterId,
             x,
             y,
             stepsUsed: speedUsed);
 
         // DISCOVER TILE
-        Tile targetTile = CenturionGame.Instance.Board.GetTile(x, y);
+        Tile targetTile = centurionGame.Board.GetTile(x, y);
         if (!TileSpawner_Simanis.instance.GetTileVisual(targetTile).isDiscovered)
         {
             Debug.Log("discovering tile");
-            CenturionGame.Instance.OnTileCovered(
+            centurionGame.OnTileCovered(
                 x,
                 y, 
                 targetTile.tileCover.Type,
@@ -152,12 +149,12 @@ public class FakeNetwork_Simanis : MonoBehaviour
     public void SP_HurtTile(uint characterId, int x, int y)
     {
         // get attacking char info
-        Character attackingCharacter = CenturionGame.Instance.GetBoardCharacter(characterId);
+        Character attackingCharacter = centurionGame.GetBoardCharacter(characterId);
         int attackRange = attackingCharacter.AttackRange;
         Debug.Log(attackingCharacter.type + " is attacking!");
 
         // get if target tile has any valid targets
-        Tile targetTile = CenturionGame.Instance.Board.GetTile(x, y);
+        Tile targetTile = centurionGame.Board.GetTile(x, y);
         if (targetTile.IsEmpty())
         {
             Debug.Log("cannot attack, target tile is empty");
@@ -165,10 +162,10 @@ public class FakeNetwork_Simanis : MonoBehaviour
         }
 
         // origin tile info
-        Tile originTile = CenturionGame.Instance.Board.GetTile(attackingCharacter.x, attackingCharacter.y);
+        Tile originTile = centurionGame.Board.GetTile(attackingCharacter.x, attackingCharacter.y);
 
         // 
-        int distanceBetweenTiles = CenturionGame.Instance.Board.DistanceBetweenTiles(
+        int distanceBetweenTiles = centurionGame.Board.DistanceBetweenTiles(
             attackingCharacter.x, attackingCharacter.y,
             x, y);
 
@@ -188,7 +185,7 @@ public class FakeNetwork_Simanis : MonoBehaviour
 
 
                 Debug.Log("attempting to hurt " + targetChar.type + " Target remaining hp: " + targetHealth);
-                CenturionGame.Instance.OnCharacterHurt(charid: targetChar.id,
+                centurionGame.OnCharacterHurt(charid: targetChar.id,
                     health: targetHealth,
                     reason: attackingCharacter.id);
             }
@@ -198,7 +195,7 @@ public class FakeNetwork_Simanis : MonoBehaviour
                 Building targetBuilding = targetTile.currentBuilding;
                 int targetHealth = targetBuilding.Health - attackingCharacter.AttackDamage;
 
-                CenturionGame.Instance.OnBuildingHurt(targetBuilding.id,
+                centurionGame.OnBuildingHurt(targetBuilding.id,
                     health: targetHealth,
                     reason: attackingCharacter.id);
             }

@@ -71,7 +71,7 @@ public class TileSpawner_Simanis : MonoBehaviour
             if (charVisual.IsMyUnit()
                 && !HUD_Simanis.instance.IsMyTurn())
             {
-                Debug.Log(charVisual.character.Name + " my unit, not my turn - SLEEP");
+                //Debug.Log(charVisual.character.Name + " my unit, not my turn - SLEEP");
                 charVisual.MarkUnitAsInactive(true);
                 continue;
             }
@@ -83,7 +83,7 @@ public class TileSpawner_Simanis : MonoBehaviour
                 // NORMAL COLOR WAR UNITS
                 if (charVisual.IsWarUnit() && centurionGame.mRoundState == CenturionGame.RoundState.rsMovingCharacters)
                 {
-                    Debug.Log(charVisual.character.Name + " my unit, is war unit, is war turn - NOT SLEEP");
+                    //Debug.Log(charVisual.character.Name + " my unit, is war unit, is war turn - NOT SLEEP");
                     charVisual.MarkUnitAsInactive(false);
                 }
                 // ZZZZ CIVIL UNITS

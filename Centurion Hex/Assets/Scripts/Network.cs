@@ -92,8 +92,6 @@ public class Network : MonoBehaviour
 
     private void Start()
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         instance = this;
         Connect();
     }
@@ -101,8 +99,6 @@ public class Network : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         switch (NetworkState)
         {
             case NetworkStateEnum.nsConnecting:
@@ -304,8 +300,6 @@ public class Network : MonoBehaviour
 
     public void Connect()
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         //uiController.SetCurrentState(UI_Controller.UIStateType.Connecting);
         //uiController.SetConnectingOverlay(true);
         Connect(ip, port);
@@ -313,8 +307,6 @@ public class Network : MonoBehaviour
 
     public void Disconnect()
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         Debug.LogError("Disconnecting");
         if(client != null)
         {
@@ -326,8 +318,6 @@ public class Network : MonoBehaviour
     }
     public void Connect(string _ip, int _port )
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         ip = _ip;
         port = _port;
         ShouldConnect = true;
@@ -335,16 +325,12 @@ public class Network : MonoBehaviour
 
     private void ShowReconnect()
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         //        uiController.SetConnectingOverlay(false);
         //      uiController.SetCurrentState(UI_Controller.UIStateType.Reconnect);
     }
 
     private void FailedToAuth()
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         ShouldConnect = false;
     //    uiController.SetConnectingOverlay(false);
       //  uiController.SetCurrentState(UI_Controller.UIStateType.Reconnect);
@@ -352,8 +338,6 @@ public class Network : MonoBehaviour
 
     private void Send(string commandInfo, params string[] optionalParams)
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         if (outgoingData.length > 0)
         {
             try
@@ -404,8 +388,6 @@ public class Network : MonoBehaviour
 
     private void ProcessCommand()
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         Messages command = (Messages)incomingData.readByte();
 
         if (command != Messages.op_ping)
@@ -611,8 +593,6 @@ public class Network : MonoBehaviour
 
     public void MoveCharacter(uint characterId, int x, int y)
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         outgoingData.writeByte((byte)Messages.op_move_character);
         outgoingData.writeUnsignedInt(characterId);
         outgoingData.writeByte((byte)x);
@@ -622,8 +602,6 @@ public class Network : MonoBehaviour
 
     public void HurtTile(uint characterId, int x, int y)
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         outgoingData.writeByte((byte)Messages.op_hurt_tile);
         outgoingData.writeUnsignedInt(characterId);
         outgoingData.writeByte((byte)x);
@@ -633,30 +611,22 @@ public class Network : MonoBehaviour
 
     public void EndMove()
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         outgoingData.writeByte((byte)Messages.op_end_move);
         Send("end_move");
     }
 
     public void BuyBuilding()
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         outgoingData.writeByte((byte)Messages.op_buy_building_card);
         Send("buy_building");
     }
     public void BuyCharacter()
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         outgoingData.writeByte((byte)Messages.op_buy_character_card);
         Send("buy_character");
     }
     public void PlaceCharacter(uint cid, int x, int y )
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         outgoingData.writeByte((byte)Messages.op_place_character);
         outgoingData.writeUnsignedInt(cid);
         outgoingData.writeByte((byte)x);
@@ -665,8 +635,6 @@ public class Network : MonoBehaviour
     }
     public void PlaceBuilding(uint cid, int x, int y)
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         outgoingData.writeByte((byte)Messages.op_place_building);
         outgoingData.writeUnsignedInt(cid);
         outgoingData.writeByte((byte)x);
@@ -676,8 +644,6 @@ public class Network : MonoBehaviour
     
     public void ResetGame()
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         outgoingData.writeByte((byte)Messages.op_login);
         outgoingData.writeUTF(SystemInfo.deviceUniqueIdentifier);
         outgoingData.writeUTF(username);
@@ -686,24 +652,18 @@ public class Network : MonoBehaviour
 
     public void DebugEndMove()
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         outgoingData.writeByte((byte)Messages.op_debug_end_move);
         Send("debug_end_move");
     }
 
     public void DebugRestart()
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         outgoingData.writeByte((byte)Messages.op_debug_restart);
         Send("debug_restart");
     }
 
     public void DebugSetGoldParams( int GoldPerRound, int GoldInitial )
     {
-        if (!CenturionGame.Instance.UseNetwork)
-            return;
         outgoingData.writeByte((byte)Messages.op_debug_set_money_per_senate);
         outgoingData.writeByte((byte)GoldPerRound);
         outgoingData.writeByte((byte)GoldInitial);

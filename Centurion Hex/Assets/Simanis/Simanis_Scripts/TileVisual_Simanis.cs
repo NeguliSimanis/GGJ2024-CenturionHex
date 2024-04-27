@@ -172,6 +172,7 @@ public class TileVisual_Simanis : MonoBehaviour
 
     public void DiscoverTile()
     {
+        Debug.Log("discovering tile");
         isDiscovered = true;
 
         // SET Environment visuals from Tile CoverType

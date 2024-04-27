@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Raycast_Simanis : MonoBehaviour
 {
-    CenturionGame centurionGame;
+    public CenturionGame centurionGame;
     public HUD_Simanis hudManager;
     private Camera mainCamera;
 
@@ -27,11 +27,11 @@ public class Raycast_Simanis : MonoBehaviour
             if (hit.collider.gameObject.GetComponent<RaycastInteract>())
             {
                 // Object is being hovered
-                if (CenturionGame.Instance.mRoundState == CenturionGame.RoundState.rsMovingCharacters)
+                if (centurionGame.mRoundState == CenturionGame.RoundState.rsMovingCharacters)
                 {
                     hudManager.UpdateMovementPhaseHighlight(hit.collider.gameObject.GetComponent<RaycastInteract>());
                 }
-                else if (CenturionGame.Instance.mRoundState == CenturionGame.RoundState.rsManagement)
+                else if (centurionGame.mRoundState == CenturionGame.RoundState.rsManagement)
                 {
                     hudManager.UpdateManagementPhaseHighlights(hit.collider.gameObject.GetComponent<RaycastInteract>());
                 }

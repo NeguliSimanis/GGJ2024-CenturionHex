@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class EndTurnButton_Simanis : MonoBehaviour
 {
+
     public GameObject endButtonTeam0;
     public GameObject endButtonTeam1;
 

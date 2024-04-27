@@ -14,6 +14,17 @@ public class SP_RaycastInteract : MonoBehaviour
     public void HighlightThis(bool highlight)
     {
         highlightObj.SetActive(highlight);
+
+        // show move cursor
+        if (highlight && SP_GameControl.instance.prevSelectedUnit != null
+            && SP_GameControl.instance.prevSelectedUnit.isMyUnit)
+        {
+            SP_GameControl.instance.customCursor.SetCursor(true, cursorAction: CursorAction.walk);
+        }
+        else
+        {
+            SP_GameControl.instance.customCursor.SetCursor(false, cursorAction: CursorAction.walk);
+        }
     }
 
     public void ShowClickObj(bool show)

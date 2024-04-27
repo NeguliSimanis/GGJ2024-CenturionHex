@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class HUD_Simanis : MonoBehaviour
 {
-
+    public CenturionGame centurionGame;
     public static HUD_Simanis instance;
     [HideInInspector]
     public AnnouncementUi_Simanis announcement_UI;
@@ -99,11 +99,11 @@ public class HUD_Simanis : MonoBehaviour
     public bool IsMyTurn()
     {
         bool isMy = false;
-        if (CenturionGame.Instance.RedMove && CenturionGame.Instance.PlayingAsRed)
+        if (centurionGame.RedMove && centurionGame.PlayingAsRed)
         {
             isMy = true;
         }
-        if (!CenturionGame.Instance.RedMove && !CenturionGame.Instance.PlayingAsRed)
+        if (!centurionGame.RedMove && !centurionGame.PlayingAsRed)
         {
             isMy = true;
         }
@@ -113,10 +113,10 @@ public class HUD_Simanis : MonoBehaviour
     public bool IsManagementPhase()
     {
         bool isManagePhase = false;
-        if (CenturionGame.Instance.mRoundState == CenturionGame.RoundState.rsManagement)
+        if (centurionGame.mRoundState == CenturionGame.RoundState.rsManagement)
             isManagePhase = true;
         return isManagePhase;
-   }
+    }
 
     public void RemoveCustomCursor()
     {
@@ -143,24 +143,24 @@ public class HUD_Simanis : MonoBehaviour
             {
                 Building curBuilding = buildingVisual.building;
 
-                if (CenturionGame.Instance.PlayingAsRed && curBuilding.Team == CenturionGame.Instance.Teams[0])
+                if (centurionGame.PlayingAsRed && curBuilding.Team == centurionGame.Teams[0])
                     myBuildingVisuals.Add(buildingVisual);
-                if (!CenturionGame.Instance.PlayingAsRed && curBuilding.Team == CenturionGame.Instance.Teams[1])
+                if (!centurionGame.PlayingAsRed && curBuilding.Team == centurionGame.Teams[1])
                     myBuildingVisuals.Add(buildingVisual);
             }
 
-            
+
             // get a list of buildable tiles adjacent to own buildings
             foreach (BuildingVisual_Simanis buildingVisual in myBuildingVisuals)
             {
-                Tile[] allowedTiles = CenturionGame.Instance.GetTilesAdjacentToBuilding(
+                Tile[] allowedTiles = centurionGame.GetTilesAdjacentToBuilding(
                 buildingVisual.building.id,
                 onlyBuildableTiles: true);
 
                 // highlight adjacent empty tiles - next to own buildings
                 foreach (Tile allowedTile in allowedTiles)
                 {
-                    if (allowedTile != null )
+                    if (allowedTile != null)
                     {
                         TileVisual_Simanis newAllowedTile = TileSpawner_Simanis.instance.GetTileVisual(allowedTile);
                         allowedCardPlacementTiles.Add(newAllowedTile);
@@ -173,7 +173,7 @@ public class HUD_Simanis : MonoBehaviour
         else if (buildBeingPlaced.requiredTileType == TileCover.CoverType.ctUndefined)
         {
             // can be built anywhere - get a list of buildable tiles 
-            Tile[,] allTiles = CenturionGame.Instance.Board.Tiles;
+            Tile[,] allTiles = centurionGame.Board.Tiles;
 
             // can be built anywhere - highlight empty tiles
             foreach (Tile currTile in allTiles)
@@ -195,7 +195,7 @@ public class HUD_Simanis : MonoBehaviour
         else if (buildBeingPlaced.requiredTileType == TileCover.CoverType.ctForest)
         {
             // FOREST - get a list of buildable tiles 
-            Tile[,] allTiles = CenturionGame.Instance.Board.Tiles;
+            Tile[,] allTiles = centurionGame.Board.Tiles;
 
             // FOREST - highlight empty tiles
             foreach (Tile currTile in allTiles)
@@ -216,7 +216,7 @@ public class HUD_Simanis : MonoBehaviour
         else if (buildBeingPlaced.requiredTileType == TileCover.CoverType.ctGrass)
         {
             // FOREST - get a list of buildable tiles 
-            Tile[,] allTiles = CenturionGame.Instance.Board.Tiles;
+            Tile[,] allTiles = centurionGame.Board.Tiles;
 
             // FOREST - highlight empty tiles
             foreach (Tile currTile in allTiles)
@@ -261,9 +261,9 @@ public class HUD_Simanis : MonoBehaviour
             {
                 senate = buildingVisual.building;
 
-                if (CenturionGame.Instance.PlayingAsRed && senate.Team == CenturionGame.Instance.Teams[0])
+                if (centurionGame.PlayingAsRed && senate.Team == centurionGame.Teams[0])
                     mySenate = buildingVisual;
-                if (!CenturionGame.Instance.PlayingAsRed && senate.Team == CenturionGame.Instance.Teams[1])
+                if (!centurionGame.PlayingAsRed && senate.Team == centurionGame.Teams[1])
                     mySenate = buildingVisual;
             }
         }
@@ -275,11 +275,11 @@ public class HUD_Simanis : MonoBehaviour
         }
 
         // find adjacent empty tiles
-        Tile[] allowedTiles = CenturionGame.Instance.GetTilesAdjacentToBuilding(
+        Tile[] allowedTiles = centurionGame.GetTilesAdjacentToBuilding(
             mySenate.building.id);
 
         // highlight adjacent empty tiles
-        foreach(Tile allowedTile in allowedTiles)
+        foreach (Tile allowedTile in allowedTiles)
         {
             if (allowedTile != null)
             {
@@ -300,7 +300,7 @@ public class HUD_Simanis : MonoBehaviour
         // Placing cards - check if placing on tile
         if (raycastInteract.type == RaycastInteract.Type.Tile)
         {
-            cardPlacementTarget = raycastInteract;   
+            cardPlacementTarget = raycastInteract;
         }
         else
         {
@@ -338,7 +338,7 @@ public class HUD_Simanis : MonoBehaviour
                 bool hasMovementRemaining = false;
                 if (oldHighlight != null)
                 {
-                   // Debug.Log("OLD HIGHLIGHT EXISTS: " + oldHighlight);
+                    // Debug.Log("OLD HIGHLIGHT EXISTS: " + oldHighlight);
                     if (oldHighlight.characterVisualControl.character.RemainingStepsThisTurn() > 0)
                         hasMovementRemaining = true;
                 }
@@ -393,33 +393,33 @@ public class HUD_Simanis : MonoBehaviour
         oldHighlight = raycastInteract;
         raycastInteract.SetHighlight(true, highlightType: RaycastInteract.HighlightType.MoveUnit);
         currSelection = raycastInteract.type;
-        Debug.Log("selected unit " + oldHighlight.characterVisualControl.character.Name);
+        //Debug.Log("selected unit " + oldHighlight.characterVisualControl.character.Name);
     }
 
     public void UpdateTeamWealth()
     {
-        if (CenturionGame.Instance.PlayingAsRed)
+        if (centurionGame.PlayingAsRed)
         {
-            goldAllyTeam.text = CenturionGame.Instance.Teams[0].Gold.ToString();
-            goldEnemyTeam.text = CenturionGame.Instance.Teams[1].Gold.ToString();
+            goldAllyTeam.text = centurionGame.Teams[0].Gold.ToString();
+            goldEnemyTeam.text = centurionGame.Teams[1].Gold.ToString();
         }
         else
         {
-            goldAllyTeam.text = CenturionGame.Instance.Teams[1].Gold.ToString();
-            goldEnemyTeam.text = CenturionGame.Instance.Teams[0].Gold.ToString();
+            goldAllyTeam.text = centurionGame.Teams[1].Gold.ToString();
+            goldEnemyTeam.text = centurionGame.Teams[0].Gold.ToString();
         }
     }
     public void UpdateTeamVictoryPoints()
     {
-        if (CenturionGame.Instance.PlayingAsRed)
+        if (centurionGame.PlayingAsRed)
         {
-            vicPointsAlly.text = CenturionGame.Instance.Teams[0].VictoryPoints.ToString();
-            vicPointsEnemy.text = CenturionGame.Instance.Teams[1].VictoryPoints.ToString();
+            vicPointsAlly.text = centurionGame.Teams[0].VictoryPoints.ToString();
+            vicPointsEnemy.text = centurionGame.Teams[1].VictoryPoints.ToString();
         }
         else
         {
-            vicPointsAlly.text = CenturionGame.Instance.Teams[1].VictoryPoints.ToString();
-            vicPointsEnemy.text = CenturionGame.Instance.Teams[0].VictoryPoints.ToString();
+            vicPointsAlly.text = centurionGame.Teams[1].VictoryPoints.ToString();
+            vicPointsEnemy.text = centurionGame.Teams[0].VictoryPoints.ToString();
         }
     }
 
@@ -435,13 +435,13 @@ public class HUD_Simanis : MonoBehaviour
 
     public void ShowGameFinished()
     {
-        WinnerText.text = "Winning team is " + (CenturionGame.Instance.WinnerTeam == Team.TeamType.ttRed ? "Red" : "Blue" ) + " team";
+        WinnerText.text = "Winning team is " + (centurionGame.WinnerTeam == Team.TeamType.ttRed ? "Red" : "Blue") + " team";
         WinnerUI.SetActive(true);
     }
 
     public void UpdateTurnIDs()
     {
-        if (CenturionGame.Instance.PlayingAsRed)
+        if (centurionGame.PlayingAsRed)
         {
             //redTeamIdentifier.text = redTeamIdentifierText;
             //blueTeamIdentifier.text = blueTeamIdentifierTextEnemy;
@@ -478,7 +478,7 @@ public class HUD_Simanis : MonoBehaviour
             yPos = interactionTarget.buildingVisualControl.yCoord;
         }
 
-        if (CenturionGame.Instance.UseNetwork)
+        if (centurionGame.UseNetwork)
             Network.instance.HurtTile(id, xPos, yPos);
         else
             FakeNetwork_Simanis.Instance.SP_HurtTile(id, xPos, yPos);
@@ -486,7 +486,7 @@ public class HUD_Simanis : MonoBehaviour
 
     private void TryToMoveToTile()
     {
-        
+
 
         // char id  oldHighlight.type == RaycastInteract.Type.Character
         uint id = 0;
@@ -502,16 +502,16 @@ public class HUD_Simanis : MonoBehaviour
         int xPos = interactionTarget.tileVisualControl.xCoord;
         int yPos = interactionTarget.tileVisualControl.yCoord;
 
-        if (CenturionGame.Instance.UseNetwork)
+        if (centurionGame.UseNetwork)
         {
             Network.instance.MoveCharacter(
                 characterId: id,
-                x: xPos, 
+                x: xPos,
                 y: yPos);
         }
         else
         {
-            Debug.Log("try to move  " + CenturionGame.Instance.GetCharacter(id).Name);
+            Debug.Log("try to move  " + centurionGame.GetCharacter(id).Name);
 
             FakeNetwork_Simanis.Instance.SP_MoveCharacter(
                 characterId: id,
@@ -522,9 +522,9 @@ public class HUD_Simanis : MonoBehaviour
 
     public void TryToPlaceUnitOnTile()
     {
-        
+
         Debug.Log("try to place char on tile");
-        Network.instance.PlaceCharacter(characterBeingPlaced.id, 
+        Network.instance.PlaceCharacter(characterBeingPlaced.id,
             x: cardPlacementTarget.tileVisualControl.xCoord,
             y: cardPlacementTarget.tileVisualControl.yCoord);
         //ClearHighlights();
@@ -537,7 +537,7 @@ public class HUD_Simanis : MonoBehaviour
         Network.instance.PlaceBuilding(buildingBeingPlaced.id,
             x: cardPlacementTarget.tileVisualControl.xCoord,
             y: cardPlacementTarget.tileVisualControl.yCoord);
-       // ClearHighlights();
+        // ClearHighlights();
     }
 
     public void ClearHighlights()
@@ -597,9 +597,9 @@ public class HUD_Simanis : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             // PLACING CARDS ON BOARD
-            if(cardPlacementInputAllowed && cardPlacementTarget)
+            if (cardPlacementInputAllowed && cardPlacementTarget)
             {
-                foreach(TileVisual_Simanis tileVisual in allowedCardPlacementTiles)
+                foreach (TileVisual_Simanis tileVisual in allowedCardPlacementTiles)
                 {
                     if (tileVisual == cardPlacementTarget.tileVisualControl)
                     {
@@ -659,6 +659,7 @@ public class HUD_Simanis : MonoBehaviour
     /// </summary>
     public void HandleRoundStateChange()
     {
+        Debug.Log("this is round state " + centurionGame.mRoundState);
         ClearHighlights();
         UpdateTurnText();
         RemoveCustomCursor();
@@ -699,11 +700,11 @@ public class HUD_Simanis : MonoBehaviour
 
         //return;
         // general
-        if (CenturionGame.Instance.GeneralMove)
+        if (centurionGame.GeneralMove)
         {
             generalOrGovernorText.text = "General Turn";
             smallAnnounceString = "War ";
-           // generalOrGovernorText.color = generalTurnColor;
+            // generalOrGovernorText.color = generalTurnColor;
         }
         // governor
         else
@@ -714,9 +715,9 @@ public class HUD_Simanis : MonoBehaviour
         }
 
         // TEAM 1
-        if (CenturionGame.Instance.RedMove)
+        if (centurionGame.RedMove)
         {
-            if (CenturionGame.Instance.PlayingAsRed)
+            if (centurionGame.PlayingAsRed)
             {
                 endTurnButton.gameObject.SetActive(true);
                 endTurnButton.endButtonTeam0.SetActive(true);
@@ -735,14 +736,14 @@ public class HUD_Simanis : MonoBehaviour
         else
         {
             // im playing as blue and is blue turn
-            if (!CenturionGame.Instance.PlayingAsRed)
+            if (!centurionGame.PlayingAsRed)
             {
                 endTurnButton.gameObject.SetActive(true);
                 endTurnButton.endButtonTeam1.SetActive(true);
                 endTurnButton.endButtonTeam0.SetActive(false);
                 teamTurnText.text = "Ally Team";
                 bigAnnounceString = "Ally Turn";
-            } 
+            }
             // playing red and is blue turn
             else
             {
@@ -751,7 +752,7 @@ public class HUD_Simanis : MonoBehaviour
                 bigAnnounceString = "Enemy Turn";
             }
         }
-        switch (CenturionGame.Instance.mRoundState)
+        switch (centurionGame.mRoundState)
         {
             case CenturionGame.RoundState.rsManagement:
                 teamTurnText.text += " - Management";

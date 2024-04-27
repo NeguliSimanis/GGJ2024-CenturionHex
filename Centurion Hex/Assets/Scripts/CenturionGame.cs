@@ -516,7 +516,7 @@ public class CenturionGame : MonoBehaviour
 
     public void OnRoundUpdate(bool _RedMove, bool _GeneralMove, RoundState _roundState, int _placementPriceMultiplier, int _free_unit_cards)
     {
-        Debug.Log("round state updated");
+        Debug.Log("round state updated " + _roundState);
         RedMove = _RedMove;
         GeneralMove = _GeneralMove;
         mRoundState = _roundState;

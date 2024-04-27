@@ -39,7 +39,6 @@ public class CharacterVisual_Simanis : MonoBehaviour
     public float maxScaleY = 1.08f;
     public float minScaleY = 1.0f;
     public Transform scaleAnimationTarget;
-
     private bool scalingUp = true;
 
     /*
@@ -96,13 +95,13 @@ public class CharacterVisual_Simanis : MonoBehaviour
     {
         if (markAsInactive)
         {
-            Debug.Log("marking as SLEEPY " + character.Name + ". This is my character: " + IsMyUnit());
+            //Debug.Log("marking as SLEEPY " + character.Name + ". This is my character: " + IsMyUnit());
             zzzAnimation.SetActive(true);
            // speedParent.gameObject.SetActive(false);
         }
         else
         {
-            Debug.Log("marking as not sleepy, ACTIVE " + character.Name + ". This is my character: " + IsMyUnit());
+            //Debug.Log("marking as not sleepy, ACTIVE " + character.Name + ". This is my character: " + IsMyUnit());
             zzzAnimation.SetActive(false);
             //speedParent.gameObject.SetActive(true);
         }
@@ -165,8 +164,8 @@ public class CharacterVisual_Simanis : MonoBehaviour
     public void SetLifeUI()
     {
         int remainingLife = character.Health;
-        Debug.Log(character.type + " life remaining " + remainingLife
-            + ". Normal life: " + character.InitialHealth);
+        //Debug.Log(character.type + " life remaining " + remainingLife
+        //    + ". Normal life: " + character.InitialHealth);
 
         int lifeDisplayed = 0;
         foreach (Transform life in lifeParent)
@@ -174,7 +173,7 @@ public class CharacterVisual_Simanis : MonoBehaviour
             if (life.gameObject.activeInHierarchy)
                 lifeDisplayed++;
         }
-        Debug.Log("life displayed " + lifeDisplayed);
+        //Debug.Log("life displayed " + lifeDisplayed);
         for (int i = 0; i < lifeDisplayed; i++)
         {
             if (lifeDisplayed > remainingLife)

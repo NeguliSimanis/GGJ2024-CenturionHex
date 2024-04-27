@@ -20,10 +20,11 @@ public class SP_MapGenerator : MonoBehaviour
 
     [Header("TILE SETUP")]
     public GameObject tilePrefab;
-    public float tileWidth = 1.15f;
-    public float tileHeight = 1f;
+    public float tileHeight = 1.15f;
+    public float realTileWidth = 1.7f;
     public float columnOffsetX = 0.5f;
 
+    public float xOffset = 0.25f;
     private void Awake()
     {
         instance = this;
@@ -44,8 +45,21 @@ public class SP_MapGenerator : MonoBehaviour
 
                 // initialize position
                 Vector3 tilePos = newTileObj.transform.localPosition;
-                tilePos.x += (tileWidth * x);
-                tilePos.z += (tileHeight * y);
+                float zXcomponent = x * realTileWidth * 0.5f;
+                float zYcomponent = y * realTileWidth * 0.5f;
+                tilePos.z += zXcomponent + zYcomponent; ///(tileWidth * x);
+
+                // pa labi +z
+                // pa kreisi -z
+                /// uz augšu -x
+                /// uz leju +x
+                float xXcomponent = (tileHeight - xOffset) * x;
+
+                float xYcomponent = (tileHeight - xOffset) * -y;
+                if (!SP_Utility.IsEvenNumber(y))
+                    xYcomponent += (tileHeight - xOffset);
+                tilePos.x += xXcomponent + xYcomponent;
+                //tilePos.z += (0.5 * tileHeight *y) + ;
 
                 // adjust position - even column means shift down, odd column means stay
                 if (!SP_Utility.IsEvenNumber(y))
