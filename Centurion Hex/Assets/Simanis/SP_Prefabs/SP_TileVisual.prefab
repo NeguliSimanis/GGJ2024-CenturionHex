@@ -788,7 +788,7 @@ MonoBehaviour:
   tileCover: {fileID: 5114801530378515153}
   regularTilePrefabs:
   - tileType: 0
-    tileObject: {fileID: 7705721773704980189}
+    tileObject: {fileID: 3688084289591804197}
   - tileType: 1
     tileObject: {fileID: 7705721773704980189}
   - tileType: 2
@@ -5118,7 +5118,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9189843534869648154
 RectTransform:
   m_ObjectHideFlags: 0

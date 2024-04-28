@@ -32,12 +32,12 @@ public class SP_MapControl : MonoBehaviour
     public bool IsCoordinateValid(int targetX, int targetY)
     {
         bool isValid = true;
-        if (targetX > SP_MapGenerator.instance.rows || targetX < 0)
+        if (targetX >= SP_MapGenerator.instance.rows || targetX < 0)
         {
             Debug.Log("xcoord not valid");
             return false;
         }
-        if (targetY > SP_MapGenerator.instance.columns || targetX < 0)
+        if (targetY >= SP_MapGenerator.instance.columns || targetY < 0)
         {
             Debug.Log("Y coord not valid");
             return false;
@@ -53,6 +53,189 @@ public class SP_MapControl : MonoBehaviour
         if (tileToCheck.myBuilding != null)
             return false;
         return isValid;
+    }
+
+    public SP_Tile RandomAdjacentAllyTile(int xOrigin, int yOrigin)
+    {
+
+        SP_Tile randomTile = null;
+
+        List<SP_Tile> validTiles = new List<SP_Tile>();
+
+        // north of a
+        if (IsCoordinateValid(xOrigin - 1, yOrigin + 1))
+        {
+            validTiles.Add(tileMap[xOrigin - 1, yOrigin + 1]);
+        }
+
+        // northeast of a
+        if (IsCoordinateValid(xOrigin, yOrigin + 1))
+        {
+            validTiles.Add(tileMap[xOrigin, yOrigin + 1]);
+        }
+
+        // southeast of a
+        if (IsCoordinateValid(xOrigin + 1, yOrigin))
+        {
+            validTiles.Add(tileMap[xOrigin + 1, yOrigin]);
+        }
+
+        // sout of a
+        if (IsCoordinateValid(xOrigin + 1, yOrigin - 1))
+        {
+            validTiles.Add(tileMap[xOrigin + 1, yOrigin - 1]);
+        }
+
+        // southwest of a
+        if (IsCoordinateValid(xOrigin, yOrigin - 1))
+        {
+            validTiles.Add(tileMap[xOrigin, yOrigin - 1]);
+        }
+
+        // northwest of a
+        if (IsCoordinateValid(xOrigin - 1, yOrigin))
+        {
+            validTiles.Add(tileMap[xOrigin - 1, yOrigin]);
+        }
+
+        List<SP_Tile> validAllyTiles = new List<SP_Tile>();
+        foreach (SP_Tile tile in validTiles)
+        {
+            if (tile.myUnit != null && tile.myUnit.isAllyUnit)
+            {
+                validAllyTiles.Add(tile);
+            }
+            if (tile.myBuilding != null && tile.myBuilding.isAllyBuilding)
+            {
+                validAllyTiles.Add(tile);
+            }
+        }
+
+        if (validAllyTiles.Count >= 1)
+        {
+            int randomRoll = Random.Range(0, validAllyTiles.Count);
+            randomTile = validAllyTiles[randomRoll];
+        }
+
+        return randomTile;
+    }
+
+    public bool HasEmptyAdjacentTiles(int xOrigin, int yOrigin)
+    {
+        SP_Tile randomTile = tileMap[0, 0];
+
+        List<SP_Tile> validTiles = new List<SP_Tile>();
+        bool HasEmptyAdjacentTiles = false;
+        // north of a
+        if (IsCoordinateValid(xOrigin - 1, yOrigin + 1))
+        {
+            validTiles.Add(tileMap[xOrigin - 1, yOrigin + 1]);
+        }
+
+        // northeast of a
+        if (IsCoordinateValid(xOrigin, yOrigin + 1))
+        {
+            validTiles.Add(tileMap[xOrigin, yOrigin + 1]);
+        }
+
+        // southeast of a
+        if (IsCoordinateValid(xOrigin + 1, yOrigin))
+        {
+            validTiles.Add(tileMap[xOrigin + 1, yOrigin]);
+        }
+
+        // sout of a
+        if (IsCoordinateValid(xOrigin + 1, yOrigin - 1))
+        {
+            validTiles.Add(tileMap[xOrigin + 1, yOrigin - 1]);
+        }
+
+        // southwest of a
+        if (IsCoordinateValid(xOrigin, yOrigin - 1))
+        {
+            validTiles.Add(tileMap[xOrigin, yOrigin - 1]);
+        }
+
+        // northwest of a
+        if (IsCoordinateValid(xOrigin - 1, yOrigin))
+        {
+            validTiles.Add(tileMap[xOrigin - 1, yOrigin]);
+        }
+
+        List<SP_Tile> validEmptyTiles = new List<SP_Tile>();
+        foreach (SP_Tile tile in validTiles)
+        {
+            if (tile.myBuilding == null && tile.myUnit == null)
+            {
+                return true;
+            }
+        }
+        
+        return HasEmptyAdjacentTiles;
+    }
+
+    public SP_Tile GetRandomAdjacentTile(int xOrigin, int yOrigin, bool mustBeEmptyTile = true)
+    {
+        SP_Tile randomTile = tileMap[0,0];
+
+        List<SP_Tile> validTiles = new List<SP_Tile>();
+
+        // north of a
+        if (IsCoordinateValid(xOrigin - 1, yOrigin + 1))
+        {
+            validTiles.Add(tileMap[xOrigin - 1, yOrigin + 1]);
+        }
+
+        // northeast of a
+        if (IsCoordinateValid(xOrigin, yOrigin + 1))
+        {
+            validTiles.Add(tileMap[xOrigin, yOrigin + 1]);
+        }
+
+        // southeast of a
+        if (IsCoordinateValid(xOrigin + 1, yOrigin))
+        {
+            validTiles.Add(tileMap[xOrigin + 1, yOrigin]);
+        }
+
+        // sout of a
+        if (IsCoordinateValid(xOrigin + 1, yOrigin - 1))
+        {
+            validTiles.Add(tileMap[xOrigin + 1, yOrigin - 1]);
+        }
+
+        // southwest of a
+        if (IsCoordinateValid(xOrigin, yOrigin - 1))
+        {
+            validTiles.Add(tileMap[xOrigin, yOrigin - 1]);
+        }
+
+        // northwest of a
+        if (IsCoordinateValid(xOrigin -1, yOrigin))
+        {
+            validTiles.Add(tileMap[xOrigin - 1, yOrigin]);
+        }
+
+        if (mustBeEmptyTile)
+        {
+            List<SP_Tile> validEmptyTiles = new List<SP_Tile>();
+            foreach (SP_Tile tile in validTiles)
+            {
+                if (tile.myBuilding == null && tile.myUnit == null)
+                {
+                    validEmptyTiles.Add(tile);
+                }
+            }
+            int randomRoll = Random.Range(0, validEmptyTiles.Count);
+            randomTile = validEmptyTiles[randomRoll];
+        }
+        else
+        {
+            int randomRoll = Random.Range(0, validTiles.Count);
+            randomTile = validTiles[randomRoll];
+        }
+
+        return randomTile;
     }
 
     public bool IsTileAdjacent(int x_tileA, int y_tileA, int x_tileB, int y_tileB)

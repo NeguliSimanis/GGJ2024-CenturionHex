@@ -17,13 +17,56 @@ public class SP_RaycastInteract : MonoBehaviour
 
         // show move cursor
         if (highlight && SP_GameControl.instance.prevSelectedUnit != null
-            && SP_GameControl.instance.prevSelectedUnit.isMyUnit)
+            && SP_GameControl.instance.prevSelectedUnit.isAllyUnit)
         {
-            SP_GameControl.instance.customCursor.SetCursor(true, cursorAction: CursorAction.walk);
+            SetContextualCursor(SP_GameControl.instance.prevSelectedUnit);
         }
         else
         {
             SP_GameControl.instance.customCursor.SetCursor(false, cursorAction: CursorAction.walk);
+        }
+    }
+
+    private void SetContextualCursor(SP_Unit unitThatWillDoStuff)
+    {
+        if (!isTileInteract)
+            return;
+
+        // attack unit cursor
+        if (myTileControl.myUnit != null)
+        {
+            if (!myTileControl.myUnit.isAllyUnit && !unitThatWillDoStuff.myStats.hasAttackedThisTurn)
+            {
+                SP_GameControl.instance.customCursor.SetCursor(true, cursorAction: CursorAction.attack);
+                unitThatWillDoStuff.readyToAttack = true;
+            }
+            // already attacked this turn or is ally
+            else
+            {
+                SP_GameControl.instance.customCursor.SetCursor(false, cursorAction: CursorAction.attack);
+                unitThatWillDoStuff.readyToAttack = false;
+            }
+        }
+        // attack building cursor
+        else if (myTileControl.myBuilding != null)
+        {
+            if (!myTileControl.myBuilding.isAllyBuilding && !unitThatWillDoStuff.myStats.hasAttackedThisTurn)
+            {
+                SP_GameControl.instance.customCursor.SetCursor(true, cursorAction: CursorAction.attack);
+                unitThatWillDoStuff.readyToAttack = true;
+            }
+            // already attacked this turn or is ally
+            else
+            {
+                SP_GameControl.instance.customCursor.SetCursor(false, cursorAction: CursorAction.attack);
+                unitThatWillDoStuff.readyToAttack = false;
+            }
+        }
+        // walk cursor
+        else
+        {
+            SP_GameControl.instance.customCursor.SetCursor(true, cursorAction: CursorAction.walk);
+            unitThatWillDoStuff.readyToAttack = false;
         }
     }
 
@@ -34,13 +77,23 @@ public class SP_RaycastInteract : MonoBehaviour
 
     public void ProcessClick()
     {
-        if (SP_RaycastControl.instance.previousClicked != null)
+        // DON'T SHOW CLICK OBJ IF YOU WERE ATTACKING WITH ALLY
+        if (SP_GameControl.instance.prevSelectedUnit != null &&
+            SP_GameControl.instance.prevSelectedUnit.readyToAttack)
         {
-            SP_RaycastControl.instance.previousClicked.ShowClickObj(false);
-        }
 
-        SP_RaycastControl.instance.previousClicked = this;
-        ShowClickObj(true);
+        }
+        // Show click obj
+        else
+        {
+            if (SP_RaycastControl.instance.previousClicked != null)
+            {
+                SP_RaycastControl.instance.previousClicked.ShowClickObj(false);
+            }
+
+            ShowClickObj(true);
+            SP_RaycastControl.instance.previousClicked = this;
+        }
 
         if (isTileInteract)
         {

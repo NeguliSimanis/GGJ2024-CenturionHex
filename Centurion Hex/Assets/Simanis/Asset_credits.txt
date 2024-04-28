@@ -11,7 +11,8 @@ toon shader: https://assetstore.unity.com/packages/vfx/shaders/simple-toon-18503
 particle accelarator building: https://sketchfab.com/3d-models/low-poly-sci-fi-lab-e84fd3405b34421095c70b0e09cc3111#download
 
 Voice generation: https://www.cstr.ed.ac.uk/projects/festival/onlinedemo.html (Nick2)
-
+Audio, attack swing sfx: https://pixabay.com/sound-effects/swing-whoosh-weapon-1-189819/
+Audio, attack swing sfx2: https://pixabay.com/sound-effects/swing-whoosh-5-198498/
 ~~~~~~~~~~~~~~~~~~~~~~~~UNUSED Asset credits:
 Tile textures: https://lynocs.itch.io/texture-pack
 Army textures: https://assetstore.unity.com/packages/2d/characters/miniature-army-2d-v-1-medieval-style-72935

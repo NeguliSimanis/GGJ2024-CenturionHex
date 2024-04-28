@@ -2649,7 +2649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b152c3c39a03604a920f32a1d1bda45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMyUnit: 1
+  isAllyUnit: 1
   x: 0
   y: 0
   parentTile: {fileID: 0}
@@ -2658,20 +2658,54 @@ MonoBehaviour:
   myType: 0
   myStats:
     unitType: 0
+    isCivilUnit: 0
     unitMaxSpeed: 0
     unitCurrSpeed: 0
-    unitAttack: 0
+    unitDamage: 0
+    attackRange: 0
+    hasAttackedThisTurn: 0
     unitMaxLife: 0
     unitCurrLife: 0
     unitCost: 0
+  readyToAttack: 0
   speedParent: {fileID: 421792199348182434}
   speedIcon: {fileID: 4838818224806090313, guid: cdfe9dbd649ba42458b2d3e652ba77c5,
     type: 3}
   lifeParent: {fileID: 60140963428309650}
   lifeIcon: {fileID: 7391056668296995774, guid: fe325d8e2ce03714bb77b7d6240bfc4c,
     type: 3}
-  moveDuration: 0.6
-  moveEase: 7
+  activePrefab: {fileID: 0}
+  unitVisuals:
+  - type: 0
+    gameObject: {fileID: 8810510833204899108}
+  - type: 1
+    gameObject: {fileID: 7284573700571996426}
+  - type: 2
+    gameObject: {fileID: 4607272678240788991}
+  - type: 3
+    gameObject: {fileID: 6743689142393898646}
+  - type: 4
+    gameObject: {fileID: 327839217090294534}
+  - type: 5
+    gameObject: {fileID: 5553176617475558013}
+  - type: 6
+    gameObject: {fileID: 5032779326322883037}
+  - type: 7
+    gameObject: {fileID: 9214745128255055285}
+  - type: 8
+    gameObject: {fileID: 2038437697990885014}
+  - type: 9
+    gameObject: {fileID: 3718930177446791467}
+  - type: 10
+    gameObject: {fileID: 2274486619250899407}
+  moveDuration: 0.45
+  moveEase: 5
+  moveSFX_delay: 0.1
+  attackMoveToSpeed: 10
+  attackToEase: 7
+  attackReturnSpeed: 6
+  attackReturnEase: 1
+  attackMoveDistance: 0.5
   selectAnimation: {fileID: 8544414987852873647}
   scaleSpeed: 0.1
   maxScaleY: 1.08

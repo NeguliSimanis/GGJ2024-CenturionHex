@@ -9,7 +9,6 @@ public class SP_RaycastControl : MonoBehaviour
     private Camera mainCamera;
 
     [HideInInspector] public SP_RaycastInteract previousRaycast = null;
-    [HideInInspector] public SP_RaycastInteract currRaycast;
     [HideInInspector] public SP_RaycastInteract previousClicked = null;
 
     private void Awake()
