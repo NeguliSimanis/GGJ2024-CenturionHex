@@ -9,6 +9,12 @@ public class SP_GameControl : MonoBehaviour
 {
     public static SP_GameControl instance;
 
+    [Header("BALANCE")]
+    public bool map_has_random_mines = true;
+    public bool map_has_random_gold = false;
+    public float tile_has_something_chance = 0.32f;
+    public float tile_something_is_landmine_chance = 0.32f;
+
     [Header("OTHER CONTROLLERS")]
     public SP_HUD_Control hudControl;
     public CustomCursor_Simanis customCursor;

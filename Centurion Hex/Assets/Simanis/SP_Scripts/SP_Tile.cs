@@ -40,6 +40,10 @@ public class SP_Tile : MonoBehaviour
     [Header("Info icon")]
     public GameObject infoIcon;
 
+    [Header("EXPLOSIOn")]
+    public GameObject explosionPrefab;
+    public Transform explosionLocation;
+
     [Header("ENVIRONMENT")]
     public SP_TileType myEnvironment = SP_TileType.Empty;
     public bool isDiscovered = false;
@@ -82,8 +86,15 @@ public class SP_Tile : MonoBehaviour
         int environmentRoll = UnityEngine.Random.Range(0, regularTilePrefabs.Length);
         regularTilePrefabs[environmentRoll].tileObject.SetActive(true);
         myEnvironment = regularTilePrefabs[environmentRoll].tileType;
+
+        Roll_Chance_For_Something_On_Tile();
     }
-        
+
+    private void Roll_Chance_For_Something_On_Tile()
+    {
+        if (!SP_GameControl.instance.map_has_random_mines)
+            return;
+    }
 
     private void ProcessUnitSelected()
     {
