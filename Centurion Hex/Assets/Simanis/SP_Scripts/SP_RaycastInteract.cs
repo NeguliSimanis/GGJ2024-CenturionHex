@@ -11,8 +11,19 @@ public class SP_RaycastInteract : MonoBehaviour
     public bool isTileInteract;
     public SP_Tile myTileControl;
 
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            HighlightThis(false);
+            ShowClickObj(false);
+        }
+    }
+
     public void HighlightThis(bool highlight)
     {
+
         highlightObj.SetActive(highlight);
 
         // show move cursor
@@ -73,9 +84,19 @@ public class SP_RaycastInteract : MonoBehaviour
     public void ShowClickObj(bool show)
     {
         clickedObj.SetActive(show);
+        if (isTileInteract)
+        {
+            SP_InfoIcon.instance.ShowInfoIcon(myTileControl.infoIcon, myTileControl, show);
+        }
     }
 
     public void ProcessClick()
+    {
+        if (isTileInteract)
+            ProcessClick_TileInteract();
+    }
+
+    private void ProcessClick_TileInteract()
     {
         // DON'T SHOW CLICK OBJ IF YOU WERE ATTACKING WITH ALLY
         if (SP_GameControl.instance.prevSelectedUnit != null &&
@@ -86,6 +107,7 @@ public class SP_RaycastInteract : MonoBehaviour
         // Show click obj
         else
         {
+            
             if (SP_RaycastControl.instance.previousClicked != null)
             {
                 SP_RaycastControl.instance.previousClicked.ShowClickObj(false);
@@ -94,11 +116,9 @@ public class SP_RaycastInteract : MonoBehaviour
             ShowClickObj(true);
             SP_RaycastControl.instance.previousClicked = this;
         }
-
-        if (isTileInteract)
-        {
-            Debug.Log("selecting tile from process click");
-            myTileControl.SelectTile();
-        }
+        
+        Debug.Log("selecting tile from process click");
+        myTileControl.SelectTile();
+        
     }
 }

@@ -8,4 +8,9 @@ public class SP_Utility : MonoBehaviour
     {
         return num % 2 == 0;
     }
+
+    public static bool PointerOverUI()
+    {
+        return UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+    }
 }

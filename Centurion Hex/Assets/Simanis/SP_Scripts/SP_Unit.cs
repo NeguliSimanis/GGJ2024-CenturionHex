@@ -210,7 +210,14 @@ public class SP_Unit : MonoBehaviour
     {
        // Debug.Log("SELECTED UNIT!");
         selectAnimation.SetActive(select);
-        SP_GameControl.instance.prevSelectedUnit = this;
+        if (select)
+            SP_GameControl.instance.prevSelectedUnit = this;
+        else
+            SP_GameControl.instance.prevSelectedUnit = null;
+        if (isAllyUnit)
+        {
+            SP_GameControl.instance.prevSelectedAllyUnit = this;
+        }
     }
 
     public void SetLifeUI()
@@ -389,11 +396,9 @@ public class SP_Unit : MonoBehaviour
         // SPEED - RAPTOR ABILITY
         if (myStats.unitType == SP_UnitType.Raptor)
         {
-            Debug.Log("im raptor");
             if (parentTile.myEnvironment == SP_TileType.Desert)
             {
                 myStats.unitCurrSpeed++;
-                Debug.Log("IM ON DESERT");
             }
         }
         SetSpeedUI();
@@ -532,6 +537,9 @@ public class SP_Unit : MonoBehaviour
         // deselect if was selected
         if (SP_GameControl.instance.prevSelectedUnit == this)
             SP_GameControl.instance.prevSelectedUnit = null;
+
+        if (SP_GameControl.instance.prevSelectedAllyUnit == this)
+            SP_GameControl.instance.prevSelectedAllyUnit = null;
 
         // remove from lists
         SP_GameControl.instance.allUnits.Remove(this);

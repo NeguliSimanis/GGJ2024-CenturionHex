@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 
 public class SP_GameControl : MonoBehaviour
@@ -11,11 +12,14 @@ public class SP_GameControl : MonoBehaviour
     [Header("OTHER CONTROLLERS")]
     public SP_HUD_Control hudControl;
     public CustomCursor_Simanis customCursor;
+    public SP_RaycastControl raycastControl;
+    [HideInInspector] public bool allowRaycastInteract = true;
 
     [Header("UNITS")]
     public Transform predefinedUnitParent;
     [HideInInspector] public List<SP_Unit> allUnits;
     [HideInInspector] public SP_Unit prevSelectedUnit = null;
+    [HideInInspector] public SP_Unit prevSelectedAllyUnit = null;
 
     [Header("BUILDINGS")]
     [HideInInspector] public SP_Building prevSelectedBuilding = null;
@@ -28,6 +32,7 @@ public class SP_GameControl : MonoBehaviour
 
     [Header("UI")]
     public AnnouncementUi_Simanis announcementControl;
+    public GameObject endTurnButton;
 
     private void Awake()
     {
@@ -56,6 +61,11 @@ public class SP_GameControl : MonoBehaviour
             DeselectEverything();
         }
 
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            ReloadScene();
+        }
+
         if (!isAllyTurn)
         {
             if (Time.time >= enemyTurnEndTime)
@@ -67,22 +77,27 @@ public class SP_GameControl : MonoBehaviour
 
     public void DeselectEverything()
     {
-        if(prevSelectedUnit != null)
+        Debug.Log("deselecting everything");
+        allowRaycastInteract = false;
+        if (raycastControl.previousRaycast != null)
         {
+            Debug.Log("prev raycast is not null");
+            raycastControl.previousRaycast.ShowClickObj(false);
+            raycastControl.previousRaycast.HighlightThis(false);
+            raycastControl.previousRaycast = null;
+            //Debug.Log("yes im null " + raycastControl.previousRaycast.gameObject.name);
+        }
+        if (prevSelectedUnit != null)
+        {
+            Debug.Log("prev unit is not null");
             prevSelectedUnit.SelectUnit(false);
         }
-        if(prevSelectedBuilding != null)
+        if (prevSelectedBuilding != null)
         {
             prevSelectedBuilding.SelectBuilding(false);
         }
-        if (SP_RaycastControl.instance.previousRaycast != null)
-        {
-            SP_RaycastInteract raycastInteract = SP_RaycastControl.instance.previousRaycast;
-            raycastInteract.ShowClickObj(false);
-            raycastInteract.HighlightThis(false);
-            SP_RaycastControl.instance.previousRaycast = null;
-        }
-
+        customCursor.SetCursor(false, cursorAction: CursorAction.walk);
+        allowRaycastInteract = true;
     }
 
     private void InitializePredefinedUnits()
@@ -117,6 +132,7 @@ public class SP_GameControl : MonoBehaviour
         DeselectEverything();
         if (!isAllyTurn)
         {
+            endTurnButton.SetActive(false);
             announcementControl.ShowAnnouncmentText(
                 bigAnnounce: "Enemy Turn",
                 smallAnnounce: "",
@@ -134,8 +150,13 @@ public class SP_GameControl : MonoBehaviour
                 MoveNextEnemy();
             });
         }
+
+        // ALLY  TURN
         else
         {
+            endTurnButton.SetActive(true);
+            if (prevSelectedAllyUnit != null)
+                prevSelectedAllyUnit.SelectUnit(true);
             announcementControl.ShowAnnouncmentText(
                 bigAnnounce: "Your Turn",
                 smallAnnounce: "",
@@ -162,7 +183,7 @@ public class SP_GameControl : MonoBehaviour
             }
         }
 
-        enemyTurnEndTime -= 0.01f;
+        enemyTurnEndTime -= 0.0005f;
         MoveNextEnemy();
     }
 
@@ -173,6 +194,15 @@ public class SP_GameControl : MonoBehaviour
             unit.ProcessNewTurnStart();
 
         }
+    }
+
+    public void ReloadScene()
+    {
+        // Get the current active scene's index
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // Reload the current scene
+        SceneManager.LoadScene(currentSceneIndex);
     }
 
     private void MarkInactiveUnits()

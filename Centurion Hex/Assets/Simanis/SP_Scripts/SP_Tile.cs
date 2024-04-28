@@ -37,6 +37,9 @@ public class SP_Tile : MonoBehaviour
     public Transform tileBuildingParent;
     public SP_Building myBuilding = null;
 
+    [Header("Info icon")]
+    public GameObject infoIcon;
+
     [Header("ENVIRONMENT")]
     public SP_TileType myEnvironment = SP_TileType.Empty;
     public bool isDiscovered = false;
@@ -84,7 +87,6 @@ public class SP_Tile : MonoBehaviour
 
     private void ProcessUnitSelected()
     {
-        
         if (SP_GameControl.instance.prevSelectedUnit != null)
         {
             SP_Unit prevUnit = SP_GameControl.instance.prevSelectedUnit;
@@ -180,7 +182,11 @@ public class SP_Tile : MonoBehaviour
             int distanceToThisTile = SP_MapControl.instance.DistanceBetweenTiles(
                 currUnit.x, currUnit.y, x, y);
 
-            if (currUnit.isSleeping)
+            if (!currUnit.isAllyUnit)
+            {
+                SP_LevelAudioControl.instance.PlaySFX(SP_LevelAudioControl.instance.cannot_command_enemy_unit_sfx);
+            }
+            else if (currUnit.isSleeping)
             {
                 SP_LevelAudioControl.instance.PlaySFX(SP_LevelAudioControl.instance.sleepingSFX);
             }

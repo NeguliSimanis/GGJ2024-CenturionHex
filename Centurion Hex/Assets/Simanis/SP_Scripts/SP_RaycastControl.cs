@@ -23,6 +23,8 @@ public class SP_RaycastControl : MonoBehaviour
 
     private void Update()
     {
+        if (!SP_GameControl.instance.allowRaycastInteract)
+            return;
         CheckForRaycast();
         if (Input.GetMouseButtonDown(0))
         {
@@ -32,7 +34,7 @@ public class SP_RaycastControl : MonoBehaviour
 
     private void ProcessClick()
     {
-        if (previousRaycast != null)
+        if (previousRaycast != null && SP_GameControl.instance.allowRaycastInteract)
         {
             previousRaycast.ProcessClick();
         }    
@@ -73,11 +75,21 @@ public class SP_RaycastControl : MonoBehaviour
     {
         if (previousRaycast == newRaycast)
             return;
+
+        if (SP_Utility.PointerOverUI())
+        {
+            SP_GameControl.instance.customCursor.SetCursor(false, cursorAction: CursorAction.walk);
+            return;
+        }
+
         if(previousRaycast != null)
         {
             previousRaycast.HighlightThis(false);
         }
-        newRaycast.HighlightThis(true);
+        if (newRaycast.isTileInteract)
+        {
+            newRaycast.HighlightThis(true);
+        }
         previousRaycast = newRaycast;
     }
 }

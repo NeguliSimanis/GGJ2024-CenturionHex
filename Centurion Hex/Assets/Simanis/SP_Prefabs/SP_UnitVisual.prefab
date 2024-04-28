@@ -1144,6 +1144,7 @@ GameObject:
   - component: {fileID: 6521116431714865814}
   - component: {fileID: 348193467925414438}
   - component: {fileID: 7480509285725287041}
+  - component: {fileID: 290278818467851734}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1236,6 +1237,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &290278818467851734
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5424614147229752501}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &5553176617475558013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2349,7 +2362,6 @@ GameObject:
   - component: {fileID: 7285571503514899025}
   - component: {fileID: 7285571503514899024}
   - component: {fileID: 7285571503514899027}
-  - component: {fileID: 5465471751695011822}
   m_Layer: 0
   m_Name: UnitRotatorAndRaycastInteract
   m_TagString: Untagged
@@ -2433,7 +2445,7 @@ BoxCollider:
   m_GameObject: {fileID: 7285571503514899037}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1.5064195, z: 1}
   m_Center: {x: 0, y: 0.2532094, z: 0}
@@ -2449,25 +2461,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e115e0d2bacaafb448c309984094b518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5465471751695011822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7285571503514899037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e09d4102d6fc6764aa4019cbf4dfea85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  shouldHighlightComponent: 0
-  highlightObject: {fileID: 8544414987852873647}
-  highlightComponent: {fileID: 0}
-  characterVisualControl: {fileID: 86619283}
-  tileVisualControl: {fileID: 0}
-  buildingVisualControl: {fileID: 0}
 --- !u!1 &7285571505188909700
 GameObject:
   m_ObjectHideFlags: 0
@@ -2479,7 +2472,6 @@ GameObject:
   - component: {fileID: 7285571505188909701}
   - component: {fileID: 7285571505188909720}
   - component: {fileID: 7285571505188909723}
-  - component: {fileID: 7285571505188909722}
   - component: {fileID: 86619283}
   - component: {fileID: 8188029714926973310}
   m_Layer: 0
@@ -2557,19 +2549,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7285571505188909722
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7285571505188909700}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &86619283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2711,6 +2690,7 @@ MonoBehaviour:
   maxScaleY: 1.08
   minScaleY: 1
   scaleAnimationTarget: {fileID: 2416449462290196619}
+  aiControl: {fileID: 0}
 --- !u!1 &7407187793176888748
 GameObject:
   m_ObjectHideFlags: 0
@@ -2897,7 +2877,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2563982828050352261
 RectTransform:
   m_ObjectHideFlags: 0

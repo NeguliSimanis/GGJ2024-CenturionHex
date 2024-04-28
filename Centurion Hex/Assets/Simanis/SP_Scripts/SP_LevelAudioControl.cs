@@ -13,6 +13,7 @@ public class SP_LevelAudioControl : MonoBehaviour
     public AudioClip unitLostSFX;
     public AudioClip yourTurnSFX;
     public AudioClip enemyTurnSFX;
+    public AudioClip cannot_command_enemy_unit_sfx;
 
     [Header("move sfx")]
     public AudioClip[] moveSFXs;
