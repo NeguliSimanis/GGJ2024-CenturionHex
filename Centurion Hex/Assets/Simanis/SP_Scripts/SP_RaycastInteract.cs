@@ -117,7 +117,7 @@ public class SP_RaycastInteract : MonoBehaviour
             SP_RaycastControl.instance.previousClicked = this;
         }
         
-        Debug.Log("selecting tile from process click");
+        //Debug.Log("selecting tile from process click");
         myTileControl.SelectTile();
         
     }

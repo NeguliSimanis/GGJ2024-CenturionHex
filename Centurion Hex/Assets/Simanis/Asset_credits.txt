@@ -5,7 +5,7 @@ goldmine object: https://sketchfab.com/3d-models/goblins-gold-mine-game-ready-90
 3d TILES: https://assetstore.unity.com/packages/3d/environments/low-poly-hexagon-tiles-and-objects-132355
 rocks, textures: https://assetstore.unity.com/packages/3d/props/4-types-of-rocks-188872
 hammer: https://assetstore.unity.com/packages/3d/props/tools/urethane-hammer-170156
-explosion effect: https://bdragon1727.itch.io/free-effect-bullet-impact-explosion-32x32
+
 plants: https://assetstore.unity.com/packages/3d/vegetation/plants/pbr-low-lying-plant-pack-150823
 toon shader: https://assetstore.unity.com/packages/vfx/shaders/simple-toon-185038
 particle accelarator building: https://sketchfab.com/3d-models/low-poly-sci-fi-lab-e84fd3405b34421095c70b0e09cc3111#download
@@ -14,7 +14,10 @@ steampunk ui: https://assetstore.unity.com/packages/2d/gui/icons/steampunkui-238
 Voice generation: https://www.cstr.ed.ac.uk/projects/festival/onlinedemo.html (Nick2)
 Audio, attack swing sfx: https://pixabay.com/sound-effects/swing-whoosh-weapon-1-189819/
 Audio, attack swing sfx2: https://pixabay.com/sound-effects/swing-whoosh-5-198498/
+Audio, explosion: https://pixabay.com/sound-effects/medium-explosion-40472/
+Audio, move to tile sfx: https://pixabay.com/sound-effects/chess-pieces-60890/
 ~~~~~~~~~~~~~~~~~~~~~~~~UNUSED Asset credits:
+explosion effect: https://bdragon1727.itch.io/free-effect-bullet-impact-explosion-32x32
 Tile textures: https://lynocs.itch.io/texture-pack
 Army textures: https://assetstore.unity.com/packages/2d/characters/miniature-army-2d-v-1-medieval-style-72935
 Senate model: https://sketchfab.com/3d-models/wk3a-pillar-huth-will-248f30ec54d143079bb105024949c667#download

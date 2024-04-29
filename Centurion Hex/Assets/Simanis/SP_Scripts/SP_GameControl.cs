@@ -4,10 +4,23 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 
+public enum VictoryCondition
+{
+    kill_all_enemies
+}
+
+public enum DefeatCondition
+{
+    lose_all_units
+}
 
 public class SP_GameControl : MonoBehaviour
 {
     public static SP_GameControl instance;
+
+    [Header("GAME OVER")]
+    public VictoryCondition victoryCondition;
+    public DefeatCondition [] defeatConditions;
 
     [Header("BALANCE")]
     public bool map_has_random_mines = true;
@@ -26,6 +39,8 @@ public class SP_GameControl : MonoBehaviour
     [HideInInspector] public List<SP_Unit> allUnits;
     [HideInInspector] public SP_Unit prevSelectedUnit = null;
     [HideInInspector] public SP_Unit prevSelectedAllyUnit = null;
+    public int livingAllies = 0;
+    public int livingEnemies = 0;
 
     [Header("BUILDINGS")]
     [HideInInspector] public SP_Building prevSelectedBuilding = null;
@@ -116,6 +131,8 @@ public class SP_GameControl : MonoBehaviour
         }
         foreach (SP_Unit foundUnit in allUnits)
         {
+            // dont spawn landmines and other stuff on tiles where units will be placed
+            SP_MapControl.instance.GetTile(foundUnit.x, foundUnit.y).allowSpawnStuffOnTile = false;
             foundUnit.MoveUnit(foundUnit.x, foundUnit.y, instant: true);
 
             if(!foundUnit.isAllyUnit)
@@ -145,7 +162,7 @@ public class SP_GameControl : MonoBehaviour
                 appearDuration: 0.8f,
                 disappearDelay: 1.8f,
                 disappearDuration: 1f);
-            SP_LevelAudioControl.instance.PlaySFX(SP_LevelAudioControl.instance.enemyTurnSFX);
+            SP_LevelAudioControl.instance.PlaySFX(SP_LevelAudioControl.instance.enemyTurnSFX, isVoiceLine: true);
             hudControl.ShowTurnDuration(true);
             enemyTurnStartTime = Time.time;
             enemyTurnEndTime = Time.time + enemyTurnDuration;
@@ -169,9 +186,8 @@ public class SP_GameControl : MonoBehaviour
                 appearDuration: 0.8f,
                 disappearDelay: 1.8f,
                 disappearDuration: 1f);
-            SP_LevelAudioControl.instance.PlaySFX(SP_LevelAudioControl.instance.yourTurnSFX);
+            SP_LevelAudioControl.instance.PlaySFX(SP_LevelAudioControl.instance.yourTurnSFX, isVoiceLine: true);
             hudControl.ShowTurnDuration(false);
-
         }
     }
 
@@ -237,6 +253,19 @@ public class SP_GameControl : MonoBehaviour
                     unit.MarkUnitAsSleeping(false);
                 }
             }
+        }
+    }
+
+    public void ProcessUnitDeath()
+    {
+        if (livingAllies <= 0)
+        {
+            SP_GameOverPopup.instance.InitializePopup(isVictory: false);
+        }
+        else if(livingEnemies <= 0)
+        {
+            if (victoryCondition == VictoryCondition.kill_all_enemies)
+                SP_GameOverPopup.instance.InitializePopup(isVictory: true);
         }
     }
 }

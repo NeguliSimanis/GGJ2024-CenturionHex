@@ -201,9 +201,16 @@ public class SP_Unit : MonoBehaviour
         }
 
         if (isAllyUnit)
+        {
             FlipCharacter();
+            SP_GameControl.instance.livingAllies++;
+        }
+        else
+        {
+            SP_GameControl.instance.livingEnemies++;
+        }
         ColorUnit();
-        Debug.Log("unit initialzied");
+        //Debug.Log("unit initialzied");
     }
 
     public void SelectUnit(bool select)
@@ -289,7 +296,7 @@ public class SP_Unit : MonoBehaviour
     public void MoveUnit(int targetX, int targetY, bool instant = false,
         bool selectTargetTileAfter = false, int speedCost = 0, bool isAI = false)
     {
-        Debug.Log("moving unit to " + targetX + "." + targetY);
+        //Debug.Log("moving unit to " + targetX + "." + targetY);
         if (!SP_MapControl.instance.IsCoordinateValid(targetX, targetY))
             return;
 
@@ -546,13 +553,20 @@ public class SP_Unit : MonoBehaviour
 
         // ai
         if (!isAllyUnit)
+        {
             SP_GameControl.instance.MoveNextEnemy();
+            SP_GameControl.instance.livingEnemies--;
+        }
 
         // sfx
         if (isAllyUnit)
-            SP_LevelAudioControl.instance.PlaySFX(SP_LevelAudioControl.instance.unitLostSFX);
+        {
+            SP_GameControl.instance.livingAllies--;
+            Debug.Log("ally died");
+            SP_LevelAudioControl.instance.PlaySFX(SP_LevelAudioControl.instance.unitLostSFX, isVoiceLine: true);
+        }
 
-
+        SP_GameControl.instance.ProcessUnitDeath();
         Destroy(gameObject);
     }
 

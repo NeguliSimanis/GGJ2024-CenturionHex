@@ -6,6 +6,7 @@ public class SP_LevelAudioControl : MonoBehaviour
 {
     public static SP_LevelAudioControl instance;
 
+    [Header("EVA Voice lines")]
     public AudioClip insuffcientSpeedSFX;
     public AudioClip outOfRangeSFX;
     public AudioClip sleepingSFX;
@@ -15,6 +16,9 @@ public class SP_LevelAudioControl : MonoBehaviour
     public AudioClip enemyTurnSFX;
     public AudioClip cannot_command_enemy_unit_sfx;
 
+    [Header("Other sfx")]
+    public AudioClip landmine_explosion_sfx;
+
     [Header("move sfx")]
     public AudioClip[] moveSFXs;
 
@@ -23,6 +27,7 @@ public class SP_LevelAudioControl : MonoBehaviour
     public float attackPitch = 1.3f;
 
     private AudioSource audioSource;
+    public AudioSource voiceLineAudioSource;
 
     private void Awake()
     {
@@ -33,13 +38,21 @@ public class SP_LevelAudioControl : MonoBehaviour
     public void PlayInsuffcientSpeedSFX()
     {
         audioSource.pitch = 1f;
-        audioSource.PlayOneShot(insuffcientSpeedSFX);
+        voiceLineAudioSource.PlayOneShot(insuffcientSpeedSFX);
     }
 
-    public void PlaySFX(AudioClip sfx)
+    public void PlaySFX(AudioClip sfx, bool isVoiceLine, float volumeMultiplier = 1f)
     {
         audioSource.pitch = 1f;
-        audioSource.PlayOneShot(sfx);
+
+        if (!isVoiceLine)
+            audioSource.PlayOneShot(sfx, volumeMultiplier);
+        else
+        {
+            voiceLineAudioSource.volume = volumeMultiplier;
+            voiceLineAudioSource.clip = sfx;
+            voiceLineAudioSource.Play();
+        }
     }
 
     public void PlayAttackSFX()

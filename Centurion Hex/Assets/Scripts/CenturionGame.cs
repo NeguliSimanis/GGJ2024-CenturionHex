@@ -273,6 +273,10 @@ public class CenturionGame : MonoBehaviour
         {
             onGameReload.Invoke();
         }
+        else
+        {
+            
+        }
 #if UNITY_EDITOR
         QualitySettings.vSyncCount = 0;  // VSync must be disabled
         Application.targetFrameRate = 45;

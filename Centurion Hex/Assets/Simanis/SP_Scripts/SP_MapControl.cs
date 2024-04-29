@@ -12,6 +12,11 @@ public class SP_MapControl : MonoBehaviour
         instance = this;
     }
 
+    public SP_Tile GetTile(int x, int y)
+    {
+        return tileMap[x, y];
+    }
+
     public void InitializeMap()
     {
         tileMap = new SP_Tile[SP_MapGenerator.instance.rows, SP_MapGenerator.instance.columns];
