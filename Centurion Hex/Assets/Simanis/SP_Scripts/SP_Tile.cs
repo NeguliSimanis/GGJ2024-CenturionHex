@@ -94,6 +94,13 @@ public class SP_Tile : MonoBehaviour
     {
         if (!SP_GameControl.instance.map_has_random_mines)
             return;
+
+        if (UnityEngine.Random.Range(0, 1f) > SP_GameControl.instance.tile_has_something_chance)
+            return;
+
+        // roll chance for gold
+
+
     }
 
     private void ProcessUnitSelected()
