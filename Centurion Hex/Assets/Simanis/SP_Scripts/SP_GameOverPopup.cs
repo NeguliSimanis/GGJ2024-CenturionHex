@@ -9,6 +9,7 @@ public class SP_GameOverPopup : MonoBehaviour
 {
     public static SP_GameOverPopup instance;
 
+    private bool isShown = false;
     public GameObject popup;
     Vector3 popupTargetScale;
     public Image popupBG;
@@ -25,12 +26,15 @@ public class SP_GameOverPopup : MonoBehaviour
 
     public void InitializePopup(bool isVictory)
     {
+        if (isShown)
+            return;
+        isShown = true;
         ShowPopup(true);
         
         if (isVictory)
         {
             popupTitle.text = "Glorious Victory";
-            
+            SP_LevelAudioControl.instance.PlaySFX(SP_LevelAudioControl.instance.victory_sfx, isVoiceLine: false);
         }
         else
         {
@@ -54,7 +58,13 @@ public class SP_GameOverPopup : MonoBehaviour
             popup.SetActive(show);
             
             popup.transform.localScale = Vector3.zero;
-            popup.transform.DOScale(popupTargetScale, 0.4f).SetEase(Ease.InOutQuad);
+
+            
+          
+            popup.transform.DOScale(popupTargetScale, 0.4f).SetEase(Ease.InOutQuad).OnComplete(()=>
+            {
+                  
+            });
         });
 
         

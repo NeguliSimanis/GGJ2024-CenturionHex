@@ -314,6 +314,8 @@ MonoBehaviour:
     type: 3}
   landmine_explosion_sfx: {fileID: 8300000, guid: 1828f475ad5cc334184023812aefce74,
     type: 3}
+  jewel_pickup: {fileID: 8300000, guid: cd6ede6cf4489004faf34153faf3daa3, type: 3}
+  victory_sfx: {fileID: 8300000, guid: 0755a1496c671d04daf3c3aa2999b195, type: 3}
   moveSFXs:
   - {fileID: 8300000, guid: 05a263420c32f8549b641723dcd624c0, type: 3}
   - {fileID: 8300000, guid: dc2207e549044034dbb6b93e375a2265, type: 3}

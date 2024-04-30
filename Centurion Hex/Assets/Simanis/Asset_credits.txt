@@ -1,4 +1,4 @@
-~~~~~~~~~~~~~~~~~~~~~~~~Asset credits:
+~~~~~~~~~~~~~~~~~~~~~~~~3D party Asset credits:
 
 Tile textures used: https://assetstore.unity.com/packages/3d/environments/low-poly-hexagon-tiles-and-objects-132355
 goldmine object: https://sketchfab.com/3d-models/goblins-gold-mine-game-ready-902be0202f0347d6acc6f23336428d99
@@ -16,7 +16,9 @@ Audio, attack swing sfx: https://pixabay.com/sound-effects/swing-whoosh-weapon-1
 Audio, attack swing sfx2: https://pixabay.com/sound-effects/swing-whoosh-5-198498/
 Audio, explosion: https://pixabay.com/sound-effects/medium-explosion-40472/
 Audio, move to tile sfx: https://pixabay.com/sound-effects/chess-pieces-60890/
+Audio, jewel pickup sfx: https://pixabay.com/sound-effects/happy-harp-sound-103882/
 particles: https://assetstore.unity.com/packages/vfx/particles/dl-fantasy-rpg-effects-68246
+Audio, fanfare sfx: https://pixabay.com/sound-effects/medieval-fanfare-6826/
 
 ~~~~~~~~~~~~~~~~~~~~~~~~UNUSED Asset credits:
 various particles: https://assetstore.unity.com/packages/vfx/particles/sherbb-s-particle-collection-170798

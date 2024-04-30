@@ -48,6 +48,7 @@ public class SP_Tile : MonoBehaviour
     public GameObject infoIcon;
 
     [Header("EXPLOSIOn")]
+    public bool hasLandmine = false;
     public bool allowSpawnStuffOnTile = true;
     public GameObject explosionPrefab;
     public Transform explosionLocation;
@@ -134,6 +135,7 @@ public class SP_Tile : MonoBehaviour
         if (containsJewel && myUnit.isAllyUnit)
         {
             PlayJewelAnimation();
+            SP_LevelAudioControl.instance.PlaySFX(SP_LevelAudioControl.instance.jewel_pickup, isVoiceLine: false);
             DOVirtual.DelayedCall(1f, () =>
             {
                 SP_GameControl.instance.ProcessJewelPickup();
@@ -151,6 +153,11 @@ public class SP_Tile : MonoBehaviour
     {
         if (!allowSpawnStuffOnTile)
             return;
+        if (hasLandmine)
+        {
+            ExplodeLandmine();
+            return;
+        }
         if (!SP_GameControl.instance.map_has_random_mines
             && !SP_GameControl.instance.map_has_random_gold)
             return;

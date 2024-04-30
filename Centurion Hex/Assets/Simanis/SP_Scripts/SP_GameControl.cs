@@ -309,6 +309,7 @@ public class SP_GameControl : MonoBehaviour
     {
         int livingAllies = 0;
         int livingEnemies = 0;
+        bool isPrincessAlive = false;
         foreach(SP_Unit unit in allUnits)
         {
             if (!unit.isAllyUnit && !unit.myStats.isDead)
@@ -317,6 +318,8 @@ public class SP_GameControl : MonoBehaviour
             }
             else if (unit.isAllyUnit && !unit.myStats.isDead)
             {
+                if (unit.myStats.unitType == SP_UnitType.Princess)
+                    isPrincessAlive = true;
                 livingAllies++;
             }
         }
@@ -324,6 +327,17 @@ public class SP_GameControl : MonoBehaviour
         {
             EndMission(isVictory: false);
             return;
+        }
+        if (!isPrincessAlive)
+        {
+            foreach (DefeatCondition defeatCondition in defeatConditions)
+            {
+                if (defeatCondition == DefeatCondition.pricess_dies)
+                {
+                    EndMission(isVictory: false);
+                    return;
+                }
+            }
         }
         Debug.Log("living enemies remaining " + livingEnemies);
         if (livingEnemies <= 0)

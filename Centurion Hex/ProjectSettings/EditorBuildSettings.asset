@@ -11,13 +11,22 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Simanis.unity
     guid: 5291e7cd7ef82684cafb4f835116e9da
-  - enabled: 0
-    path: Assets/Scenes/SimanisSingle.unity
-    guid: 62d9e0fbed989164fa77e6e09ba4fb91
   - enabled: 1
     path: Assets/Scenes/SP_2.unity
     guid: ba456b7c986a47b45ad7e96240e11a77
   - enabled: 1
     path: Assets/Scenes/SP_1.unity
     guid: 8e896500ada7df346bf81b9e28f1b5e7
+  - enabled: 1
+    path: Assets/Scenes/SP_3.unity
+    guid: 97a25aaf3f1fe574781cd3813557c01b
+  - enabled: 1
+    path: Assets/Scenes/SP_4.unity
+    guid: ac30581894712d141b850616ec1f5512
+  - enabled: 1
+    path: Assets/Scenes/SP_5.unity
+    guid: 274cbc0845690184f854a25e0286dceb
+  - enabled: 1
+    path: Assets/Scenes/SP_6.unity
+    guid: c14c4df557b0ccd4e9159957abe9d7cb
   m_configObjects: {}

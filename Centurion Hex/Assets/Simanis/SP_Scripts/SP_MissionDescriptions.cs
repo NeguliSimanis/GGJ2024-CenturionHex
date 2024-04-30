@@ -24,19 +24,19 @@ public class SP_MissionDescriptions : MonoBehaviour
                 missionName = "SP_2";
                 break;
             case Mission.Ambush:
-                missionName = "SP_2";
+                missionName = "SP_3";
                 break;
             case Mission.JustaPawn:
-                missionName = "SP_2";
+                missionName = "SP_4";
                 break;
             case Mission.ProtectthePrincess:
-                missionName = "SP_2";
+                missionName = "SP_5";
                 break;
             case Mission.BattleofHex:
-                missionName = "SP_2";
+                missionName = "SP_6";
                 break;
             case Mission.AdventureMode:
-                missionName = "SP_2";
+                missionName = "SP_6";
                 break;
         }
         return missionName;
@@ -87,7 +87,8 @@ public class SP_MissionDescriptions : MonoBehaviour
                     "But it has come at a cost. Jealous nobles now see you as a rival in the royal court. " +
                     "Eliminate the cutthroats that have been hired to ambush you" +
                     "\n\nMISSION OBJECTIVES" +
-                    "\n-Kill all hostiles";
+                    "\n-Kill all hostiles" +
+                    "\n-At least one ally must survive";
                 break;
             case Mission.JustaPawn:
                 description = "Your continued success has become a burden. The king now sees you as a brilliant strategist. " +

@@ -18,6 +18,8 @@ public class SP_LevelAudioControl : MonoBehaviour
 
     [Header("Other sfx")]
     public AudioClip landmine_explosion_sfx;
+    public AudioClip jewel_pickup;
+    public AudioClip victory_sfx;
 
     [Header("move sfx")]
     public AudioClip[] moveSFXs;
