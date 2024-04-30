@@ -5,6 +5,8 @@ using UnityEngine;
 public class SP_PersistentAudio : MonoBehaviour
 {
     public static SP_PersistentAudio instance;
+    private AudioSource audioSource;
+    public bool isMusicOn = true;
 
     private void Awake()
     {
@@ -13,5 +15,21 @@ public class SP_PersistentAudio : MonoBehaviour
         else
             instance = this;
         DontDestroyOnLoad(this.gameObject);
+
+        audioSource = gameObject.GetComponent<AudioSource>();
+    }
+
+    public void ToggleMusic()
+    {
+        
+        if (isMusicOn)
+        {
+            audioSource.Stop();
+        }
+        else
+        {
+            audioSource.Play();
+        }
+        isMusicOn = !isMusicOn;
     }
 }

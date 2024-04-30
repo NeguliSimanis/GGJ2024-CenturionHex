@@ -79,6 +79,7 @@ public class SP_GameControl : MonoBehaviour
         InitializePredefinedUnits();
         hudControl.SetTurnInfoText();
         MarkInactiveUnits();
+        UpdateUnitStats();
     }
 
     private void Update()
@@ -102,7 +103,7 @@ public class SP_GameControl : MonoBehaviour
         if (!isMissionStarted)
             return;
 
-        if (isMissionOver)
+        if (isMissionOver && !SP_Settings.instance.isSettingsOpen)
         {
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
             {
@@ -120,7 +121,7 @@ public class SP_GameControl : MonoBehaviour
             DeselectEverything();
         }
 
-        if (isMissionOver && Input.GetKeyDown(KeyCode.Escape))
+        if (isMissionOver && Input.GetKeyDown(KeyCode.Escape) && !SP_Settings.instance.isSettingsOpen)
         {
             LoadMainMenuScene();
         }
@@ -182,13 +183,13 @@ public class SP_GameControl : MonoBehaviour
             if(!foundUnit.isAllyUnit)
             {
                 SP_EnemyUnitAI enemyControl = foundUnit.gameObject.AddComponent<SP_EnemyUnitAI>();
-                enemyControl.myBehaviour = UnitBehaviour.RandomMoveAttackWhenAdjacent;
+                enemyControl.myBehaviour = UnitBehaviour.RandomMoveAttackWhenInRange;
                 enemyControl.myUnit = foundUnit;
                 foundUnit.aiControl = enemyControl;
             }
             foundUnit.InitializeUnit();
         }
-        UpdateUnitStats();
+        
     }
 
     public void EndTurn()

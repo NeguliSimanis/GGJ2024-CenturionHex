@@ -435,7 +435,7 @@ public class SP_Unit : MonoBehaviour
         // SPEED - RAPTOR ABILITY
         if (myStats.unitType == SP_UnitType.Raptor)
         {
-            if (parentTile.myEnvironment == SP_TileType.Desert)
+            if (parentTile != null && parentTile.myEnvironment == SP_TileType.Desert)
             {
                 myStats.unitCurrSpeed++;
             }

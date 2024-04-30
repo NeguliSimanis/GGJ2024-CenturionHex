@@ -7,6 +7,7 @@ public class SP_LevelAudioControl : MonoBehaviour
     public static SP_LevelAudioControl instance;
 
     [Header("EVA Voice lines")]
+    public bool isVoiceAssistOn = true;
     public AudioClip insuffcientSpeedSFX;
     public AudioClip outOfRangeSFX;
     public AudioClip sleepingSFX;
@@ -17,6 +18,7 @@ public class SP_LevelAudioControl : MonoBehaviour
     public AudioClip cannot_command_enemy_unit_sfx;
 
     [Header("Other sfx")]
+    public bool isSoundOn = true;
     public AudioClip landmine_explosion_sfx;
     public AudioClip jewel_pickup;
     public AudioClip victory_sfx;
@@ -39,8 +41,21 @@ public class SP_LevelAudioControl : MonoBehaviour
     
     public void PlayInsuffcientSpeedSFX()
     {
+        if (!isVoiceAssistOn)
+            return;
         audioSource.pitch = 1f;
         voiceLineAudioSource.PlayOneShot(insuffcientSpeedSFX);
+    }
+
+    public void ToggleSound()
+    {
+        Debug.Log("sfx toggled");
+        isSoundOn = !isSoundOn;
+    }
+
+    public void ToggleVoiceLines()
+    {
+        isVoiceAssistOn = !isVoiceAssistOn;
     }
 
     public void PlaySFX(AudioClip sfx, bool isVoiceLine, float volumeMultiplier = 1f)
@@ -48,8 +63,11 @@ public class SP_LevelAudioControl : MonoBehaviour
         audioSource.pitch = 1f;
 
         if (!isVoiceLine)
-            audioSource.PlayOneShot(sfx, volumeMultiplier);
-        else
+        {
+            if (isSoundOn)
+                audioSource.PlayOneShot(sfx, volumeMultiplier);
+        }
+        else if (isVoiceAssistOn)
         {
             voiceLineAudioSource.volume = volumeMultiplier;
             voiceLineAudioSource.clip = sfx;
@@ -59,6 +77,8 @@ public class SP_LevelAudioControl : MonoBehaviour
 
     public void PlayAttackSFX()
     {
+        if (!isSoundOn)
+            return;
         int randomRoll = Random.Range(0, attackSFXs.Length);
         audioSource.pitch = attackPitch;
         audioSource.PlayOneShot(attackSFXs[randomRoll]);
@@ -66,6 +86,8 @@ public class SP_LevelAudioControl : MonoBehaviour
 
     public void PlayMoveSFX()
     {
+        if (!isSoundOn)
+            return;
         int randomRoll = Random.Range(0, moveSFXs.Length);
         audioSource.PlayOneShot(moveSFXs[randomRoll]);
     }

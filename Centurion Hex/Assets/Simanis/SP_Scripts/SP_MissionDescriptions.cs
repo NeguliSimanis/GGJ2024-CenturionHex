@@ -33,10 +33,10 @@ public class SP_MissionDescriptions : MonoBehaviour
                 missionName = "SP_5";
                 break;
             case Mission.BattleofHex:
-                missionName = "SP_6";
+                missionName = "SP_5";
                 break;
             case Mission.AdventureMode:
-                missionName = "SP_6";
+                missionName = "SP_5";
                 break;
         }
         return missionName;

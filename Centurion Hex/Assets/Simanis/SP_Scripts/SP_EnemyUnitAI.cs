@@ -6,7 +6,7 @@ using DG.Tweening;
 public enum UnitBehaviour
 {
     RandomMovePacifist,
-    RandomMoveAttackWhenAdjacent
+    RandomMoveAttackWhenInRange
 }
 
 public class SP_EnemyUnitAI : MonoBehaviour
@@ -31,8 +31,8 @@ public class SP_EnemyUnitAI : MonoBehaviour
             case UnitBehaviour.RandomMovePacifist:
                 MoveToRandomTile();
                 break;
-            case UnitBehaviour.RandomMoveAttackWhenAdjacent:
-                TryToAttackAdjacentTile();
+            case UnitBehaviour.RandomMoveAttackWhenInRange:
+                TryToAttackNearbyEnemy();
                 break;
         }
     }
@@ -59,12 +59,33 @@ public class SP_EnemyUnitAI : MonoBehaviour
         }
     }
 
-    private void TryToAttackAdjacentTile()
+    private void TryToAttackNearbyEnemy()
     {
+        // meleee attack
         if (SP_MapControl.instance.RandomAdjacentAllyTile(myUnit.x, myUnit.y) != null
             && !myUnit.myStats.hasAttackedThisTurn)
         {
             myUnit.PlayAttackAnimation(SP_MapControl.instance.RandomAdjacentAllyTile(myUnit.x, myUnit.y));
+        }
+        // no one in range - try ranged attack
+        else if (myUnit.myStats.attackRange > 1 && !myUnit.myStats.hasAttackedThisTurn)
+        {
+            bool rangeTargetFound = false;
+            foreach (SP_Unit unit in SP_GameControl.instance.allUnits)
+            {
+                if (unit.isAllyUnit && !unit.myStats.isDead)
+                {
+                    if (SP_MapControl.instance.DistanceBetweenTiles(unit.x, unit.y, myUnit.x, myUnit.y)
+                        <= myUnit.myStats.attackRange)
+                    {
+                        myUnit.PlayAttackAnimation(unit.parentTile);
+                        rangeTargetFound = true;
+                        break;
+                    }
+                }
+            }
+            if (!rangeTargetFound)
+                MoveToRandomTile();
         }
         else
         {
