@@ -59,6 +59,22 @@ public class SP_InfoPopup : MonoBehaviour
                     unitText += " Sniper";
                     unitText += " \n\n Can attack from 2 tile distance\n\nGains 1 extra damage agains enemies on grasslands";
                     break;
+                case SP_UnitType.PetRaptor:
+                    unitText += " Pet Raptor";
+                    unitText += " \n\n A dinosaur trained as a guard dog\n\nDoesn't move but will bite if you come close";
+                    break;
+                case SP_UnitType.MysteriousHag:
+                    unitText += " Mysterious Hag";
+                    unitText += " \n\n Weird forest lady protecting her treasures\n\nBetter avoid her";
+                    break;
+                case SP_UnitType.Princess:
+                    unitText += " Princess";
+                    unitText += " \n\n A lovely and helpless princess\n\nShe smells weird though";
+                    break;
+                case SP_UnitType.Witch:
+                    unitText += " Witch";
+                    unitText += " \n\n Her hex ruined your life\n\nCan attack from 2 tile distance";
+                    break;
             }
         }
 

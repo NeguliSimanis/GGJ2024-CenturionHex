@@ -16,7 +16,9 @@ public enum SP_UnitType
     Diplomat,
     Princess,
     Engineer,
-    Undefined
+    Undefined,
+    MysteriousHag,
+    PetRaptor
 }
 
 [System.Serializable]
@@ -24,6 +26,7 @@ public class SP_UnitStats
 {
     public SP_UnitType unitType;
     public bool isCivilUnit;
+    public bool isDead = false;
 
     // movement
     public int unitMaxSpeed;
@@ -77,6 +80,34 @@ public class SP_UnitStats
                 unitMaxLife = 1;
                 attackRange = 1;
                 isCivilUnit = false;
+                break;
+            case SP_UnitType.MysteriousHag:
+                unitDamage = 1;
+                unitMaxSpeed = 1;
+                unitMaxLife = 3;
+                attackRange = 1;
+                isCivilUnit = false;
+                break;
+            case SP_UnitType.Witch:
+                unitDamage = 1;
+                unitMaxSpeed = 1;
+                unitMaxLife = 4;
+                attackRange = 2;
+                isCivilUnit = false;
+                break;
+            case SP_UnitType.PetRaptor:
+                unitDamage = 1;
+                unitMaxSpeed = 0;
+                unitMaxLife = 1;
+                attackRange = 1;
+                isCivilUnit = false;
+                break;
+            case SP_UnitType.Princess:
+                unitDamage = 0;
+                unitMaxSpeed = 2;
+                unitMaxLife = 1;
+                attackRange = 1;
+                isCivilUnit = true;
                 break;
         }
 
@@ -207,7 +238,6 @@ public class SP_Unit : MonoBehaviour
         }
         else
         {
-            SP_GameControl.instance.livingEnemies++;
         }
         ColorUnit();
         //Debug.Log("unit initialzied");
@@ -470,12 +500,16 @@ public class SP_Unit : MonoBehaviour
     {
         myStats.unitCurrLife -= damageAmount;
         SetLifeUI();
-        if (myStats.unitCurrLife <= 0)
+        if (myStats.unitCurrLife <= 0 || myStats.unitCurrLife ==0)
+        {
+           
             Die();
+        }
     }
 
     public void PlayAttackAnimation(SP_Tile targetTile)
     {
+        myStats.hasAttackedThisTurn = true;
         Vector3 enemyPos = targetTile.myUnit.activePrefab.transform.position;
         Vector3 myPos = activePrefab.transform.position;
         Vector3 targetPos = new Vector3(
@@ -483,7 +517,7 @@ public class SP_Unit : MonoBehaviour
             myPos.y,
             myPos.z + Mathf.Clamp(enemyPos.z - myPos.z, -1, 1) * attackMoveDistance);
 
-        Debug.Log("my pos " + myPos + ". target pos " + targetPos + " . enemy pos: " + enemyPos);
+       // Debug.Log("my pos " + myPos + ". target pos " + targetPos + " . enemy pos: " + enemyPos);
 
         float attackMoveToDuration = Vector3.Distance(enemyPos, myPos) / attackMoveToSpeed;
         float attackReturnDuration = Vector3.Distance(enemyPos, myPos) / attackReturnSpeed;
@@ -541,33 +575,38 @@ public class SP_Unit : MonoBehaviour
 
     public void Die()
     {
-        // deselect if was selected
-        if (SP_GameControl.instance.prevSelectedUnit == this)
-            SP_GameControl.instance.prevSelectedUnit = null;
+        if (myStats.isDead)
+            return;
+        Destroy(gameObject, 1f);
+        
 
-        if (SP_GameControl.instance.prevSelectedAllyUnit == this)
-            SP_GameControl.instance.prevSelectedAllyUnit = null;
+            // deselect if was selected
+            if (SP_GameControl.instance.prevSelectedUnit == this)
+                SP_GameControl.instance.prevSelectedUnit = null;
 
-        // remove from lists
-        SP_GameControl.instance.allUnits.Remove(this);
+            if (SP_GameControl.instance.prevSelectedAllyUnit == this)
+                SP_GameControl.instance.prevSelectedAllyUnit = null;
 
-        // ai
-        if (!isAllyUnit)
-        {
-            SP_GameControl.instance.MoveNextEnemy();
-            SP_GameControl.instance.livingEnemies--;
-        }
+            // remove from lists
+            SP_GameControl.instance.allUnits.Remove(this);
 
-        // sfx
-        if (isAllyUnit)
-        {
-            SP_GameControl.instance.livingAllies--;
-            Debug.Log("ally died");
-            SP_LevelAudioControl.instance.PlaySFX(SP_LevelAudioControl.instance.unitLostSFX, isVoiceLine: true);
-        }
+            // ai
+            if (!isAllyUnit)
+            {
+                SP_GameControl.instance.MoveNextEnemy();
+            }
 
-        SP_GameControl.instance.ProcessUnitDeath();
-        Destroy(gameObject);
+            // sfx
+            if (isAllyUnit)
+            {
+                SP_GameControl.instance.livingAllies--;
+                Debug.Log("ally died");
+                SP_LevelAudioControl.instance.PlaySFX(SP_LevelAudioControl.instance.unitLostSFX, isVoiceLine: true);
+            }
+
+            SP_GameControl.instance.ProcessUnitDeath();
+
+        myStats.isDead = true;
     }
 
 }

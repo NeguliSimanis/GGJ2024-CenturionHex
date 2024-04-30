@@ -58,7 +58,8 @@ public class SP_EnemyUnitAI : MonoBehaviour
 
     private void TryToAttackAdjacentTile()
     {
-        if (SP_MapControl.instance.RandomAdjacentAllyTile(myUnit.x, myUnit.y) != null)
+        if (SP_MapControl.instance.RandomAdjacentAllyTile(myUnit.x, myUnit.y) != null
+            && !myUnit.myStats.hasAttackedThisTurn)
         {
             myUnit.PlayAttackAnimation(SP_MapControl.instance.RandomAdjacentAllyTile(myUnit.x, myUnit.y));
         }
@@ -76,6 +77,12 @@ public class SP_EnemyUnitAI : MonoBehaviour
 
     public void ProcessActionComplete()
     {
+        if(myUnit.myStats.isDead)
+        {
+            EndMove();
+            return;
+        }
+
         if (SP_GameControl.instance.isAllyTurn)
         {
             EndMove();

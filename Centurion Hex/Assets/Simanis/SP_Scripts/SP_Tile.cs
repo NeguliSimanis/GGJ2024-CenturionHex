@@ -213,8 +213,6 @@ public class SP_Tile : MonoBehaviour
         else
         {
             SP_GameControl.instance.customCursor.SetCursor(false, cursorAction: CursorAction.attack);
-            attacker.myStats.hasAttackedThisTurn = true;
-
             attacker.PlayAttackAnimation(this);
         }
     }

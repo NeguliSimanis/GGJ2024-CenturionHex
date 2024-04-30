@@ -6,21 +6,26 @@ using UnityEngine.SceneManagement;
 
 public enum VictoryCondition
 {
-    kill_all_enemies
+    kill_all_enemies,
+    find_jewel
 }
 
 public enum DefeatCondition
 {
-    lose_all_units
+    lose_all_units,
+    pricess_dies
 }
 
 public class SP_GameControl : MonoBehaviour
 {
     public static SP_GameControl instance;
 
-    [Header("GAME OVER")]
+    [Header("MISSION SETUP")]
+    public Mission mission;
     public VictoryCondition victoryCondition;
     public DefeatCondition [] defeatConditions;
+    private bool isMissionOver = false;
+    private bool isMissionStarted = false;
 
     [Header("BALANCE")]
     public bool map_has_random_mines = true;
@@ -40,7 +45,6 @@ public class SP_GameControl : MonoBehaviour
     [HideInInspector] public SP_Unit prevSelectedUnit = null;
     [HideInInspector] public SP_Unit prevSelectedAllyUnit = null;
     public int livingAllies = 0;
-    public int livingEnemies = 0;
 
     [Header("BUILDINGS")]
     [HideInInspector] public SP_Building prevSelectedBuilding = null;
@@ -65,6 +69,12 @@ public class SP_GameControl : MonoBehaviour
         SP_MapControl.instance.InitializeMap();
         announcementControl.gameObject.SetActive(true);
         announcementControl.HideAnnouncmentText(0);
+        
+    }
+
+    public void StartMission()
+    {
+        isMissionStarted = true;
         InitializePredefinedUnits();
         hudControl.SetTurnInfoText();
         MarkInactiveUnits();
@@ -72,6 +82,20 @@ public class SP_GameControl : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            ReloadScene();
+        }
+
+        if (!isMissionStarted && Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            SP_MissionBriefPanel.instance.ShowPopup(false);
+            StartMission();
+        }    
+
+        if (!isMissionStarted)
+            return;
+
         if (isAllyTurn && Input.GetKeyDown(KeyCode.Space))
         {
             EndTurn();
@@ -82,9 +106,9 @@ public class SP_GameControl : MonoBehaviour
             DeselectEverything();
         }
 
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (isMissionOver && Input.GetKeyDown(KeyCode.Escape))
         {
-            ReloadScene();
+            LoadMainMenuScene();
         }
 
         if (!isAllyTurn)
@@ -227,6 +251,11 @@ public class SP_GameControl : MonoBehaviour
         SceneManager.LoadScene(currentSceneIndex);
     }
 
+    public void LoadMainMenuScene()
+    {
+        SceneManager.LoadScene(0);
+    }
+
     private void MarkInactiveUnits()
     {
         foreach (SP_Unit unit in allUnits)
@@ -258,14 +287,30 @@ public class SP_GameControl : MonoBehaviour
 
     public void ProcessUnitDeath()
     {
+       
         if (livingAllies <= 0)
         {
-            SP_GameOverPopup.instance.InitializePopup(isVictory: false);
+            EndMission(isVictory: false);
+            return;
         }
-        else if(livingEnemies <= 0)
+        int livingEnemies = 0;
+        foreach(SP_Unit unit in allUnits)
+        {
+            if (!unit.isAllyUnit)
+                livingEnemies++;
+        }
+
+        Debug.Log("living enemies remaining " + livingEnemies);
+        if (livingEnemies <= 0)
         {
             if (victoryCondition == VictoryCondition.kill_all_enemies)
-                SP_GameOverPopup.instance.InitializePopup(isVictory: true);
+                EndMission(isVictory: true);
         }
+    }
+
+    public void EndMission(bool isVictory)
+    {
+        SP_GameOverPopup.instance.InitializePopup(isVictory);
+        isMissionOver = true;
     }
 }

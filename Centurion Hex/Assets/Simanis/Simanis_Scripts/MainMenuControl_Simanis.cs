@@ -38,6 +38,11 @@ public class MainMenuControl_Simanis : MonoBehaviour
         SceneManager.LoadScene("Simanis");
     }
 
+    public void LoadScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
+    }
+
     public void LoadSingleplayerScene()
     {
         SceneManager.LoadScene("SimanisSingle");

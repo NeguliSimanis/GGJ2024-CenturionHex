@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 56c6c882b3a90914f94db4a495b6878e
   - enabled: 1
@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/SimanisSingle.unity
     guid: 62d9e0fbed989164fa77e6e09ba4fb91
+  - enabled: 1
+    path: Assets/Scenes/SP_2.unity
+    guid: ba456b7c986a47b45ad7e96240e11a77
   m_configObjects: {}

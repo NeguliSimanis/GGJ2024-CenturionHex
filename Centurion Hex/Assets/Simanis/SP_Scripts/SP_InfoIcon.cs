@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class SP_InfoIcon : MonoBehaviour
+public class SP_InfoIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public static SP_InfoIcon instance;
 
@@ -18,11 +19,25 @@ public class SP_InfoIcon : MonoBehaviour
 
     private SP_Tile selectedTile;
 
+    private bool isHovering;
+
     private void Awake()
     {
         instance = this;
         infoIcon.GetComponent<Button>().onClick.AddListener(() => ShowInfoPanel());
         infoPopupControl = infoPanel.GetComponent<SP_InfoPopup>();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        isHovering = true;
+        ShowInfoPanel();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        isHovering = false;
+        HideInfoPanel();
     }
 
 

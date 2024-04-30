@@ -39,12 +39,12 @@ public class SP_MapControl : MonoBehaviour
         bool isValid = true;
         if (targetX >= SP_MapGenerator.instance.rows || targetX < 0)
         {
-            Debug.Log("xcoord not valid");
+            //Debug.Log("xcoord not valid");
             return false;
         }
         if (targetY >= SP_MapGenerator.instance.columns || targetY < 0)
         {
-            Debug.Log("Y coord not valid");
+            //Debug.Log("Y coord not valid");
             return false;
         }
         return isValid;
@@ -106,7 +106,7 @@ public class SP_MapControl : MonoBehaviour
         List<SP_Tile> validAllyTiles = new List<SP_Tile>();
         foreach (SP_Tile tile in validTiles)
         {
-            if (tile.myUnit != null && tile.myUnit.isAllyUnit)
+            if (tile.myUnit != null && tile.myUnit.isAllyUnit && !tile.myUnit.myStats.isDead)
             {
                 validAllyTiles.Add(tile);
             }
