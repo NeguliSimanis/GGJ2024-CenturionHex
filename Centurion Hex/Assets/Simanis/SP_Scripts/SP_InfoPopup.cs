@@ -13,7 +13,7 @@ public class SP_InfoPopup : MonoBehaviour
     {
         if (!tile.isDiscovered)
         {
-            SetUndiscoveredTileDescription();
+            SetUndiscoveredTileDescription(tile);
             return;
         }
 
@@ -116,20 +116,32 @@ public class SP_InfoPopup : MonoBehaviour
         }
     }
 
-    private void SetUndiscoveredTileDescription()
+    private void SetUndiscoveredTileDescription(SP_Tile tile)
     {
         string tileTitleText = "Undiscovered Tile";
-        string [] emptyTileTexts = new string[] 
+        tileTitle.text = tileTitleText;
+
+        if (!tile.isSlowTile)
         {
+            string[] emptyTileTexts = new string[]
+            {
             "What mysteries lie here?",
             "We do no know what is here",
             "A place yet to be explored"
-        };
+            };
 
-        int emptyRoll = Random.Range(0, emptyTileTexts.Length);
+            int emptyRoll = Random.Range(0, emptyTileTexts.Length);
+            tileContents.text = emptyTileTexts[emptyRoll];
+        }
+        else
+        {
+            string[] emptyTileTexts = new string[]
+            {
+            "Rough terrain - the first unit stepping here will lose extra movement point"
+            };
 
-
-        tileTitle.text = tileTitleText;
-        tileContents.text = emptyTileTexts[emptyRoll];
+            int emptyRoll = Random.Range(0, emptyTileTexts.Length);
+            tileContents.text = emptyTileTexts[emptyRoll];
+        }
     }
 }

@@ -398,6 +398,8 @@ public class SP_Unit : MonoBehaviour
         // update target tile info
         targetTile.myUnit = this;
         targetTile.DiscoverTile();
+        if (isAllyUnit)
+            targetTile.JewelCheck();
 
         isMoveAnimating = false;
 
@@ -573,15 +575,23 @@ public class SP_Unit : MonoBehaviour
         }
     }
 
+    void OnDestroy()
+    {
+        // Will be called just prior to destruction of the gameobject to which this script is attached
+        SP_GameControl.instance.ProcessUnitDeath();
+    }
+
     public void Die()
     {
         if (myStats.isDead)
             return;
         Destroy(gameObject, 1f);
-        
+        activePrefab.SetActive(false);
+        myStats.isDead = true;
 
-            // deselect if was selected
-            if (SP_GameControl.instance.prevSelectedUnit == this)
+
+        // deselect if was selected
+        if (SP_GameControl.instance.prevSelectedUnit == this)
                 SP_GameControl.instance.prevSelectedUnit = null;
 
             if (SP_GameControl.instance.prevSelectedAllyUnit == this)
@@ -606,7 +616,7 @@ public class SP_Unit : MonoBehaviour
 
             SP_GameControl.instance.ProcessUnitDeath();
 
-        myStats.isDead = true;
+        
     }
 
 }

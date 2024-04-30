@@ -15,6 +15,33 @@ public enum Mission
 public class SP_MissionDescriptions : MonoBehaviour
 {
 
+    public static string GetNextMissionSceneName(Mission mission)
+    {
+        string missionName = "SP_2";
+        switch (mission)
+        {
+            case Mission.TheGloriousTreasure:
+                missionName = "SP_2";
+                break;
+            case Mission.Ambush:
+                missionName = "SP_2";
+                break;
+            case Mission.JustaPawn:
+                missionName = "SP_2";
+                break;
+            case Mission.ProtectthePrincess:
+                missionName = "SP_2";
+                break;
+            case Mission.BattleofHex:
+                missionName = "SP_2";
+                break;
+            case Mission.AdventureMode:
+                missionName = "SP_2";
+                break;
+        }
+        return missionName;
+    }
+
     public static string GetMissionName(Mission mission)
     {
         string missionName = "Mission";
@@ -49,7 +76,7 @@ public class SP_MissionDescriptions : MonoBehaviour
         {
             case Mission.TheGloriousTreasure:
                 description = "The king has grown obsessed with a particular strain of gemstone. " +
-                    "By his royal decree, anyone who can procure him but a tiny jewel shall be greatly rewarded. " +
+                    "By his royal decree, anyone who can obtain even a tiny jewel shall be greatly rewarded. " +
                     "Money, land, livestock - anything a heart may desire" +
                     "\n\nMISSION OBJECTIVES" +
                     "\n-Don’t die" +
@@ -57,7 +84,7 @@ public class SP_MissionDescriptions : MonoBehaviour
                 break;
             case Mission.Ambush:
                 description = "Having delivered the king what he desired, you have become a wealthy man. " +
-                    "But it has come at a cost. Jealous nobles now see you as a new rival in the royal court. " +
+                    "But it has come at a cost. Jealous nobles now see you as a rival in the royal court. " +
                     "Eliminate the cutthroats that have been hired to ambush you" +
                     "\n\nMISSION OBJECTIVES" +
                     "\n-Kill all hostiles";

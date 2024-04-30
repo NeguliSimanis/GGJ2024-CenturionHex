@@ -344,8 +344,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 470159553}
   - {fileID: 952755340}
+  - {fileID: 470159553}
   - {fileID: 1904443657}
   - {fileID: 1647365810}
   m_Father: {fileID: 1978632766}
@@ -789,7 +789,7 @@ RectTransform:
   m_Children:
   - {fileID: 1902138406}
   m_Father: {fileID: 127035462}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1581,12 +1581,12 @@ GameObject:
   - component: {fileID: 952755342}
   - component: {fileID: 952755341}
   m_Layer: 5
-  m_Name: SinglePlayer (1)
+  m_Name: 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &952755340
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1601,11 +1601,11 @@ RectTransform:
   m_Children:
   - {fileID: 1558768866}
   m_Father: {fileID: 127035462}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 181.905, y: -126.5625}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &952755341
@@ -1654,14 +1654,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1836403658}
         m_TargetAssemblyTypeName: MainMenuControl_Simanis, Assembly-CSharp
-        m_MethodName: LoadSingleplayerScene
-        m_Mode: 1
+        m_MethodName: LoadScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: SP_1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &952755342
@@ -2110,7 +2110,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '2 - Sacrifice '
+  m_text: 1 -The Glorious Treasure
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: cc8d5492cbe88d240919c6e223ea4336, type: 2}
   m_sharedMaterial: {fileID: 3777052158143990492, guid: cc8d5492cbe88d240919c6e223ea4336,

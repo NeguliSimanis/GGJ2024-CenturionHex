@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
+using DG.Tweening;
 using System;
-
+using TMPro;
+using UnityEngine;
 public enum SP_TileType
 {
     Desert,
@@ -24,6 +22,15 @@ public class SP_TilePrefab
 [Serializable]
 public class SP_Tile : MonoBehaviour
 {
+    [Header("SLOW TILE")]
+    public bool isSlowTile;
+    public GameObject slowTileObject;
+
+    [Header("JEWEL")]
+    public bool containsJewel = false;
+    public GameObject jewelAnimationLocation;
+    public GameObject jewelAura;
+
     [Header("COORDINATES")]
     public int x;
     public int y;
@@ -56,11 +63,28 @@ public class SP_Tile : MonoBehaviour
     public GameObject senateTilePrefab;
 
 
+    private void Start()
+    {
+        if (containsJewel)
+        {
+            jewelAura.SetActive(true);
+        }
+        if (isSlowTile)
+        {
+            slowTileObject.SetActive(true);
+        }
+        if (UnityEngine.Random.Range(0,1f) < SP_GameControl.instance.slow_tile_chance)
+        {
+            isSlowTile = true;
+            slowTileObject.SetActive(true);
+        }
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            ExplodeLandmine();
+            PlayJewelAnimation();
         }
     }
 
@@ -73,6 +97,7 @@ public class SP_Tile : MonoBehaviour
 
         // hide tile cover
         tileCover.SetActive(false);
+        slowTileObject.SetActive(false);
 
         // turn off all prefabs 
         senateTilePrefab.SetActive(false);
@@ -96,7 +121,30 @@ public class SP_Tile : MonoBehaviour
         regularTilePrefabs[environmentRoll].tileObject.SetActive(true);
         myEnvironment = regularTilePrefabs[environmentRoll].tileType;
 
+        if (containsJewel && myUnit.isAllyUnit)
+        {
+            return;
+        }
+
         Roll_Chance_For_Something_On_Tile();
+    }
+
+    public void JewelCheck()
+    {
+        if (containsJewel && myUnit.isAllyUnit)
+        {
+            PlayJewelAnimation();
+            DOVirtual.DelayedCall(1f, () =>
+            {
+                SP_GameControl.instance.ProcessJewelPickup();
+            });
+        }
+    }
+
+    private void PlayJewelAnimation()
+    {
+        Debug.Log("PLAY GEM ANIM");
+        SP_JewelAnimation.instance.ShowJewelAnimation(jewelAnimationLocation, true);
     }
 
     private void Roll_Chance_For_Something_On_Tile()
@@ -259,8 +307,11 @@ public class SP_Tile : MonoBehaviour
             }
             else if (distanceToThisTile <= currSpeed)
             {
+                int additionalSpeedCost = 0;
+                if (isSlowTile && !isDiscovered)
+                    additionalSpeedCost++;
                 SP_GameControl.instance.prevSelectedUnit.MoveUnit(x, y, selectTargetTileAfter: true,
-                    speedCost: distanceToThisTile);
+                    speedCost: distanceToThisTile + additionalSpeedCost);
             }
             else
             {

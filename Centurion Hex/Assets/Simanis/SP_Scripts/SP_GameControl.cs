@@ -27,7 +27,8 @@ public class SP_GameControl : MonoBehaviour
     private bool isMissionOver = false;
     private bool isMissionStarted = false;
 
-    [Header("BALANCE")]
+    [Header("MAP BALANCE")]
+    public float slow_tile_chance = 0.23f;
     public bool map_has_random_mines = true;
     public bool map_has_random_gold = false;
     public float tile_has_something_chance = 0.32f;
@@ -87,6 +88,11 @@ public class SP_GameControl : MonoBehaviour
             ReloadScene();
         }
 
+        if (!isMissionStarted && Input.GetKeyDown(KeyCode.Escape))
+        {
+            LoadMainMenuScene();
+        }
+
         if (!isMissionStarted && Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             SP_MissionBriefPanel.instance.ShowPopup(false);
@@ -95,6 +101,14 @@ public class SP_GameControl : MonoBehaviour
 
         if (!isMissionStarted)
             return;
+
+        if (isMissionOver)
+        {
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
+            {
+                LoadNextMission();
+            }
+        }
 
         if (isAllyTurn && Input.GetKeyDown(KeyCode.Space))
         {
@@ -118,6 +132,12 @@ public class SP_GameControl : MonoBehaviour
                 EndTurn();
             }
         }
+    }
+
+    public void LoadNextMission()
+    {
+        string nextSceneName = SP_MissionDescriptions.GetNextMissionSceneName(mission);
+        SceneManager.LoadScene(nextSceneName);
     }
 
     public void DeselectEverything()
@@ -287,19 +307,24 @@ public class SP_GameControl : MonoBehaviour
 
     public void ProcessUnitDeath()
     {
-       
+        int livingAllies = 0;
+        int livingEnemies = 0;
+        foreach(SP_Unit unit in allUnits)
+        {
+            if (!unit.isAllyUnit && !unit.myStats.isDead)
+            {
+                livingEnemies++;
+            }
+            else if (unit.isAllyUnit && !unit.myStats.isDead)
+            {
+                livingAllies++;
+            }
+        }
         if (livingAllies <= 0)
         {
             EndMission(isVictory: false);
             return;
         }
-        int livingEnemies = 0;
-        foreach(SP_Unit unit in allUnits)
-        {
-            if (!unit.isAllyUnit)
-                livingEnemies++;
-        }
-
         Debug.Log("living enemies remaining " + livingEnemies);
         if (livingEnemies <= 0)
         {
@@ -312,5 +337,10 @@ public class SP_GameControl : MonoBehaviour
     {
         SP_GameOverPopup.instance.InitializePopup(isVictory);
         isMissionOver = true;
+    }
+
+    public void ProcessJewelPickup()
+    {
+        EndMission(isVictory: true);
     }
 }

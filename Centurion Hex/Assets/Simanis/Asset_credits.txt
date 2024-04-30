@@ -16,7 +16,10 @@ Audio, attack swing sfx: https://pixabay.com/sound-effects/swing-whoosh-weapon-1
 Audio, attack swing sfx2: https://pixabay.com/sound-effects/swing-whoosh-5-198498/
 Audio, explosion: https://pixabay.com/sound-effects/medium-explosion-40472/
 Audio, move to tile sfx: https://pixabay.com/sound-effects/chess-pieces-60890/
+particles: https://assetstore.unity.com/packages/vfx/particles/dl-fantasy-rpg-effects-68246
+
 ~~~~~~~~~~~~~~~~~~~~~~~~UNUSED Asset credits:
+various particles: https://assetstore.unity.com/packages/vfx/particles/sherbb-s-particle-collection-170798
 explosion effect: https://bdragon1727.itch.io/free-effect-bullet-impact-explosion-32x32
 Tile textures: https://lynocs.itch.io/texture-pack
 Army textures: https://assetstore.unity.com/packages/2d/characters/miniature-army-2d-v-1-medieval-style-72935

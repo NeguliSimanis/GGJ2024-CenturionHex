@@ -47,7 +47,10 @@ public class SP_EnemyUnitAI : MonoBehaviour
         if (SP_MapControl.instance.HasEmptyAdjacentTiles(myUnit.x, myUnit.y))
         {
             SP_Tile targetTile = SP_MapControl.instance.GetRandomAdjacentTile(myUnit.x, myUnit.y);
-            myUnit.MoveUnit(targetTile.x, targetTile.y, speedCost: 1, isAI: true);
+            int additionalSpeedCost = 0;
+            if (targetTile.isSlowTile && !targetTile.isDiscovered)
+                additionalSpeedCost++;
+            myUnit.MoveUnit(targetTile.x, targetTile.y, speedCost: 1 + additionalSpeedCost, isAI: true);
         }
         else
         {
